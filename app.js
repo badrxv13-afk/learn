@@ -314,6 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLessons(appState.currentSubject);
   renderChannelsVideos(appState.currentLesson);
   updateStepUI();
+  updateSubjectCardsDynamicData();
   initYouTubeErrorListener();
   // نظام الملف الشخصي — يعمل بعد تهيئة باقي النظام
   bootWithStudentProfile();
@@ -1930,6 +1931,40 @@ function updateActiveSubjectCardUI() {
   });
 }
 
+/**
+ * تنسيق عدد الدروس بقواعد الجموع العربية السليمة
+ */
+function formatLessonCount(count) {
+  if (count === 1) return 'درس واحد';
+  if (count === 2) return 'درسان';
+  if (count >= 3 && count <= 10) return `${count} دروس`;
+  return `${count} درساً`;
+}
+
+/**
+ * تحديث بيانات بطاقات المواد في الشاشة العامة ديناميكياً من PlatformStore
+ * (DATA -> UI) لحساب عدد الدروس الفعلي والمعامل دون أرقام ثابتة
+ */
+function updateSubjectCardsDynamicData() {
+  if (typeof document === 'undefined' || !document.querySelectorAll) return;
+  const cards = document.querySelectorAll('[data-subject]');
+  if (!cards || !cards.forEach) return;
+
+  cards.forEach(card => {
+    const subjectName = card.getAttribute('data-subject');
+    if (!subjectName) return;
+    const subj = PlatformStore.getSubject(subjectName);
+    const lessons = PlatformStore.getLessons(subjectName);
+    const coeff = (subj && typeof subj.coefficient === 'number') ? subj.coefficient : 2;
+    const lessonCount = (lessons && lessons.length) ? lessons.length : ((subj && subj.lessons) ? subj.lessons.length : 0);
+
+    const metaEl = card.querySelector('[data-subject-meta]');
+    if (metaEl) {
+      metaEl.textContent = `معامل ${coeff} • ${formatLessonCount(lessonCount)}`;
+    }
+  });
+}
+
 function showDashboard(isPopState = false) {
   hideAllScreens();
   screenDashboard.classList.remove('hidden');
@@ -1942,6 +1977,7 @@ function showDashboard(isPopState = false) {
 
   setActiveHeaderTab('subjects');
   updateActiveSubjectCardUI();
+  updateSubjectCardsDynamicData();
 
   if (!isPopState) {
     pushNavigationState('dashboard');
@@ -2147,6 +2183,8 @@ window.saveStudentSettings = saveStudentSettings;
 window.confirmResetStudentProfile = confirmResetStudentProfile;
 window.setActiveHeaderTab = setActiveHeaderTab;
 window.updateActiveSubjectCardUI = updateActiveSubjectCardUI;
+window.updateSubjectCardsDynamicData = updateSubjectCardsDynamicData;
+window.formatLessonCount = formatLessonCount;
 
 // تسجيل الحالة الابتدائية في سجل المتصفح
 try {
@@ -2158,3 +2196,74 @@ try {
     }, '');
   }
 } catch (e) {}
+
+
+// ==================== FLOATING WHATSAPP BUTTON ====================
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'mordix_whatsapp_dismissed';
+  var _tooltipOpen = false;
+  var _dismissed = false;
+
+  function getTooltipEl() { return document.getElementById('whatsapp-tooltip'); }
+  function getBadgeEl()   { return document.querySelector('.whatsapp-fab-badge'); }
+
+  function openWhatsappTooltip() {
+    var t = getTooltipEl();
+    if (!t) return;
+    t.classList.add('is-open');
+    _tooltipOpen = true;
+    // إخفاء الشارة بمجرد الفتح
+    var badge = getBadgeEl();
+    if (badge) badge.classList.add('hidden');
+  }
+
+  function closeWhatsappTooltip() {
+    var t = getTooltipEl();
+    if (!t) return;
+    t.classList.remove('is-open');
+    _tooltipOpen = false;
+    _dismissed = true;
+    try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) {}
+  }
+  window.closeWhatsappTooltip = closeWhatsappTooltip;
+
+  function toggleWhatsappTooltip() {
+    if (_tooltipOpen) {
+      closeWhatsappTooltip();
+    } else {
+      openWhatsappTooltip();
+    }
+  }
+  window.toggleWhatsappTooltip = toggleWhatsappTooltip;
+
+  function trackWhatsappClick() {
+    // إغلاق التوليب بعد النقر على الرابط
+    setTimeout(closeWhatsappTooltip, 300);
+  }
+  window.trackWhatsappClick = trackWhatsappClick;
+
+  // إغلاق عند النقر خارج البطاقة
+  document.addEventListener('click', function (e) {
+    if (!_tooltipOpen) return;
+    var container = document.getElementById('whatsapp-float');
+    if (container && !container.contains(e.target)) {
+      closeWhatsappTooltip();
+    }
+  });
+
+  // فتح تلقائي بعد 4 ثوانٍ من تحميل الصفحة (مرة واحدة فقط)
+  window.addEventListener('load', function () {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return; // سبق وأغلقه المستخدم
+    } catch(e) {}
+    setTimeout(function () {
+      if (!_dismissed && !_tooltipOpen) {
+        openWhatsappTooltip();
+      }
+    }, 4000);
+  });
+
+})();
+// ==================== / FLOATING WHATSAPP BUTTON ====================
