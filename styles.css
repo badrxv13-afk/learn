@@ -1,0 +1,246 @@
+/* ============================================================
+   منصة ألماد التعليمية - ملف التنسيقات الأنيقة (Styles)
+   تصميم نظيف واحترافي بدون أي رموز تعبيرية (No Emojis)
+============================================================ */
+
+/* استيراد الخطوط إن تعذر الاتصال بالإنترنت */
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* بطاقات الاختيار التفاعلية (Selection Cards) */
+.selection-card {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.selection-card:hover {
+  transform: translateY(-2px);
+}
+
+.selection-card.active {
+  border-color: #03589f !important;
+  background-color: #f0f7ff !important;
+  box-shadow: 0 10px 25px -5px rgba(2, 111, 197, 0.15), 0 8px 10px -6px rgba(2, 111, 197, 0.1) !important;
+}
+
+.selection-card.active .card-radio {
+  border-color: #03589f !important;
+  background-color: #03589f !important;
+}
+
+.selection-card.active .card-radio-inner {
+  background-color: #ffffff !important;
+}
+
+.selection-card.active h3 {
+  color: #03589f !important;
+}
+
+/* بطاقات المواد في الداشبورد */
+.subject-card {
+  transition: all 0.25s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   شريط الزاوية المائل (5 ساعات - Corner Ribbon)
+============================================================ */
+.corner-ribbon-wrap {
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.corner-ribbon {
+  text-align: center;
+  transform: rotate(-45deg);
+  position: relative;
+  padding: 8px 0;
+  left: -52px;
+  top: 32px;
+  width: 210px;
+  background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+  color: #451a03;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   أزرار أقسام المادة الخمسة (الدروس، ملخصات، امتحانات...)
+============================================================ */
+.category-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: 0 20px 30px -8px rgba(15, 23, 42, 0.12), 0 8px 12px -3px rgba(15, 23, 42, 0.05);
+}
+
+.category-badge-circle {
+  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover .category-badge-circle {
+  transform: scale(1.12);
+}
+
+/* ============================================================
+   صفوف فهرس الدروس (Lesson Rows - مطابقة للصورة بدقة)
+============================================================ */
+.lesson-row-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.875rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.lesson-row-card:hover {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+}
+
+.stat-pill {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s;
+}
+
+.lesson-row-card:hover .stat-pill {
+  border-color: #cbd5e1;
+}
+
+/* ============================================================
+   بطاقات خيارات الدرس (فيديو الدرس / تمارين)
+============================================================ */
+.lesson-action-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
+}
+
+.lesson-action-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -8px rgba(15, 23, 42, 0.15);
+  border-color: #94a3b8;
+}
+
+/* بطاقات الفيديوهات والتمارين */
+.video-item-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.875rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.video-item-card:hover {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+  transform: translateX(-3px);
+  box-shadow: 0 6px 16px -3px rgba(239, 68, 68, 0.12);
+}
+
+.exercise-item-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.875rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.exercise-item-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15);
+}
+
+/* علامات تبويب علوية تشبه نمط المتصفح/المنصة (Navigation Tabs) */
+.nav-tab-item {
+  position: relative;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.nav-tab-item:hover {
+  color: #026fc5;
+}
+
+.nav-tab-item.active {
+  color: #026fc5;
+  border-bottom-color: #026fc5;
+  background-color: rgba(2, 111, 197, 0.04);
+  border-radius: 8px 8px 0 0;
+}
+
+/* تأثير الظهور السلس */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* تخصيص شريط التمرير */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

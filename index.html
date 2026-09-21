@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>منصة ألماد التعليمية</title>
+  
+  <!-- Google Fonts: Alexandria & Cairo for sharp modern Arabic typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Alexandria', 'Cairo', 'sans-serif'],
+            heading: ['Alexandria', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              300: '#7cc7fb',
+              400: '#38a9f7',
+              500: '#0e8ce6',
+              600: '#026fc5',
+              700: '#03589f',
+              800: '#074b83',
+              900: '#0c3f6e',
+              950: '#082849',
+            },
+            accent: {
+              50: '#f4fbf7',
+              500: '#0d9488',
+              600: '#0f766e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-white antialiased">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
+    
+    <!-- Upper slim bar matching image: مرحبًا بك في منصة ألماد on right -->
+    <div class="border-b border-slate-100 bg-slate-50/50 py-1.5 px-4 sm:px-8 text-xs font-semibold text-slate-500 flex items-center justify-between">
+      <span class="text-slate-700 font-bold">مرحبًا بك في منصة ألماد</span>
+      <span class="text-[11px] text-slate-400">بوابة التحضير للبكالوريا والتعليم الثانوي</span>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-2 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo (Pure SVG, No Emojis) -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+          <svg class="w-5 h-5 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path>
+            <path d="M6 10h10"></path>
+            <path d="M8 18h12"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-slate-900 block leading-tight font-heading">منصة ألماد</span>
+          <span class="text-[11px] font-medium text-slate-500">منصة تعليمية متكاملة</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Exact match to uploaded screenshot: Home, حسابي, اشتراكاتي, المواد) -->
+      <nav id="header-nav-tabs" class="flex items-center gap-1 sm:gap-2">
+        
+        <!-- Home icon button -->
+        <button onclick="backToSubjects()" title="الرئيسية" class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-brand-700 hover:bg-slate-100 transition-colors cursor-pointer">
+          <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </button>
+
+        <!-- حسابي -->
+        <button onclick="showAccountNotice()" class="nav-tab-item">
+          <span>حسابي</span>
+        </button>
+
+        <!-- اشتراكاتي -->
+        <button onclick="showSubscriptionsNotice()" class="nav-tab-item">
+          <span>اشتراكاتي</span>
+        </button>
+
+        <!-- المواد (Active Tab) -->
+        <button onclick="backToSubjects()" id="tab-subjects" class="nav-tab-item active">
+          <span>المواد</span>
+        </button>
+
+      </nav>
+
+      <!-- User Profile Preview / Switch Flow -->
+      <div class="flex items-center gap-2">
+        <div id="user-badge" class="hidden sm:flex items-center gap-2 bg-brand-50 text-brand-800 border border-brand-200/60 px-3 py-1.5 rounded-lg text-xs font-semibold">
+          <svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>محمد محمد</span>
+        </div>
+        <button id="btn-restart" onclick="resetToHome()" class="text-xs font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 border border-slate-200 cursor-pointer">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          <span class="hidden md:inline">تغيير الطور</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex flex-col justify-center">
+
+    <!-- ==================== WIZARD / ONBOARDING WRAPPER ==================== -->
+    <div id="wizard-container" class="max-w-3xl w-full mx-auto">
+      
+      <!-- Stepper Indicator -->
+      <div class="mb-10">
+        <div class="flex items-center justify-between max-w-lg mx-auto relative">
+          <!-- Step 1 Indicator -->
+          <div class="flex flex-col items-center relative z-10">
+            <div id="step-indicator-1" class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-brand-700 text-white shadow-md shadow-brand-700/30 transition-all duration-300">
+              1
+            </div>
+            <span class="text-xs font-semibold mt-2 text-slate-700">الطور</span>
+          </div>
+
+          <!-- Line 1-2 -->
+          <div class="flex-1 h-0.5 mx-2 bg-slate-200 relative">
+            <div id="step-line-1" class="absolute top-0 right-0 h-full bg-brand-700 transition-all duration-500" style="width: 0%;"></div>
+          </div>
+
+          <!-- Step 2 Indicator -->
+          <div class="flex flex-col items-center relative z-10">
+            <div id="step-indicator-2" class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-white text-slate-400 border-2 border-slate-200 transition-all duration-300">
+              2
+            </div>
+            <span class="text-xs font-semibold mt-2 text-slate-400">السنة</span>
+          </div>
+
+          <!-- Line 2-3 -->
+          <div class="flex-1 h-0.5 mx-2 bg-slate-200 relative">
+            <div id="step-line-2" class="absolute top-0 right-0 h-full bg-brand-700 transition-all duration-500" style="width: 0%;"></div>
+          </div>
+
+          <!-- Step 3 Indicator -->
+          <div class="flex flex-col items-center relative z-10">
+            <div id="step-indicator-3" class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-white text-slate-400 border-2 border-slate-200 transition-all duration-300">
+              3
+            </div>
+            <span class="text-xs font-semibold mt-2 text-slate-400">الشعبة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Box Container -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500"></div>
+
+        <!-- ================= STEP 1: الطور ================= -->
+        <div id="step-view-1" class="step-view transition-all duration-300">
+          <div class="text-center mb-8">
+            <span class="inline-block text-xs font-bold text-brand-700 tracking-wider bg-brand-50 px-3 py-1.5 rounded-full border border-brand-100 mb-3">
+              الخطوة الأولى
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading mb-2">أنا أدرس في الطور</h1>
+            <p class="text-slate-500 text-sm">حدد مرحلتك الدراسية الحالية للمتابعة إلى المواد المخصصة لك</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto mb-10">
+            <!-- Option: متوسط -->
+            <button type="button" onclick="selectStage('متوسط')" class="selection-card group relative p-6 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-stage="متوسط">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                  </svg>
+                </div>
+                <div class="card-radio w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors">
+                  <div class="card-radio-inner w-2.5 h-2.5 rounded-full bg-transparent"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-800">متوسط</h3>
+              <p class="text-xs text-slate-500 leading-relaxed">التعليم المتوسط (السنوات من الأولى إلى الرابعة متوسط)</p>
+            </button>
+
+            <!-- Option: ثانوي -->
+            <button type="button" onclick="selectStage('ثانوي')" class="selection-card group relative p-6 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-stage="ثانوي">
+              <div class="flex items-start justify-between mb-4">
+                <div class="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <div class="card-radio w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors">
+                  <div class="card-radio-inner w-2.5 h-2.5 rounded-full bg-transparent"></div>
+                </div>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-brand-800">ثانوي</h3>
+              <p class="text-xs text-slate-500 leading-relaxed">التعليم الثانوي والبكالوريا (من الأولى إلى الثالثة ثانوي)</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= STEP 2: السنة ================= -->
+        <div id="step-view-2" class="step-view hidden transition-all duration-300">
+          <div class="text-center mb-8">
+            <span class="inline-block text-xs font-bold text-brand-700 tracking-wider bg-brand-50 px-3 py-1.5 rounded-full border border-brand-100 mb-3">
+              الطور الثانوي
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading mb-2">في أي سنة تدرس؟</h1>
+            <p class="text-slate-500 text-sm">حدد مستواك الدراسي في الطور الثانوي للمتابعة</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
+            <!-- الأولى ثانوي -->
+            <button type="button" onclick="selectYear('الأولى ثانوي')" class="selection-card group relative p-5 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-center transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-year="الأولى ثانوي">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center mx-auto mb-3 transition-colors">
+                <span class="font-bold text-sm">1</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-800 mb-1 group-hover:text-brand-800">الأولى ثانوي</h3>
+              <p class="text-xs text-slate-500">جذع مشترك</p>
+            </button>
+
+            <!-- الثانية ثانوي -->
+            <button type="button" onclick="selectYear('الثانية ثانوي')" class="selection-card group relative p-5 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-center transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-year="الثانية ثانوي">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center mx-auto mb-3 transition-colors">
+                <span class="font-bold text-sm">2</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-800 mb-1 group-hover:text-brand-800">الثانية ثانوي</h3>
+              <p class="text-xs text-slate-500">بداية التخصص</p>
+            </button>
+
+            <!-- الثالثة ثانوي -->
+            <button type="button" onclick="selectYear('الثالثة ثانوي')" class="selection-card group relative p-5 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-center transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-year="الثالثة ثانوي">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center mx-auto mb-3 transition-colors">
+                <span class="font-bold text-sm">3</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-800 mb-1 group-hover:text-brand-800">الثالثة ثانوي</h3>
+              <p class="text-xs text-emerald-600 font-semibold">شهادة البكالوريا</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= STEP 3: الشعبة ================= -->
+        <div id="step-view-3" class="step-view hidden transition-all duration-300">
+          <div class="text-center mb-8">
+            <span class="inline-block text-xs font-bold text-brand-700 tracking-wider bg-brand-50 px-3 py-1.5 rounded-full border border-brand-100 mb-3">
+              الثالثة ثانوي
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading mb-2">اختر شعبتك الدراسية</h1>
+            <p class="text-slate-500 text-sm">اختر الشعبة لعرض المواد والدروس المخصصة لمنهاجك</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
+            
+            <!-- آداب وفلسفة -->
+            <button type="button" onclick="selectBranch('آداب وفلسفة')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="آداب وفلسفة">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                </div>
+                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md">متاح الآن</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">آداب وفلسفة</h3>
+              <p class="text-xs text-slate-500 mt-0.5">المسار الأدبي المتكامل</p>
+            </button>
+
+            <!-- علوم تجريبية -->
+            <button type="button" onclick="selectBranch('علوم تجريبية')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="علوم تجريبية">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">علوم تجريبية</h3>
+              <p class="text-xs text-slate-500 mt-0.5">المسار العلمي التجريبي</p>
+            </button>
+
+            <!-- رياضيات -->
+            <button type="button" onclick="selectBranch('رياضيات')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="رياضيات">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="9" x2="20" y2="9"></line>
+                    <line x1="4" y1="15" x2="20" y2="15"></line>
+                    <line x1="10" y1="3" x2="8" y2="21"></line>
+                    <line x1="16" y1="3" x2="14" y2="21"></line>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">رياضيات</h3>
+              <p class="text-xs text-slate-500 mt-0.5">المسار الدقيق والتحليلي</p>
+            </button>
+
+            <!-- تسيير واقتصاد -->
+            <button type="button" onclick="selectBranch('تسيير واقتصاد')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="تسيير واقتصاد">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">تسيير واقتصاد</h3>
+              <p class="text-xs text-slate-500 mt-0.5">المحاسبة والإدارة والاقتصاد</p>
+            </button>
+
+            <!-- تقني رياضي -->
+            <button type="button" onclick="selectBranch('تقني رياضي')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="تقني رياضي">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">تقني رياضي</h3>
+              <p class="text-xs text-slate-500 mt-0.5">الهندسة والتكنولوجيا</p>
+            </button>
+
+            <!-- لغات أجنبية -->
+            <button type="button" onclick="selectBranch('لغات أجنبية')" class="selection-card group relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-500 bg-white hover:bg-brand-50/20 text-right transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md" data-branch="لغات أجنبية">
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-brand-800">لغات أجنبية</h3>
+              <p class="text-xs text-slate-500 mt-0.5">اللغات الحية والترجمة</p>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- ================= NAVIGATION BUTTONS (سابق / التالي) ================= -->
+        <div class="flex items-center justify-between pt-6 border-t border-slate-100">
+          <button id="btn-prev" onclick="handlePrevStep()" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 font-semibold text-sm transition-all duration-200 disabled:opacity-40 disabled:pointer-events-none shadow-sm cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>سابق</span>
+          </button>
+
+          <button id="btn-next" onclick="handleNextStep()" type="button" class="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-brand-700/25 hover:shadow-lg disabled:opacity-40 disabled:pointer-events-none cursor-pointer">
+            <span id="btn-next-text">التالي</span>
+            <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== UNAVAILABLE SCREEN (الواجهة غير متاحة) ==================== -->
+    <div id="screen-unavailable" class="hidden max-w-xl w-full mx-auto text-center">
+      <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 left-0 h-1.5 bg-amber-500"></div>
+        
+        <!-- Elegant Geometric SVG Badge (No Emojis) -->
+        <div class="w-20 h-20 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-600 flex items-center justify-center mx-auto mb-6 shadow-inner">
+          <svg class="w-10 h-10 stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+
+        <span class="inline-block text-xs font-bold text-amber-800 bg-amber-100/80 px-3.5 py-1.5 rounded-full border border-amber-200 mb-3">
+          تنبيه التوفر
+        </span>
+
+        <h2 class="text-2xl font-bold text-slate-900 font-heading mb-3">هذه الواجهة غير متاحة لك</h2>
+        
+        <p id="unavailable-reason" class="text-slate-600 text-sm leading-relaxed mb-8 max-w-md mx-auto">
+          المحتوى التعليمي الخاص بهذا الخيار قيد التطوير والتحديث حالياً. المنصة متاحة حالياً لطلاب <strong class="text-slate-900">الثالثة ثانوي - شعبة آداب وفلسفة</strong>.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button onclick="goBackToEdit()" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة وتعديل الاختيار</span>
+          </button>
+          <button onclick="shortcutToPhilosophy()" type="button" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-brand-300 bg-brand-50 hover:bg-brand-100 text-brand-800 font-semibold text-sm transition-all cursor-pointer">
+            <span>تجربة آداب وفلسفة (3 ثانوي)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== DASHBOARD: قائمة المواد (7 مواد) ==================== -->
+    <div id="screen-dashboard" class="hidden space-y-8 animate-fadeIn">
+      
+      <!-- Welcome Hero Section -->
+      <div class="relative bg-gradient-to-br from-slate-900 via-brand-950 to-slate-900 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+          <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"></path>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)"></rect>
+          </svg>
+        </div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-brand-300 bg-brand-900/60 border border-brand-700/50 px-3.5 py-1.5 rounded-full mb-4">
+              <span class="w-2 h-2 rounded-full bg-brand-400"></span>
+              <span>مرحبًا بـك في منصة ألماد</span>
+            </div>
+            
+            <h1 class="text-2xl sm:text-4xl font-extrabold text-white font-heading tracking-tight mb-3 leading-snug">
+              مرحبًا بـك <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-300 to-sky-200">"محمد محمد"</span> في منصة ألماد
+            </h1>
+            
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+              تم إعداد مسارك بدقة. انقر على أي مادة للانتقال مباشرة إلى فضاء الدروس والملخصات والامتحانات.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="resetToHome()" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-white/15 transition-all backdrop-blur-sm cursor-pointer">
+              <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <span>تغيير الشعبة</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Information Overview / Status Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        
+        <!-- المستوى -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 text-brand-700 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-semibold text-slate-400 block mb-0.5">المستوى الحالي</span>
+            <span class="text-base font-bold text-slate-800">الثالثة ثانوي</span>
+          </div>
+        </div>
+
+        <!-- الشعبة -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-semibold text-slate-400 block mb-0.5">الشعبة المسجلة</span>
+            <span class="text-base font-bold text-slate-800">آداب وفلسفة</span>
+          </div>
+        </div>
+
+        <!-- ساعات الدراسة -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-semibold text-slate-400 block mb-0.5">ساعات المذاكرة المنجزة</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-xl font-extrabold text-emerald-600">5 ساعات</span>
+              <span class="text-[11px] font-medium text-slate-500">هذا الأسبوع</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section Title: المواد الدراسية (انقر على أي مادة) -->
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 font-heading">المواد المقررة (اختر مادة للدخول)</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">انقر على أي مادة لفتح فضاء الدروس، الملخصات، والامتحانات</p>
+          </div>
+          <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+            7 مواد مقررة
+          </span>
+        </div>
+
+        <!-- Subjects Grid (7 Specific Subjects) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- 1. الفلسفة (مع رابط مباشر لفهرس الدروس الـ 10) -->
+          <div onclick="openSubjectDetail('الفلسفة')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-brand-300 hover:border-brand-600 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer bg-gradient-to-b from-brand-50/30 to-white">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-brand-100 text-brand-900 border border-brand-200 px-2.5 py-1 rounded-md">
+                معامل 6 • فهرس الدروس متاح
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-2">الفلسفة</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                الإحساس والإدراك، اللغة والفكر، الشعور واللاشعور، فلسفة الرياضيات والأخلاق.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">10 دروس مقررة</span>
+              <span class="text-xs font-bold text-brand-700 group-hover:text-brand-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 2. العلوم الإسلامية -->
+          <div onclick="openSubjectDetail('العلوم الإسلامية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-teal-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 border border-teal-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-teal-50 text-teal-800 border border-teal-200/80 px-2.5 py-1 rounded-md">
+                معامل 2 • 15 درساً • 95 فيديو
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-teal-700 transition-colors mb-2">العلوم الإسلامية</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                العقيدة وأثرها، مقاصد الشريعة، مصادر التشريع الإسلامي، والمعاملات المالية.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">15 درساً • 112 تمريناً</span>
+              <span class="text-xs font-bold text-teal-700 group-hover:text-teal-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 3. التاريخ والجغرافيا -->
+          <div onclick="openSubjectDetail('التاريخ والجغرافيا')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-1 rounded-md">
+                معامل 4 • 19 درساً • 31 مراجعة
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-2">التاريخ والجغرافيا</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                تطور العالم المعاصر، الثورة التحريرية الجزائرية، واقع الاقتصاد العالمي، و34 ملخصاً وزارياً.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">19 درساً • 34 ملخصاً</span>
+              <span class="text-xs font-bold text-emerald-700 group-hover:text-emerald-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 4. اللغة الإنجليزية -->
+          <div onclick="openSubjectDetail('اللغة الإنجليزية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-indigo-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200/80 px-2.5 py-1 rounded-md">
+                معامل 2 • 27 درساً • 24 مراجعة
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-700 transition-colors mb-2">اللغة الإنجليزية</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                Ancient Civilizations, Ethics in Business, Education in the World, وأرشيف 16 بكالوريا.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">27 درساً • 16 دورة بكالوريا</span>
+              <span class="text-xs font-bold text-indigo-700 group-hover:text-indigo-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 5. اللغة الفرنسية -->
+          <div onclick="openSubjectDetail('اللغة الفرنسية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-700 border border-violet-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-violet-50 text-violet-800 border border-violet-200/80 px-2.5 py-1 rounded-md">
+                معامل 2 • 17 درساً • 15 مراجعة
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-violet-700 transition-colors mb-2">اللغة الفرنسية</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                Le texte d'histoire, Le texte argumentatif, 11 ملخصاً معتمداً، و16 دورة بكالوريا.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">17 درساً • 11 ملخصاً</span>
+              <span class="text-xs font-bold text-violet-700 group-hover:text-violet-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 6. اللغة العربية -->
+          <div onclick="openSubjectDetail('اللغة العربية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                  <path d="M6 6h10"></path>
+                  <path d="M6 10h10"></path>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200/80 px-2.5 py-1 rounded-md">
+                معامل 6 (أساسية) • 42 درساً
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors mb-2">اللغة العربية</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                قواعد اللغة، البلاغة، العروض، دروس البناء الفكري (80 فيديو)، و21 ملخصاً وزارياً.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">42 درساً • 21 ملخصاً</span>
+              <span class="text-xs font-bold text-blue-700 group-hover:text-blue-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 7. الرياضيات -->
+          <div onclick="openSubjectDetail('الرياضيات')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-rose-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-700 border border-rose-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="5" x2="5" y2="19"></line>
+                  <circle cx="6.5" cy="6.5" r="2.5"></circle>
+                  <circle cx="17.5" cy="17.5" r="2.5"></circle>
+                </svg>
+              </div>
+              <span class="text-xs font-bold bg-rose-50 text-rose-800 border border-rose-200/80 px-2.5 py-1 rounded-md">
+                معامل 2 • 138 فيديو • 56 تمريناً
+              </span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-rose-700 transition-colors mb-2">الرياضيات</h3>
+              <p class="text-xs text-slate-500 leading-relaxed mb-6">
+                المتتاليات، الموافقات، الدوال العددية، الاحتمالات، 10 ملخصات، و17 دورة بكالوريا.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-400">4 محاور كبرى • 10 ملخصات</span>
+              <span class="text-xs font-bold text-rose-700 group-hover:text-rose-900 flex items-center gap-1">
+                <span>دخول المادة</span>
+                <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== SUBJECT DETAIL SCREEN (الأقسام الخمسة) ==================== -->
+    <div id="screen-subject-detail" class="hidden animate-fadeIn max-w-6xl w-full mx-auto">
+      
+      <!-- Main Subject White Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل الأصفر في الزاوية العلوية اليسرى (مدة المادة) -->
+        <div class="corner-ribbon-wrap">
+          <div id="subject-detail-duration" class="corner-ribbon">
+            5 ساعات
+          </div>
+        </div>
+
+        <!-- الأشرطة العلوية داخل البطاقة (Header Badges - مطابقة للصورة) -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-10 pl-20 sm:pl-28">
+          
+          <!-- الشعبة: آداب وفلسفة -->
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span id="subject-detail-branch" class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+
+          <!-- المستوى: الثالثة ثانوي -->
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+
+          <!-- مرحبًا بك "محمد محمد" في منصة ألماد -->
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+
+        </div>
+
+        <!-- شريط التوجيه الفرعي (المواد | المادة: [اسم المادة]) -->
+        <div class="flex items-center justify-center mb-12">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-5 py-2 rounded-full font-bold text-slate-700 hover:bg-slate-100 hover:text-brand-700 transition-colors flex items-center gap-1.5 cursor-pointer">
+              <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-5 bg-slate-200 mx-1"></div>
+            <div class="px-4 py-2 flex items-center gap-2">
+              <span class="text-slate-500 font-medium">المادة:</span>
+              <span id="active-subject-badge" class="bg-emerald-100 text-emerald-900 font-bold px-3.5 py-1 rounded-full border border-emerald-200">
+                الفلسفة
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= شبكة الأقسام الخمسة ================= -->
+        <div class="max-w-3xl mx-auto space-y-6 sm:space-y-8 my-6">
+
+          <!-- الصف الأول: زران متموضعان في المنتصف (الدروس | ملخصات) -->
+          <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12">
+            
+            <!-- زر الدروس (يفتح مباشرة فهرس الـ 10 دروس للفلسفة) -->
+            <div onclick="openCategoryContent('الدروس')" class="category-card relative w-48 sm:w-56 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+              <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-100 border-2 border-white flex items-center justify-center text-emerald-800">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
+                الدروس
+              </span>
+            </div>
+
+            <!-- زر ملخصات -->
+            <div onclick="openCategoryContent('ملخصات')" class="category-card relative w-48 sm:w-56 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+              <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-blue-700">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </div>
+              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
+                ملخصات
+              </span>
+            </div>
+
+          </div>
+
+          <!-- الصف الثاني: ثلاثة أزرار (امتحانات | البكالوريا | المراجعات) -->
+          <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+            
+            <!-- زر امتحانات -->
+            <div onclick="openCategoryContent('امتحانات')" class="category-card relative w-44 sm:w-52 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+              <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center text-orange-700">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                  <line x1="8" y1="6" x2="16" y2="6"></line>
+                  <line x1="16" y1="14" x2="16" y2="14.01"></line>
+                  <line x1="12" y1="14" x2="12" y2="14.01"></line>
+                  <line x1="8" y1="14" x2="8" y2="14.01"></line>
+                  <line x1="16" y1="18" x2="16" y2="18.01"></line>
+                  <line x1="12" y1="18" x2="12" y2="18.01"></line>
+                  <line x1="8" y1="18" x2="8" y2="18.01"></line>
+                </svg>
+              </div>
+              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-orange-700 transition-colors">
+                امتحانات
+              </span>
+            </div>
+
+            <!-- زر البكالوريا -->
+            <div onclick="openCategoryContent('البكالوريا')" class="category-card relative w-44 sm:w-52 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+              <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-rose-100 border-2 border-white flex items-center justify-center text-rose-700">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </div>
+              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-rose-700 transition-colors">
+                البكالوريا
+              </span>
+            </div>
+
+            <!-- زر المراجعات -->
+            <div onclick="openCategoryContent('المراجعات')" class="category-card relative w-44 sm:w-52 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+              <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-amber-800">
+                <svg class="w-5 h-5 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                  <path d="m9 16 2 2 4-4"></path>
+                </svg>
+              </div>
+              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-amber-700 transition-colors">
+                المراجعات
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="pt-10 mt-6 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="backToSubjects()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة لكافة المواد</span>
+          </button>
+          <span class="text-xs text-slate-400">انقر على أي خيار أعلاه لعرض المحتوى الدراسي</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== SCREEN: فهرس الدروس (الفلسفة - 10 دروس) مطابقة للصورة تماماً ==================== -->
+    <div id="screen-lessons-index" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      
+      <!-- Main White Container -->
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل الأصفر في الزاوية العلوية اليسرى (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">
+            5 ساعات
+          </div>
+        </div>
+
+        <!-- الأشرطة العلوية داخل البطاقة (Header Badges - مطابقة للصورة) -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          
+          <!-- الشعبة: آداب وفلسفة -->
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+
+          <!-- المستوى: الثالثة ثانوي -->
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+
+          <!-- مرحبًا بك "محمد محمد" في منصة ألماد -->
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+
+        </div>
+
+        <!-- شريط التوجيه الفرعي (المواد > المادة: الفلسفة > الدروس) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button id="lessons-breadcrumb-subject-btn" onclick="backToCurrentSubject()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="lessons-breadcrumb-subject-text">المادة: الفلسفة</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5">
+              <span class="bg-emerald-100 text-emerald-900 font-bold px-3 py-0.5 rounded-full border border-emerald-200 text-xs">
+                الدروس
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- عنوان الفهرس: فهرس الدروس ديناميكي حسب المادة -->
+        <div class="text-center mb-8">
+          <h2 id="lessons-index-title" class="text-2xl sm:text-3xl font-bold text-slate-800 font-heading">فهرس الدروس (10)</h2>
+          <p id="lessons-index-subtitle" class="text-xs text-slate-400 mt-1">المحتوى المفصل لمادة الفلسفة لشعبة آداب وفلسفة</p>
+        </div>
+
+        <!-- قائمة الدروس المحددة ديناميكياً -->
+        <div id="lessons-list-container" class="space-y-3 max-w-3xl mx-auto">
+          <!-- سيتم بناؤها ديناميكياً بواسطة JavaScript للتفاعل الفوري -->
+        </div>
+
+        <!-- أسفل البطاقة: زر الرجوع -->
+        <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between">
+          <button id="lessons-back-btn" onclick="backToCurrentSubject()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span id="lessons-back-btn-text">العودة لفضاء مادة الفلسفة</span>
+          </button>
+          <span class="text-xs text-slate-400">انقر على أي درس لعرض الفيديوهات والأساتذة والتمارين</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== SCREEN: خيارات الدرس (عنوان الدرس: الإحساس والادراك) ==================== -->
+    <div id="screen-lesson-hub" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (المواد > الدروس > عنوان الدرس: الإحساس والادراك) -->
+        <div class="flex items-center justify-center mb-12">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentLessons()" type="button" class="px-3.5 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>الدروس</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5 flex items-center gap-1.5">
+              <span class="text-slate-400">عنوان الدرس:</span>
+              <span id="lesson-hub-title" class="bg-emerald-100 text-emerald-900 font-bold px-3 py-0.5 rounded-full border border-emerald-200 text-xs">
+                الإحساس والادراك
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- بطاقتا الاختيار: فيديو الدرس | تمارين (مطابقة لملف البيانات) -->
+        <div class="max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 my-10">
+          
+          <!-- بطاقة فيديو الدرس -->
+          <div onclick="openLessonVideos()" class="lesson-action-btn p-6 sm:p-8 flex flex-col items-center justify-center text-center group cursor-pointer">
+            <div class="w-16 h-16 rounded-2xl bg-red-50 text-red-600 border border-red-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-xs">
+              <svg class="w-8 h-8 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <polygon points="10 8 16 11 10 14 10 8" fill="currentColor"></polygon>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 group-hover:text-red-700 transition-colors mb-1">
+              فيديو الدرس
+            </h3>
+            <span id="hub-videos-count-badge" class="text-xs font-semibold text-slate-500">29 مقطع فيديو وشرح</span>
+          </div>
+
+          <!-- بطاقة تمارين -->
+          <div onclick="openLessonExercises()" class="lesson-action-btn p-6 sm:p-8 flex flex-col items-center justify-center text-center group cursor-pointer">
+            <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-xs">
+              <svg class="w-8 h-8 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-700 transition-colors mb-1">
+              تمارين
+            </h3>
+            <span id="hub-exercises-count-badge" class="text-xs font-semibold text-slate-500">3 تمارين تطبيقية ونماذج</span>
+          </div>
+
+        </div>
+
+        <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="backToCurrentLessons()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة لفهرس الدروس</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: فهرس فيديوهات الدرس ==================== -->
+    <div id="screen-lesson-videos" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (المواد > الدروس > عنوان الدرس: ... > فيديوهات الدرس) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentLessons()" type="button" class="px-3.5 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>الدروس</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentLessonHub()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="videos-breadcrumb-lesson-text">عنوان الدرس: الإحساس والادراك</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5">
+              <span class="bg-red-100 text-red-800 font-bold px-3 py-0.5 rounded-full border border-red-200 text-xs">
+                فيديوهات الدرس
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- عنوان القائمة: فهرس فيديوهات الدرس -->
+        <div class="text-center mb-8">
+          <h2 id="videos-list-title" class="text-2xl sm:text-3xl font-bold text-slate-800 font-heading">فهرس فيديوهات الدرس (29)</h2>
+          <p id="videos-list-subtitle" class="text-xs text-slate-400 mt-1">شروحات ومحاضرات درس الإحساس والإدراك مصنفة حسب قنوات الأساتذة</p>
+        </div>
+
+        <!-- قائمة الفيديوهات مصنفة بالقنوات المستخرجة من ملف البيانات -->
+        <div id="channels-videos-container" class="space-y-6 max-w-3xl mx-auto">
+          <!-- محقون بواسطة JavaScript -->
+        </div>
+
+        <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="backToCurrentLessonHub()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة لخيارات الدرس</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: مشغل فيديو الدرس (فيديو الدرس: التكيف بين العادة و الارادة) ==================== -->
+    <div id="screen-video-player" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (المواد > الدروس > فيديوهات الدرس > فيديو الدرس: التكيف بين العادة و الارادة) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm flex-wrap justify-center">
+            <button onclick="backToSubjects()" type="button" class="px-3.5 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentLessons()" type="button" class="px-3.5 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>الدروس</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="openLessonVideos()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>فيديوهات الدرس</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5 flex items-center gap-1.5">
+              <span class="text-slate-400">فيديو الدرس:</span>
+              <span id="player-breadcrumb-title" class="bg-red-100 text-red-900 font-bold px-3 py-0.5 rounded-full border border-red-200 text-xs">
+                التكيف بين العادة و الارادة
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- عنوان الدرس والمحاضر -->
+        <div class="text-center mb-6">
+          <h2 id="player-video-title" class="text-xl sm:text-2xl font-bold text-slate-800 font-heading">درس التكيف بين العادة و الارادة</h2>
+          <span id="player-channel-title" class="inline-block mt-1 text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+            قناة: عادل مقرود
+          </span>
+        </div>
+
+        <!-- حاوية مشغل الفيديو (Modern Video Container with YouTube Embed Support) -->
+        <div class="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-2xl relative">
+          
+          <!-- YouTube Iframe Embed Container (Dynamic) -->
+          <div id="video-embed-frame" class="hidden aspect-video w-full">
+            <iframe id="youtube-iframe-player" class="w-full h-full" src="" title="مشغل يوتيوب" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+
+          <!-- YouTube Error Fallback Screen (Hidden by default) -->
+          <div id="video-error-fallback" class="hidden aspect-video w-full bg-slate-900 flex flex-col items-center justify-center p-6 text-center text-white z-20">
+            <div class="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center mb-4">
+              <svg class="w-7 h-7 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <h3 id="video-error-title" class="text-base sm:text-lg font-bold text-slate-100 mb-2 font-heading">تعذر تشغيل الفيديو داخل المشغل</h3>
+            <p id="video-error-desc" class="text-xs sm:text-sm text-slate-300 max-w-md mb-5 leading-relaxed">
+              يقيد مشغل YouTube التضمين المباشر لهذا الفيديو عبر هذا البروتوكول. يمكنك مشاهدته مباشرة عبر الرابط الرسمي.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <a id="video-error-external-btn" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-md shadow-red-600/30 cursor-pointer">
+                <span>مشاهدة على YouTube</span>
+              </a>
+              <button onclick="playYouTubeEmbed()" type="button" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors cursor-pointer">
+                <span>إعادة المحاولة</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mock / Preview Video Screen -->
+          <div id="video-preview-frame" class="aspect-video w-full bg-slate-900 flex flex-col items-center justify-center relative group">
+            <div class="absolute inset-0 opacity-20 bg-gradient-to-tr from-brand-900 via-slate-800 to-slate-950"></div>
+            
+            <button id="btn-main-play" onclick="playYouTubeEmbed()" class="w-20 h-20 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-xl shadow-red-600/30 transition-transform group-hover:scale-110 z-10 cursor-pointer">
+              <svg id="play-icon-svg" class="w-8 h-8 fill-current ml-1" viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+
+            <span id="play-status-text" class="text-xs font-bold text-slate-300 mt-4 tracking-wider z-10">انقر لتشغيل الفيديو عبر YouTube</span>
+
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent flex items-center justify-between text-white text-xs z-10">
+              <div class="flex items-center gap-3">
+                <button onclick="playYouTubeEmbed()" class="hover:text-red-400 transition-colors cursor-pointer">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+                <span>مشاهدة الدرس بدقة عالية</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">YouTube HD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- شريط أدوات يوتيوب أسفل المشغل -->
+        <div class="max-w-3xl mx-auto mt-6 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <!-- زر فتح يوتيوب المباشر -->
+            <a id="btn-open-youtube" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-md shadow-red-600/20 cursor-pointer">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+              </svg>
+              <span>مشاهدة مباشرة على YouTube</span>
+            </a>
+
+            <!-- زر تخصيص الرابط -->
+            <button onclick="promptCustomYouTubeUrl()" type="button" class="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all border border-slate-200 cursor-pointer">
+              <svg class="w-3.5 h-3.5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              <span>تغيير رابط الفيديو</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="player-btn-videos" onclick="openLessonVideos()" type="button" class="text-xs font-bold text-slate-600 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer px-3 py-2 rounded-lg border border-slate-200">
+              <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"></path>
+              </svg>
+              <span id="player-btn-videos-text">قائمة الفيديوهات</span>
+            </button>
+
+            <button id="player-btn-exercises" onclick="openLessonExercises()" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-800 text-xs font-bold border border-blue-200 transition-all cursor-pointer">
+              <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              </svg>
+              <span id="player-btn-exercises-text">تمارين الدرس</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: قائمة التمارين (3 تمارين) ==================== -->
+    <div id="screen-lesson-exercises" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (المواد > الدروس > عنوان الدرس: الإحساس والادراك > تمارين) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm flex-wrap justify-center">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentLessons()" type="button" class="px-3.5 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>الدروس</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button id="exercises-breadcrumb-hub-btn" onclick="backToCurrentLessonHub()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="exercises-breadcrumb-lesson-text">عنوان الدرس: الإحساس والادراك</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5">
+              <span class="bg-blue-100 text-blue-900 font-bold px-3 py-0.5 rounded-full border border-blue-200 text-xs">
+                تمارين
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- عنوان القائمة: قائمة التمارين مطابق لملف البيانات -->
+        <div class="text-center mb-8">
+          <h2 id="exercises-list-title" class="text-2xl sm:text-3xl font-bold text-slate-800 font-heading">قائمة التمارين (3)</h2>
+          <p id="exercises-list-subtitle" class="text-xs text-slate-400 mt-1">تطبيقات ومقالات ونصوص فلسفية لدرس الإحساس والإدراك</p>
+        </div>
+
+        <!-- بطاقات التمارين المستخرجة ديناميكياً من ملف البيانات -->
+        <div id="exercises-container" class="space-y-4 max-w-3xl mx-auto">
+          <!-- سيتم بناؤها ديناميكياً بواسطة JavaScript للتفاعل الفوري -->
+        </div>
+
+        <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="backToCurrentLessonHub()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة لخيارات الدرس</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: فهرس الموارد التعليمية (البكالوريا، الامتحانات، الملخصات، المراجعات، التمارين) ==================== -->
+    <div id="screen-resource-index" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (Breadcrumbs) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button id="resource-index-breadcrumb-subject-btn" onclick="backToCurrentSubject()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="resource-index-breadcrumb-subject-text">المادة: الفلسفة</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5">
+              <span id="resource-index-breadcrumb-type" class="bg-emerald-100 text-emerald-900 font-bold px-3 py-0.5 rounded-full border border-emerald-200 text-xs">
+                البكالوريا
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- عنوان الفهرس والوصف -->
+        <div class="text-center mb-6">
+          <h2 id="resource-index-title" class="text-2xl sm:text-3xl font-bold text-slate-800 font-heading">مواضيع البكالوريا الرسمية</h2>
+          <p id="resource-index-subtitle" class="text-xs text-slate-400 mt-1">أرشيف دورات شهادة البكالوريا مع المواضيع وسلالم التنقيط الوزارية</p>
+        </div>
+
+        <!-- شريط تبديل الفئات (Category Filter Tabs) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+          <button onclick="filterResourceIndex('all')" id="res-filter-all" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer">
+            كافة الموارد
+          </button>
+          <button onclick="filterResourceIndex('bac')" id="res-filter-bac" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-rose-200 text-rose-800 bg-rose-50 cursor-pointer">
+            البكالوريا
+          </button>
+          <button onclick="filterResourceIndex('exam')" id="res-filter-exam" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer">
+            امتحانات الفصول
+          </button>
+          <button onclick="filterResourceIndex('exercise')" id="res-filter-exercise" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer">
+            التمارين والتطبيقات
+          </button>
+          <button onclick="filterResourceIndex('summary')" id="res-filter-summary" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer">
+            الملخصات
+          </button>
+          <button onclick="filterResourceIndex('review')" id="res-filter-review" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer">
+            المراجعات الشاملة
+          </button>
+        </div>
+
+        <!-- حاوية بطاقات الموارد -->
+        <div id="resource-cards-container" class="space-y-4 max-w-4xl mx-auto">
+          <!-- سيتم بناؤها ديناميكياً بواسطة JavaScript -->
+        </div>
+
+        <!-- أسفل البطاقة: زر الرجوع -->
+        <div class="pt-8 mt-8 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="backToCurrentSubject()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span id="resource-index-back-btn-text">العودة لفضاء المادة</span>
+          </button>
+          <span class="text-xs text-slate-400">انقر على أي مورد للاطلاع على الموضوع والحل في صفحة مستقلة</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: عارض المورد المخصص (Resource Dedicated Viewer) ==================== -->
+    <div id="screen-resource-viewer" class="hidden animate-fadeIn max-w-5xl w-full mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-12 border border-slate-200/90 shadow-xl relative overflow-hidden">
+        
+        <!-- الشريط المائل (5 ساعات) -->
+        <div class="corner-ribbon-wrap">
+          <div class="corner-ribbon">5 ساعات</div>
+        </div>
+
+        <!-- أشرطة الهيدر العلوية -->
+        <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
+            <span class="text-slate-500">الشعبة:</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span class="text-slate-500">المستوى:</span>
+            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+          </div>
+          <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
+            <span>مرحبًا بك</span>
+            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
+            <span>في منصة ألماد</span>
+          </div>
+        </div>
+
+        <!-- شريط التوجيه (Breadcrumbs) -->
+        <div class="flex items-center justify-center mb-8">
+          <div class="inline-flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm">
+            <button onclick="backToSubjects()" type="button" class="px-4 py-1.5 rounded-full font-bold text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span>المواد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToCurrentSubject()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="viewer-breadcrumb-subject-text">المادة: الفلسفة</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onclick="backToResourceIndex()" type="button" class="px-3.5 py-1.5 rounded-full font-medium text-slate-600 hover:bg-slate-100 hover:text-brand-700 transition-colors cursor-pointer">
+              <span id="viewer-breadcrumb-type-text">فهرس الموارد</span>
+            </button>
+            <div class="w-px h-4 bg-slate-200 mx-1"></div>
+            <div class="px-3.5 py-1.5">
+              <span id="viewer-breadcrumb-title" class="bg-emerald-100 text-emerald-900 font-bold px-3 py-0.5 rounded-full border border-emerald-200 text-xs truncate max-w-[180px] inline-block">
+                عنوان المورد
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- بطاقة التعريف بالمورد (Metadata Card) -->
+        <div id="viewer-metadata-card" class="p-6 rounded-2xl bg-slate-50 border border-slate-200/90 mb-8 max-w-4xl mx-auto">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span id="viewer-tag-type" class="text-xs font-bold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">دورة رسمية</span>
+                <span id="viewer-tag-subject" class="text-xs font-bold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200">الفلسفة</span>
+                <span id="viewer-tag-level" class="text-xs font-medium text-slate-500">الثالثة ثانوي • آداب وفلسفة</span>
+              </div>
+              <h2 id="viewer-title" class="text-xl sm:text-2xl font-bold text-slate-900 font-heading">موضوع الفلسفة - شهادة البكالوريا 2024</h2>
+            </div>
+            <div id="viewer-source-badge-container">
+              <!-- سيتم توليده ديناميكياً (مصدر رسمي أو خارجي) -->
+            </div>
+          </div>
+          <div class="pt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+            <div id="viewer-meta-details" class="flex items-center gap-4">
+              <!-- السنة، الفصل، الدرس المقترن إن وجد -->
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="viewer-status-problem" class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">الموضوع: متوفر</span>
+              <span id="viewer-status-solution" class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">الحل: متوفر</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- أزرار التبديل بين التبويبات (Tabs Switcher: الموضوع | الحل) -->
+        <div class="flex items-center justify-center gap-3 border-b border-slate-200 pb-4 mb-6 max-w-4xl mx-auto">
+          <button id="viewer-tab-problem" onclick="switchViewerTab('problem')" class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all border-2 border-brand-700 bg-brand-700 text-white shadow-xs cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span>موضوع الامتحان / نص التمرين</span>
+          </button>
+          <button id="viewer-tab-solution" onclick="switchViewerTab('solution')" class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all border-2 border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>الحل النموذجي وسلم التنقيط الوزاري</span>
+          </button>
+        </div>
+
+        <!-- حاوية محتوى التبويبات (Dynamic Panes) -->
+        <div class="max-w-4xl mx-auto mb-8 min-h-[300px]">
+          <!-- تبويب الموضوع -->
+          <div id="viewer-pane-problem" class="space-y-4">
+            <!-- سيتم توليده حسب Case A أو Case B -->
+          </div>
+
+          <!-- تبويب الحل -->
+          <div id="viewer-pane-solution" class="space-y-4 hidden">
+            <!-- سيتم توليده حسب Case A أو Case B -->
+          </div>
+        </div>
+
+        <!-- شريط الإجراءات السفلي (Action Bar) -->
+        <div class="pt-8 mt-8 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 max-w-4xl mx-auto">
+          <button onclick="backToResourceIndex()" type="button" class="text-xs font-bold text-slate-500 hover:text-brand-700 flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg class="w-4 h-4 stroke-current stroke-[2.2] transform rotate-180" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span>العودة لفهرس الموارد</span>
+          </button>
+
+          <div class="flex items-center gap-3">
+            <a id="viewer-btn-source" href="#" target="_blank" rel="noopener" class="hidden px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-all flex items-center gap-1.5 cursor-pointer">
+              <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>فتح في المصدر الأصلي</span>
+            </a>
+            <a id="viewer-btn-download" href="#" target="_blank" rel="noopener" class="hidden px-5 py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-semibold text-xs transition-all shadow-md flex items-center gap-2 cursor-pointer">
+              <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>تحميل وثيقة PDF</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== LESSON DETAILS VIEWER MODAL ==================== -->
+  <div id="lesson-detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative animate-fadeIn">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span id="modal-lesson-id" class="w-6 h-6 rounded-full bg-brand-50 border border-brand-200 text-brand-700 font-bold text-xs flex items-center justify-center">1</span>
+            <span class="text-xs font-bold text-slate-400">الدرس المقرر</span>
+          </div>
+          <h3 id="modal-lesson-title" class="text-xl font-bold text-slate-900 font-heading">عنوان الدرس</h3>
+        </div>
+
+        <button onclick="closeLessonModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Quick Stats in Modal -->
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <polygon points="10 8 16 11 10 14 10 8" fill="currentColor"></polygon>
+            </svg>
+          </div>
+          <div>
+            <span class="text-[11px] text-slate-400 block">فيديوهات الشرح</span>
+            <span id="modal-lesson-videos" class="text-sm font-bold text-slate-800">29 مقطع</span>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5" cy="5" r="2.5" fill="currentColor"></circle>
+              <path d="M5 10v9M2 13h6"></path>
+              <rect x="10" y="3" width="12" height="10" rx="1"></rect>
+            </svg>
+          </div>
+          <div>
+            <span class="text-[11px] text-slate-400 block">الأساتذة والمحاضرون</span>
+            <span id="modal-lesson-teachers" class="text-sm font-bold text-slate-800">3 أساتذة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample video lesson breakdown -->
+      <div class="mb-6">
+        <h4 class="text-xs font-bold text-slate-600 mb-3">محاور وسلسلة شرح الدرس:</h4>
+        <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center">01</span>
+              <div>
+                <span class="text-xs font-bold text-slate-800 block">المدخل الإشكالي وضبط المفاهيم الأساسية</span>
+                <span class="text-[10px] text-slate-400">الأستاذ الأول • المدة: 24 دقيقة</span>
+              </div>
+            </div>
+            <button class="text-xs font-bold text-brand-700 hover:text-brand-900 flex items-center gap-1 cursor-pointer">
+              <span>تشغيل</span>
+              <svg class="w-3.5 h-3.5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon></svg>
+            </button>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center">02</span>
+              <div>
+                <span class="text-xs font-bold text-slate-800 block">عرض الأطروحة الأولى ونقدها الفلسفي</span>
+                <span class="text-[10px] text-slate-400">الأستاذ الثاني • المدة: 32 دقيقة</span>
+              </div>
+            </div>
+            <button class="text-xs font-bold text-brand-700 hover:text-brand-900 flex items-center gap-1 cursor-pointer">
+              <span>تشغيل</span>
+              <svg class="w-3.5 h-3.5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon></svg>
+            </button>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-md bg-white border border-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center">03</span>
+              <div>
+                <span class="text-xs font-bold text-slate-800 block">التركيب الفلسفي وحل الإشكالية وفق منهجية البكالوريا</span>
+                <span class="text-[10px] text-slate-400">الأستاذ الثالث • المدة: 28 دقيقة</span>
+              </div>
+            </div>
+            <button class="text-xs font-bold text-brand-700 hover:text-brand-900 flex items-center gap-1 cursor-pointer">
+              <span>تشغيل</span>
+              <svg class="w-3.5 h-3.5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="closeLessonModal()" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md cursor-pointer">
+          إغلاق
+        </button>
+        <button class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>تحميل المقالة والملخص PDF</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY DETAIL MODAL ==================== -->
+  <div id="category-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl sm:max-w-3xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative animate-fadeIn">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+        <div class="flex items-center gap-3">
+          <div id="category-modal-icon-container" class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+            <svg class="w-5 h-5 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 id="category-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 font-heading">عنوان القسم</h3>
+            <span id="category-modal-subtitle" class="text-xs font-semibold text-slate-500">المادة: العلوم الإسلامية</span>
+          </div>
+        </div>
+
+        <button onclick="closeCategoryModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div id="category-modal-body" class="space-y-3 mb-6 max-h-[68vh] overflow-y-auto pr-1"></div>
+
+      <button onclick="closeCategoryModal()" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md cursor-pointer">
+        إغلاق
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== EXERCISE DETAILS MODAL ==================== -->
+  <div id="exercise-detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative animate-fadeIn">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+        <div>
+          <span id="exercise-modal-tag" class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-1 inline-block">تمرين تطبيقي</span>
+          <h3 id="exercise-modal-title" class="text-lg sm:text-xl font-bold text-slate-900 font-heading">الاحساس و الادراك</h3>
+        </div>
+        <button onclick="closeExerciseModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <h4 class="text-xs font-bold text-slate-500 mb-1">نص السؤال والمشكلة الفلسفية:</h4>
+          <p id="exercise-modal-question" class="text-sm font-semibold text-slate-800 leading-relaxed">
+            هل الإدراك محصلة لنشاط العقل أم تصور لنظام الأشياء في الواقع؟
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+          <h4 class="text-xs font-bold text-emerald-800 mb-1">عناصر الإجابة وسلم التنقيط النموذجي (وزاري):</h4>
+          <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+            <li>طرح المشكلة (المقدمة وضبط المفاهيم والعناد الفلسفي) [4 نقاط]</li>
+            <li>محاولة حل المشكلة: عرض الموقف الأول ونقده (النظرية العقلية) [4 نقاط]</li>
+            <li>عرض الموقف الثاني ونقده (النظرية الجشطالتية) [4 نقاط]</li>
+            <li>التركيب والحل النهائي المنهجي [4 نقاط]</li>
+            <li>سلامة اللغة وتناسق الأفكار [4 نقاط]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="closeExerciseModal()" class="flex-1 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md cursor-pointer">
+          إغلاق
+        </button>
+        <button class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>تحميل ملف التمرين PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NOTICE MODAL ==================== -->
+  <div id="notice-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border border-slate-200 shadow-2xl relative text-center">
+      <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-700 flex items-center justify-center mx-auto mb-4 border border-brand-100">
+        <svg class="w-7 h-7 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <h3 id="notice-title" class="text-lg font-bold text-slate-900 mb-2 font-heading">تنبيه</h3>
+      <p id="notice-text" class="text-xs text-slate-500 leading-relaxed mb-6">محتوى هذا القسم قيد التطوير والتحديث.</p>
+      <button onclick="closeNoticeModal()" class="w-full py-2.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-semibold text-sm transition-all shadow-md cursor-pointer">
+        حسناً
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded-md bg-brand-700 text-white flex items-center justify-center text-[10px] font-bold">
+          أ
+        </div>
+        <span>حقوق النشر © 2026 منصة ألماد التعليمية</span>
+      </div>
+      <div>
+        <span>كل الحقوق محفوظة</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- طبقة البيانات والمخزن المركزي للمنصة -->
+  <script src="data/store.js"></script>
+  <script src="data/philosophy.js"></script>
+  <script src="data/islamic.js"></script>
+  <script src="data/history.js"></script>
+  <script src="data/english.js"></script>
+  <script src="data/french.js"></script>
+  <script src="data/arabic.js"></script>
+  <script src="data/math.js"></script>
+  <!-- سجل الموارد الموحد (Resource Registry) -->
+  <script src="data/registry.js"></script>
+  <!-- محرك التطبيق العام -->
+  <script src="app.js"></script>
+</body>
+</html>

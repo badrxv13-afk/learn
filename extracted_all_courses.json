@@ -1,0 +1,1366 @@
+﻿{
+    "course_286":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "علوم المادة الجامدة و علوم المادة الحية"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الحلول"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "العلوم التجريبية"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "الفلسفة مع هواري",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "الفلسفة مع هواري",
+                                                               "channel":  "الفلسفة مع هواري",
+                                                               "duration":  "20:00",
+                                                               "title":  "الفرضية في المنهج التجريبي"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_286_2.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "علوم المادة الجامدة وعلوم المادة الحية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "الفرضية"
+                                                           },
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "التجربة مقياس العلم"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "thumbnails/thumb_286_5.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "قيمة الفرضية في المنهج التجريبي"
+                                                           },
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "thumbnails/thumb_286_6.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحتمية واللاحتمية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  4,
+                                            "videos":  [
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "thumbnails/thumb_286_7.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "انفصال_العلم_عن_الفلسفة_ظهور_المنهج_التجريبي"
+                                                           },
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_286_8.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_يمكن_تطبيق_المنهج_التجريبي_على_المادة_الحية_بنفس_الكيفية_المطبق_بها_في_المادة_الجامدة"
+                                                           },
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "thumbnails/thumb_286_9.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_يمكن_تطبيق_المنهح_التجريبي_على_المادة_الحية_بنفس_الكيفية_المطبق_بها_في_المادة_الجامدة(ج2)"
+                                                           },
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_286_10.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_التجربة_مقياس_العلم"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "thumbnails/thumb_286_11.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن الحديث عن مخاطر التجريب في البيولوجيا"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "العدوي فلسفة",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  12,
+                                                               "thumbnail":  "thumbnails/thumb_286_12.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "البيولوجيا"
+                                                           },
+                                                           {
+                                                               "id":  13,
+                                                               "thumbnail":  "thumbnails/thumb_286_13.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "البيولوجيا بطريقة المخططات"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  14,
+                                                               "thumbnail":  "thumbnails/thumb_286_14.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحتمية واللاحتمية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  15,
+                                                               "thumbnail":  "thumbnails/thumb_286_15.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "البيولوجيا"
+                                                           },
+                                                           {
+                                                               "id":  16,
+                                                               "thumbnail":  "thumbnails/thumb_286_16.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحتمية و اللاحتمية"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  16,
+                       "courseId":  "286"
+                   },
+    "course_282":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "الأخلاق بين الثوابت والمتغيرات"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الاخلاق"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "الاخلاق بين الثوابت والمتغيرات"
+                                         },
+                                         {
+                                             "num":  "4",
+                                             "title":  "الاخلاق بين الثوابت والمتغيرات"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عبد الرزاق شنوف",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "thumbnails/thumb_282_1.jpg",
+                                                               "teacher":  "عبد الرزاق شنوف",
+                                                               "channel":  "عبد الرزاق شنوف",
+                                                               "duration":  "20:00",
+                                                               "title":  "الاخلاق بين الثوابت والمتغيرات"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_282_2.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأخلاق بين النسبية والمطلق الجزء الأول(1)"
+                                                           },
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_282_3.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأخلاق بين النسبي والمطلق الجزء الثاني"
+                                                           },
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "thumbnails/thumb_282_4.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأخلاق في السياسة"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "thumbnails/thumb_282_5.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "علاقة السياسة بالاخلاق"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "thumbnails/thumb_282_6.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "مصىر_القيمة_الخلقية_مطلق_أم_نسبي 1"
+                                                           },
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "thumbnails/thumb_282_7.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "مصدر_القيمة_الخلقية_مطلق_أم_نسبي 2"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_282_8.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "العلاقة بين السياسة و الأخلاق"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "thumbnails/thumb_282_9.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأخلاق"
+                                                           },
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_282_10.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "مخطط درس الأخلاق"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "خليل سعيداني",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "خليل سعيداني",
+                                                               "channel":  "خليل سعيداني",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة الاخلاق بين المطلق و النسبي"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  11,
+                       "courseId":  "282"
+                   },
+    "course_280":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "الشعور واللاشعور"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الشعور واللاشعور"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "الشعور واللاشعور"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "thumbnails/thumb_280_1.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللاشعور - الجزء 01"
+                                                           },
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_280_2.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللاشعور - الجزء 02"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_280_3.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللأشعور \"أساس الحياة النفسية\" الجزء 1"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "العدوي فلسفة",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "thumbnails/thumb_280_4.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللاشعور"
+                                                           },
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "thumbnails/thumb_280_5.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللاشعور بطريقة المخططات"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "thumbnails/thumb_280_6.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور_واللاشعور 1"
+                                                           },
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "thumbnails/thumb_280_7.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور_واللاشعور 2"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_280_8.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور و اللاشعور 1"
+                                                           },
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "thumbnails/thumb_280_9.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور و اللاشعور 2"
+                                                           },
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_280_10.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور و اللاشعور 3"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الشعور واللاشعور"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  11,
+                       "courseId":  "280"
+                   },
+    "course_281":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "الذاكرة والخيال"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الذاكرة والخيال"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "الذاكرة والخيال"
+                                         },
+                                         {
+                                             "num":  "4",
+                                             "title":  "الذاكرة والخيال"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "الأستاذة بوسعادي",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "الأستاذة بوسعادي",
+                                                               "channel":  "الأستاذة بوسعادي",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة والخيال ( طبيعة الذاكرة ) 1"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_281_2.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة والخيال"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_281_3.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "عوامل الإبداع الفردية و الاجتماعية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  4,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل الذاكرة مادية ام معنوية ؟"
+                                                           },
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "الاستقصاء بالوضع - اثبت أن الذاكرة ذات طابع جماعي."
+                                                           },
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_الابداع_ذاتي_ام_موضوعي؟"
+                                                           },
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "الابداع_ذاتي_ام_موضوعي استقصاء"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "العدوي فلسفة",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_281_8.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة والخيال ( طبيعة الذاكرة ) 1"
+                                                           },
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة والخيال ( الابداع) 2"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_281_10.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة عوامل الإبداع 1"
+                                                           },
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "thumbnails/thumb_281_11.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة عوامل الإبداع 2"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  12,
+                                                               "thumbnail":  "thumbnails/thumb_281_12.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة_ذات_طبيعة_مادية_أم_نفسية"
+                                                           },
+                                                           {
+                                                               "id":  13,
+                                                               "thumbnail":  "thumbnails/thumb_281_13.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "النسيان_ظاهرة_إيجابية_أم_سلبية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  14,
+                                                               "thumbnail":  "thumbnails/thumb_281_14.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الذاكرة"
+                                                           },
+                                                           {
+                                                               "id":  15,
+                                                               "thumbnail":  "thumbnails/thumb_281_15.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "النسيان"
+                                                           },
+                                                           {
+                                                               "id":  16,
+                                                               "thumbnail":  "thumbnails/thumb_281_16.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "عوامل الإبداع"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  4,
+                                            "videos":  [
+                                                           {
+                                                               "id":  17,
+                                                               "thumbnail":  "thumbnails/thumb_281_17.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "طبيعة الذاكرة"
+                                                           },
+                                                           {
+                                                               "id":  18,
+                                                               "thumbnail":  "thumbnails/thumb_281_18.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "طبيعة النسيان"
+                                                           },
+                                                           {
+                                                               "id":  19,
+                                                               "thumbnail":  "thumbnails/thumb_281_19.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "شروط الابداع"
+                                                           },
+                                                           {
+                                                               "id":  20,
+                                                               "thumbnail":  "thumbnails/thumb_281_20.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "مخطط درس الذاكرة و الخيال"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  20,
+                       "courseId":  "281"
+                   },
+    "course_283":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "الحقوق والواجبات والعدل"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الحقوق والواجبات والعدل"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "الحقوق والواجبات والعدل"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "thumbnails/thumb_283_1.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحقوق والواجبات والعدل - الجزء 01"
+                                                           },
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_283_2.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحقوق والواجبات والعدل - الجزء 02"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_283_3.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "العدالة بين الحق والواجب"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحقوق والواجبات والعدل"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الفلسفة مع هواري",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "الفلسفة مع هواري",
+                                                               "channel":  "الفلسفة مع هواري",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحق والواجب"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "thumbnails/thumb_283_6.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة الحقوق والواجبات"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "thumbnails/thumb_283_7.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة_الحق_الواجب"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_283_8.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحق و الواجب العدالة"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "thumbnails/thumb_283_9.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "علاقة الحقوق بالواجبات"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  9,
+                       "courseId":  "283"
+                   },
+    "course_285":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "فلسفة الرياضيات"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الحلول"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "معالجة إشكاليات أصل المفاهيم واليقين الرياضي"
+                                         },
+                                         {
+                                             "num":  "4",
+                                             "title":  "الرياضيات والمطلقية"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "فلسفة الرياضيات"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "خليل سعيداني",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "خليل سعيداني",
+                                                               "channel":  "خليل سعيداني",
+                                                               "duration":  "20:00",
+                                                               "title":  "أصل المفاهيم الرياضية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_285_3.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "أصل المفاهيم الرياضية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "thumbnails/thumb_285_4.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "أصل المفاهيم الرياضية"
+                                                           },
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "thumbnails/thumb_285_5.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "الرياضيات الكلاسيكية و الرياضيات المعاصرة. اليقين الرياضي"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "thumbnails/thumb_285_6.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "نتائج الرياضيات (اليقين الرياضي)"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل اصل المعاني الرياضيات العقل ام التجربة الحسية"
+                                                           },
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "اليقين الرياضي/الاستدلال"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  4,
+                                            "videos":  [
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "thumbnails/thumb_285_9.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_أصل_المفاهيم_الرياضية_هو_العقل_أم_الحواس"
+                                                           },
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_285_10.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_يمكن_وصف_النتائج_الرياضية_بالمطلقية_في_كل_الاحوال"
+                                                           },
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "thumbnails/thumb_285_11.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "ما_الفرق_بين_الرياضيات_الكلاسكية_والرياضيات_المعاصرة"
+                                                           },
+                                                           {
+                                                               "id":  12,
+                                                               "thumbnail":  "thumbnails/thumb_285_12.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة _ستقصاء_حول_أصل_المفاهيم_الرياضية_ هو_ الحواس"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "العدوي فلسفة",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  13,
+                                                               "thumbnail":  "thumbnails/thumb_285_13.jpg",
+                                                               "teacher":  "العدوي فلسفة",
+                                                               "channel":  "العدوي فلسفة",
+                                                               "duration":  "20:00",
+                                                               "title":  "فلسفة الرياضيات ( أصل المفاهيم الرياضية / نتائج الرياضيات)"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "استاذ محمد حمدود",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  14,
+                                                               "thumbnail":  "thumbnails/thumb_285_14.jpg",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "اصل المفاهيم الرياضية"
+                                                           },
+                                                           {
+                                                               "id":  15,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "اليقين الرياضي( الرياضيات الكلاسيكية و المعاصرة)"
+                                                           },
+                                                           {
+                                                               "id":  16,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "استاذ محمد حمدود",
+                                                               "channel":  "استاذ محمد حمدود",
+                                                               "duration":  "20:00",
+                                                               "title":  "مخطط درس فلسفة الرياضيات"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  16,
+                       "courseId":  "285"
+                   },
+    "course_287":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "العلوم الإنسانية"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "الحلول"
+                                         },
+                                         {
+                                             "num":  "3",
+                                             "title":  "العلوم الانسانية"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "thumbnails/thumb_287_1.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "تطبيق المنهج التجريبي على التاريخ"
+                                                           },
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_287_2.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "تطبيق المنهج التجريبي على علم النفس"
+                                                           },
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "تطبيق المنهج التجريبي على العلوم الإنسانية 1"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الفلسفة مع هواري",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "thumbnails/thumb_287_4.jpg",
+                                                               "teacher":  "الفلسفة مع هواري",
+                                                               "channel":  "الفلسفة مع هواري",
+                                                               "duration":  "20:00",
+                                                               "title":  "علم النفس - العلوم الإنسانية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  5,
+                                            "videos":  [
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن التجريب على الظواهر النفسية ؟ الجزء 1"
+                                                           },
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن التجريب على الظواهر النفسية ؟ الجزء 2"
+                                                           },
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل التاريخ يصلح للدراسة العلمية"
+                                                           },
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "علم_النفس"
+                                                           },
+                                                           {
+                                                               "id":  9,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل علم النفس موضوع يقبل الدراسة العلمية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  10,
+                                                               "thumbnail":  "thumbnails/thumb_287_10.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن دراسة الحادثة التاريخية دراسة تجريبية دقيقة ؟ الجزء 1"
+                                                           },
+                                                           {
+                                                               "id":  11,
+                                                               "thumbnail":  "thumbnails/thumb_287_11.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن دراسة الحادثة النفسية دراسة تجريبية دقيقة ؟ الجزء 2"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ بلفضيل",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  12,
+                                                               "thumbnail":  "thumbnails/thumb_287_12.jpg",
+                                                               "teacher":  "الاستاذ بلفضيل",
+                                                               "channel":  "الاستاذ بلفضيل",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل يمكن تطبيق المنهج التجريبي على الظواهر الإنساية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "الاستاذ فاضل زراط",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  13,
+                                                               "thumbnail":  "thumbnails/thumb_287_13.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "درس العلوم الانسانية مفهومها وخصائصها"
+                                                           },
+                                                           {
+                                                               "id":  14,
+                                                               "thumbnail":  "thumbnails/thumb_287_14.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_يمكن_دراسة_الحادثة_التاريخية_دراسة_علمية"
+                                                           },
+                                                           {
+                                                               "id":  15,
+                                                               "thumbnail":  "thumbnails/thumb_287_15.jpg",
+                                                               "teacher":  "الاستاذ فاضل زراط",
+                                                               "channel":  "الاستاذ فاضل زراط",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل_يمكن_دراسة_الحادثة_النفسية_دراسة_علمية"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  15,
+                       "courseId":  "287"
+                   },
+    "course_284":  {
+                       "exercises":  [
+                                         {
+                                             "num":  "1",
+                                             "title":  "العلاقات الأسرية والحياة الاقتصادية والسياسية"
+                                         },
+                                         {
+                                             "num":  "2",
+                                             "title":  "العلاقات الاسرية والحياة الاقتصادية والسياسية"
+                                         }
+                                     ],
+                       "channels":  [
+                                        {
+                                            "channel":  "عبدالحق حمداش",
+                                            "count":  3,
+                                            "videos":  [
+                                                           {
+                                                               "id":  1,
+                                                               "thumbnail":  "thumbnails/thumb_284_1.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحياة الاقتصادية والسياسية - الجزء 01"
+                                                           },
+                                                           {
+                                                               "id":  2,
+                                                               "thumbnail":  "thumbnails/thumb_284_2.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "الحياة الاقتصادية والسياسية - الجزء 02"
+                                                           },
+                                                           {
+                                                               "id":  3,
+                                                               "thumbnail":  "thumbnails/thumb_284_3.jpg",
+                                                               "teacher":  "عبدالحق حمداش",
+                                                               "channel":  "عبدالحق حمداش",
+                                                               "duration":  "20:00",
+                                                               "title":  "هل الاسرة ضرورية ام يمكن الاستغناء عنها ؟"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "عادل مقرود",
+                                            "count":  1,
+                                            "videos":  [
+                                                           {
+                                                               "id":  4,
+                                                               "thumbnail":  "thumbnails/thumb_284_4.jpg",
+                                                               "teacher":  "عادل مقرود",
+                                                               "channel":  "عادل مقرود",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأنظمة السياسية بين الحكم الفردي والجماعي + مقال الديمقراطية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "اسكندر لطفي غربي",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  5,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "مقالة النظم الاقتصادية الرأسمالية اللبرالية VS الاشتراكية"
+                                                           },
+                                                           {
+                                                               "id":  6,
+                                                               "thumbnail":  "",
+                                                               "teacher":  "اسكندر لطفي غربي",
+                                                               "channel":  "اسكندر لطفي غربي",
+                                                               "duration":  "20:00",
+                                                               "title":  "النظم_الاقتصادية"
+                                                           }
+                                                       ]
+                                        },
+                                        {
+                                            "channel":  "حركات محمد",
+                                            "count":  2,
+                                            "videos":  [
+                                                           {
+                                                               "id":  7,
+                                                               "thumbnail":  "thumbnails/thumb_284_7.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأسرة"
+                                                           },
+                                                           {
+                                                               "id":  8,
+                                                               "thumbnail":  "thumbnails/thumb_284_8.jpg",
+                                                               "teacher":  "حركات محمد",
+                                                               "channel":  "حركات محمد",
+                                                               "duration":  "20:00",
+                                                               "title":  "الأنظمة الاقتصادية"
+                                                           }
+                                                       ]
+                                        }
+                                    ],
+                       "totalVideos":  8,
+                       "courseId":  "284"
+                   }
+}

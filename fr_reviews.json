@@ -1,0 +1,87 @@
+﻿[
+    {
+        "channel":  "عبد الناصر منصوري",
+        "videos":  [
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للثلاثي الأول texte historique",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_1.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة للثلاثي الثاني",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_2.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية compte rendu",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_3.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية conditionnal",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_4.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية 04",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_5.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية 05",
+                           "thumbnail":  ""
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية 01",
+                           "thumbnail":  ""
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية 02",
+                           "thumbnail":  ""
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "المراجعة الشاملة للفرنسية 03",
+                           "thumbnail":  ""
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة للفرنسية ا (أسئلة الفهم )",
+                           "thumbnail":  ""
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة فرنسية 2 (العلامة الكاملة في compte rendu )",
+                           "thumbnail":  ""
+                       }
+                   ]
+    },
+    {
+        "channel":  "Prof Ouss",
+        "videos":  [
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة في النص التاريخي | Le texte d\u0027Histoire",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_12.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة لمكتسبات اللغة الفرنسية لبكالوريأ",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_13.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة في النص الحجاجي | Le texte argumentatif",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_14.jpg"
+                       },
+                       {
+                           "duration":  "25:00",
+                           "title":  "مراجعة شاملة في اللغة الفرنسية لتحضير البكالوريا التجريبية",
+                           "thumbnail":  "thumbnails/thumb_fr_rev_15.jpg"
+                       }
+                   ]
+    }
+]
