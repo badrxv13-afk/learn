@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "subject": "الفلسفة",
+    "grade": "3AS",
+    "branch": "آداب وفلسفة",
+    "official_curriculum_source": "وزارة التربية الوطنية الجزائرية - المناهج الرسمية للتعليم الثانوي - شعبة آداب وفلسفة",
+    "generated_at": "2026-09-21T17:16:15.928Z",
+    "version": "2026.1"
+  },
+  "lessons": [
+    {
+      "canonical_id": "philo_3as_lp_01",
+      "order": 1,
+      "title": "الإحساس والإدراك",
+      "aliases": [
+        "الاحساس والادراك",
+        "طبيعة الادراك",
+        "عوامل الادراك",
+        "النظرية العقلية والحسية",
+        "النظرية الجشطالتية والظواهرية"
+      ],
+      "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+      "unit_id": "unit_perception",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 1 من الإشكالية الأولى في المنهاج الرسمي المعتمد لوزارة التربية، حاضر في جميع دورات البكالوريا السابقة.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie",
+        "الديوان الوطني للتعليم والتكوين عن بعد (ONEFD) - برنامج الفلسفة 3 ثانوي"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_02",
+      "order": 2,
+      "title": "اللغة والفكر",
+      "aliases": [
+        "علاقة اللغة بالفكر",
+        "الدال والمدلول",
+        "وظائف اللغة",
+        "الاتجاه الثنائي والواحدي"
+      ],
+      "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+      "unit_id": "unit_perception",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 2 من الإشكالية الأولى، من أهم دروس البكالوريا ويشمل قضايا الدال والمدلول وعلاقة الفكر باللغة.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie",
+        "المنهاج الرسمي لوزارة التربية الوطنية 3AS"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_03",
+      "order": 3,
+      "title": "الشعور واللاشعور",
+      "aliases": [
+        "الشعور و اللاشعور",
+        "أساس الحياة النفسية",
+        "التحليل النفسي",
+        "فرويد ومدرسة التحليل النفسي"
+      ],
+      "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+      "unit_id": "unit_perception",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 3 من الإشكالية الأولى، مخصص لدراسة الحياة النفسية بين الوعي الشعوري وفرضية اللاشعور.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie",
+        "التوجيهات التربوية الرسمية لأساتذة الفلسفة"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_04",
+      "order": 4,
+      "title": "الذاكرة والخيال",
+      "aliases": [
+        "الذاكرة والخيال",
+        "طبيعة الذاكرة (مادية أم نفسية/اجتماعية)",
+        "قيمة النسيان",
+        "شروط الإبداع الذاتية والموضوعية"
+      ],
+      "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+      "unit_id": "unit_perception",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 4 من الإشكالية الأولى، يعالج إشكالية تثبيت واسترجاع الصور والقدرة على التركيب التخيلي.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie",
+        "كتاب الفلسفة المدرسي 3 ثانوي آداب وفلسفة"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_05",
+      "order": 5,
+      "title": "العادة والإرادة",
+      "aliases": [
+        "العادة والارادة",
+        "التكيف بين العادة والإرادة",
+        "سلبيات وإيجابيات العادة",
+        "طبيعة الإرادة في السلوك"
+      ],
+      "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+      "unit_id": "unit_perception",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 5 من الإشكالية الأولى. كان مفقوداً في فهرس الدروس القديم بالمنصة وتم دمجه خطأ مع الإحساس والإدراك.",
+      "sources": [
+        "منهاج مادة الفلسفة الصادر عن المفتشية العامة للبيداغوجيا - وزارة التربية الوطنية",
+        "مواضيع بكالوريا الجزائر الرسمية (2012، 2016، 2020، 2024)"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_06",
+      "order": 6,
+      "title": "الأخلاق بين الثوابت والمتغيرات",
+      "aliases": [
+        "الاخلاق بين الثوابت والمتغيرات",
+        "أساس القيمة الأخلاقية",
+        "الأخلاق المطلقة والنسبية",
+        "العقل والمنفعة والمجتمع والدين"
+      ],
+      "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+      "unit_id": "unit_ethics_politics",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 1 من الإشكالية الثانية، يدرس معايير الخير والشر ومصدر الإلزام الأخلاقي.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_07",
+      "order": 7,
+      "title": "الحقوق والواجبات والعدل",
+      "aliases": [
+        "الحقوق والواجبات والعدل",
+        "أسبقية العدالة",
+        "العدل بين المساواة والتفاوت"
+      ],
+      "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+      "unit_id": "unit_ethics_politics",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 2 من الإشكالية الثانية، يعالج إشكالية العدالة الاجتماعية وأسبقية الحقوق أم الواجبات.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_08",
+      "order": 8,
+      "title": "الحرية والمسؤولية",
+      "aliases": [
+        "الحرية والمسؤولية",
+        "الحتمية والحرية",
+        "الجبر والاختيار",
+        "المسؤولية والجزاء (العقاب)"
+      ],
+      "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+      "unit_id": "unit_ethics_politics",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "درس أساسي مقرر لشعبة آداب وفلسفة يتكرر باستمرار في مواضيع شهادة البكالوريا الرسمية.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie",
+        "أرشيف امتحانات شهادة البكالوريا الرسمية - مادة الفلسفة"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_09",
+      "order": 9,
+      "title": "العلاقات الأسرية والحياة الاقتصادية والسياسية",
+      "aliases": [
+        "العلاقات الاسرية والحياة الاقتصادية والسياسية",
+        "الأنظمة الاقتصادية",
+        "الأنظمة السياسية والديمقراطية",
+        "الأسرة والمجتمع"
+      ],
+      "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+      "unit_id": "unit_ethics_politics",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 3 من الإشكالية الثانية، يشمل فلسفة الاقتصاد (الرأسمالية vs الاشتراكية) والسياسة (الديمقراطية الفردية والجماعية).",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_10",
+      "order": 10,
+      "title": "العنف والتسامح",
+      "aliases": [
+        "العنف والتسامح",
+        "مشروعية العنف",
+        "اللاعنف والتسامح الإنساني"
+      ],
+      "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+      "unit_id": "unit_ethics_politics",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "محور في الإشكالية الثانية يدرس ظاهرة العنف الفردي والدولي وحدود التسامح.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_11",
+      "order": 11,
+      "title": "فلسفة الرياضيات",
+      "aliases": [
+        "فلسفة الرياضيات",
+        "أصل المفاهيم الرياضية",
+        "اليقين الرياضي",
+        "الرياضيات الكلاسيكية والمعاصرة"
+      ],
+      "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+      "unit_id": "unit_epistemology",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 1 من الإشكالية الثالثة، مخصص للبحث في نشأة المفاهيم الرياضية والنسق الأكسيوماتي.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_12",
+      "order": 12,
+      "title": "علوم المادة الجامدة وعلوم المادة الحية",
+      "aliases": [
+        "علوم المادة الجامدة و علوم المادة الحية",
+        "المنهج التجريبي",
+        "العلوم التجريبية",
+        "البيولوجيا",
+        "الحتمية واللا حتمية"
+      ],
+      "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+      "unit_id": "unit_epistemology",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 2 من الإشكالية الثالثة، يعالج خطوات المنهج التجريبي وتطبيقه على الكائنات الحية.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    },
+    {
+      "canonical_id": "philo_3as_lp_13",
+      "order": 13,
+      "title": "العلوم الإنسانية",
+      "aliases": [
+        "العلوم الانسانية",
+        "علم التاريخ",
+        "علم الاجتماع",
+        "علم النفس",
+        "إشكالية الموضوعية في الدراسات الإنسانية"
+      ],
+      "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+      "unit_id": "unit_epistemology",
+      "branch": "آداب وفلسفة",
+      "grade": "3AS",
+      "subject": "الفلسفة",
+      "curriculum_status": "official_core",
+      "evidence": "المشكلة 3 من الإشكالية الثالثة، يدرس مدى إمكانية التجريب والموضوعية في دراسة الإنسان.",
+      "sources": [
+        "https://www.dzexams.com/ar/3as/philosophie"
+      ]
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "conf_habit_will_placement",
+      "target": "العادة والإرادة",
+      "source_a": "ملف المشروع السابق data/philosophy.js (مدمج خطأ تحت الإحساس والإدراك ومفقود من الفهرس)",
+      "source_b": "المنهاج الوزاري الرسمي + DzExams + البكالوريا الرسمية (درس مستقل يمثل المشكلة 5 من الإشكالية الأولى)",
+      "resolution": "اعتماد الدرس ككيان رسمي مستقل (canonical_id: philo_3as_lp_05) وفصل كافة فيديوهاته ومقالاته عن درس الإحساس والإدراك.",
+      "confidence": 1,
+      "status": "resolved"
+    },
+    {
+      "conflict_id": "conf_freedom_responsibility_missing",
+      "target": "الحرية والمسؤولية",
+      "source_a": "ملف المشروع السابق data/philosophy.js (غير موجود في قائمة lessons)",
+      "source_b": "المنهاج الوزاري الرسمي لمادة الفلسفة (درس محوري في الإشكالية الثانية)",
+      "resolution": "إدراج الدرس ككيان رسمي مستقل (canonical_id: philo_3as_lp_08).",
+      "confidence": 1,
+      "status": "resolved"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "subject_id": "philosophy",
+  "arabic_name": "الفلسفة",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 6,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - مناهج الفلسفة 3AS آداب وفلسفة",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/philosophie",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/philosophie/lp",
+  "known_teachers": [
+    "عادل مقرود", "خليل سعيداني", "هواري", "فارس", "عبدالحق حمداش",
+    "اسكندر لطفي غربي", "حركات محمد", "فاضل زراط", "بلفضيل", "محمد حمدود",
+    "جدة بوعبدالله", "عبد الرزاق شنوف", "أنور أبو عروة", "بوسعادي", "قادري رياض"
+  ],
+  "search_templates": [
+    "{lesson} فلسفة 3 ثانوي",
+    "{lesson} 3AS آداب وفلسفة",
+    "{lesson} بكالوريا الجزائر",
+    "{lesson} مقالة فلسفية",
+    "{lesson} الأستاذ"
+  ],
+  "validation_rules": {
+    "must_include_any": ["فلسفة", "مقال", "درس", "بكالوريا", "3as", "3 ثانوي"],
+    "disqualifiers": ["رياضيات وتقني", "شعب علمية فقط", "علوم طبيعية"]
+  }
+}

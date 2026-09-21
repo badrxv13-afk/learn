@@ -1,0 +1,23 @@
+{
+  "subject_id": "arabic",
+  "arabic_name": "اللغة العربية",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 6,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - اللغة العربية وآدابها 3AS آداب وفلسفة",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/arabe",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/arabe/lp",
+  "known_teachers": [
+    "حيقون", "خالد حماش", "عقبة", "دكار", "بوشاشية", "محمد بوثليجة", "أبو بكر مبروك", "حواش", "رابح حيقون"
+  ],
+  "search_templates": [
+    "{lesson} لغة عربية 3 ثانوي",
+    "{lesson} أدب عربي بكالوريا",
+    "{lesson} آداب وفلسفة قواعد",
+    "{lesson} الأستاذ"
+  ],
+  "validation_rules": {
+    "must_include_any": ["عربية", "إعراب", "أدب", "قواعد", "بلاغة", "بكالوريا", "3as"],
+    "disqualifiers": ["قرآن كريم تفسير", "ابتدائي", "متوسط"]
+  }
+}

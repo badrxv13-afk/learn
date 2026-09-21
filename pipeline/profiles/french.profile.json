@@ -1,0 +1,23 @@
+{
+  "subject_id": "french",
+  "arabic_name": "اللغة الفرنسية",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 3,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - اللغة الفرنسية 3AS",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/francais",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/francais/lp",
+  "known_teachers": [
+    "عبد الناصر منصوري", "Prof Ouss", "أسامة قونار", "نوري منير", "Mme Boukhatem"
+  ],
+  "search_templates": [
+    "{lesson} francais 3as bac algerie",
+    "{lesson} فرنسية 3 ثانوي بكالوريا",
+    "{lesson} compte rendu bac",
+    "{lesson} الاستاذ"
+  ],
+  "validation_rules": {
+    "must_include_any": ["francais", "français", "فرنسية", "bac", "3as", "compte rendu", "texte historique"],
+    "disqualifiers": ["apprendre francais debutant", "chansons enfants"]
+  }
+}

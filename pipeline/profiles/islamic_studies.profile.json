@@ -1,0 +1,24 @@
+{
+  "subject_id": "islamic",
+  "arabic_name": "العلوم الإسلامية",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 2,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - مناهج العلوم الإسلامية 3AS",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/tarbia-islamia",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/tarbia-islamia/lp",
+  "known_teachers": [
+    "زكريا خرشي", "بلال حرزلاوي", "عبد الحق موسلي", "الدكتور سعدون",
+    "الأستاذة بوسعادي", "شمس الدين", "الدكتور شمس", "عمارة", "نوال", "بورنان"
+  ],
+  "search_templates": [
+    "{lesson} علوم إسلامية 3 ثانوي",
+    "{lesson} تربية إسلامية بكالوريا",
+    "{lesson} زكريا خرشي",
+    "{lesson} الأستاذة بوسعادي"
+  ],
+  "validation_rules": {
+    "must_include_any": ["إسلامية", "قرآن", "عقيدة", "شريعة", "درس", "بكالوريا", "3as"],
+    "disqualifiers": ["موسيقى", "أفلام", "ألعاب"]
+  }
+}

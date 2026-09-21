@@ -1,0 +1,23 @@
+{
+  "subject_id": "math",
+  "arabic_name": "الرياضيات",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 2,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - مناهج الرياضيات 3AS أدبي",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/mathematiques",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/mathematiques/lit",
+  "known_teachers": [
+    "الأستاذ نور الدين", "الأستاذ طايبي", "مصطفاي عبد العزيز", "الأستاذ حيقون",
+    "الأستاذ منصوري", "جوفر", "كمال قروش", "محمد قاسم"
+  ],
+  "search_templates": [
+    "{lesson} رياضيات 3 ثانوي آداب وفلسفة",
+    "{lesson} الأستاذ نور الدين آداب وفلسفة",
+    "{lesson} بكالوريا آداب ولغات"
+  ],
+  "validation_rules": {
+    "must_include_any": ["رياضيات", "متتاليات", "موافقات", "دوال", "إحصاء", "احتمالات", "درس", "بكالوريا", "3as"],
+    "disqualifiers": ["موسيقى", "أفلام", "ألعاب"]
+  }
+}

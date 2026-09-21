@@ -1,0 +1,24 @@
+{
+  "subject_id": "history",
+  "arabic_name": "التاريخ والجغرافيا",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 4,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - مناهج التاريخ والجغرافيا 3AS",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/histoire-geographie",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/histoire-geographie/lp",
+  "known_teachers": [
+    "الأستاذ قنشوبة", "الأستاذ بورنان", "بورنان عمار", "بلحاج عيسى", "أمين قرازم",
+    "عبدوش", "بوشيخي", "سعدون", "أكاديمية الرفيق"
+  ],
+  "search_templates": [
+    "{lesson} تاريخ وجغرافيا 3 ثانوي",
+    "{lesson} الأستاذ قنشوبة",
+    "{lesson} الأستاذ بورنان",
+    "{lesson} بكالوريا آداب وفلسفة"
+  ],
+  "validation_rules": {
+    "must_include_any": ["تاريخ", "جغرافيا", "حرب باردة", "ثورة", "صراع", "اقتصاد", "درس", "بكالوريا", "3as"],
+    "disqualifiers": ["موسيقى", "أفلام", "ألعاب"]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "subject_id": "english",
+  "arabic_name": "اللغة الإنجليزية",
+  "grade": "3AS",
+  "branch": "آداب وفلسفة",
+  "coefficient": 3,
+  "curriculum_source": "وزارة التربية الوطنية الجزائرية - اللغة الإنجليزية 3AS",
+  "dzexams_base": "https://www.dzexams.com/ar/3as/anglais",
+  "dzexams_bac": "https://www.dzexams.com/ar/bac/anglais/lp",
+  "known_teachers": [
+    "الأستاذ ناصري", "Prof Cherif", "Mme Samah", "Miss English Bac"
+  ],
+  "search_templates": [
+    "{lesson} english 3as bac algerie",
+    "{lesson} إنجليزية 3 ثانوي بكالوريا",
+    "{lesson} الاستاذ ناصري",
+    "{lesson} الاستاذ"
+  ],
+  "validation_rules": {
+    "must_include_any": ["english", "إنجليزية", "انجليزية", "bac", "3as", "ancient civilizations", "ethics in business"],
+    "disqualifiers": ["learn english from zero", "nursery rhymes"]
+  }
+}

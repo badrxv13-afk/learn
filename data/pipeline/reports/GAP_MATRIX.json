@@ -1,0 +1,1302 @@
+{
+  "philo_3as_lp_01": {
+    "canonical_id": "philo_3as_lp_01",
+    "title": "الإحساس والإدراك",
+    "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_02": {
+    "canonical_id": "philo_3as_lp_02",
+    "title": "اللغة والفكر",
+    "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_03": {
+    "canonical_id": "philo_3as_lp_03",
+    "title": "الشعور واللاشعور",
+    "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_04": {
+    "canonical_id": "philo_3as_lp_04",
+    "title": "الذاكرة والخيال",
+    "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_05": {
+    "canonical_id": "philo_3as_lp_05",
+    "title": "العادة والإرادة",
+    "problematic": "الإشكالية الأولى: في إدراك العالم الخارجي",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_06": {
+    "canonical_id": "philo_3as_lp_06",
+    "title": "الأخلاق بين الثوابت والمتغيرات",
+    "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_07": {
+    "canonical_id": "philo_3as_lp_07",
+    "title": "الحقوق والواجبات والعدل",
+    "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_08": {
+    "canonical_id": "philo_3as_lp_08",
+    "title": "الحرية والمسؤولية",
+    "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_09": {
+    "canonical_id": "philo_3as_lp_09",
+    "title": "العلاقات الأسرية والحياة الاقتصادية والسياسية",
+    "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_10": {
+    "canonical_id": "philo_3as_lp_10",
+    "title": "العنف والتسامح",
+    "problematic": "الإشكالية الثانية: في الأخلاق والسياسة والحياة المعاشية",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_11": {
+    "canonical_id": "philo_3as_lp_11",
+    "title": "فلسفة الرياضيات",
+    "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_12": {
+    "canonical_id": "philo_3as_lp_12",
+    "title": "علوم المادة الجامدة وعلوم المادة الحية",
+    "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  },
+  "philo_3as_lp_13": {
+    "canonical_id": "philo_3as_lp_13",
+    "title": "العلوم الإنسانية",
+    "problematic": "الإشكالية الثالثة: في فلسفة العلوم (الابستمولوجيا)",
+    "counts": {
+      "video": 0,
+      "course": 0,
+      "summary": 0,
+      "article": 0,
+      "methodology": 0,
+      "exercise": 0,
+      "exam": 0,
+      "exam_solution": 0,
+      "quote": 0,
+      "concept": 0,
+      "revision": 0
+    },
+    "targets": {
+      "video": 3,
+      "course": 1,
+      "summary": 1,
+      "article": 2,
+      "methodology": 1,
+      "exercise": 2,
+      "exam": 1,
+      "exam_solution": 1,
+      "quote": 2,
+      "concept": 2,
+      "revision": 1
+    },
+    "gaps": [
+      {
+        "type": "video",
+        "current": 0,
+        "required": 3,
+        "deficit": 3
+      },
+      {
+        "type": "course",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "summary",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "article",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "methodology",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exercise",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "exam",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "exam_solution",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      },
+      {
+        "type": "quote",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "concept",
+        "current": 0,
+        "required": 2,
+        "deficit": 2
+      },
+      {
+        "type": "revision",
+        "current": 0,
+        "required": 1,
+        "deficit": 1
+      }
+    ],
+    "coverage_score": 0
+  }
+}
