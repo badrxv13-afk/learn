@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>منصة ألماد التعليمية</title>
+  <title>mordix_ai — منصة التعليم الجزائرية</title>
+  <link rel="icon" type="image/jpeg" href="images.jfif" />
   
   <!-- Google Fonts: Alexandria & Cairo for sharp modern Arabic typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,53 +54,48 @@
   <!-- ==================== TOP NAVIGATION BAR ==================== -->
   <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50">
     
-    <!-- Upper slim bar matching image: مرحبًا بك في منصة ألماد on right -->
+    <!-- Upper slim bar: مرحبًا بك في mordix_ai -->
     <div class="border-b border-slate-100 bg-slate-50/50 py-1.5 px-4 sm:px-8 text-xs font-semibold text-slate-500 flex items-center justify-between">
-      <span class="text-slate-700 font-bold">مرحبًا بك في منصة ألماد</span>
+      <span class="text-slate-700 font-bold">مرحبًا بك في mordix_ai</span>
       <span class="text-[11px] text-slate-400">بوابة التحضير للبكالوريا والتعليم الثانوي</span>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-2 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo (Pure SVG, No Emojis) -->
-      <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
-          <svg class="w-5 h-5 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
-            <path d="M6 6h10"></path>
-            <path d="M6 10h10"></path>
-            <path d="M8 18h12"></path>
-          </svg>
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="handleBrandLogoClick()">
+        <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-sm shrink-0">
+          <img src="images.jfif" alt="mordix_ai" class="w-full h-full object-contain p-0.5" />
         </div>
         <div>
-          <span class="text-lg font-bold tracking-tight text-slate-900 block leading-tight font-heading">منصة ألماد</span>
+          <span class="text-lg font-bold tracking-tight text-slate-900 block leading-tight font-heading">mordix_ai</span>
           <span class="text-[11px] font-medium text-slate-500">منصة تعليمية متكاملة</span>
         </div>
       </div>
 
       <!-- Navigation Tabs (Exact match to uploaded screenshot: Home, حسابي, اشتراكاتي, المواد) -->
-      <nav id="header-nav-tabs" class="flex items-center gap-1 sm:gap-2">
+      <nav id="header-nav-tabs" class="flex items-center gap-1 sm:gap-2" aria-label="شريط التنقل الرئيسي">
         
         <!-- Home icon button -->
-        <button onclick="backToSubjects()" title="الرئيسية" class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-brand-700 hover:bg-slate-100 transition-colors cursor-pointer">
+        <button onclick="backToSubjects()" title="الرئيسية" aria-label="الرئيسية" class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-brand-700 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer">
           <svg class="w-5 h-5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </button>
 
-        <!-- حسابي -->
-        <button onclick="showAccountNotice()" class="nav-tab-item">
+        <!-- حسابي (الإعدادات) -->
+        <button id="tab-account" onclick="openStudentSettings()" class="nav-tab-item" title="حساب الطالب والإعدادات">
           <span>حسابي</span>
         </button>
 
         <!-- اشتراكاتي -->
-        <button onclick="showSubscriptionsNotice()" class="nav-tab-item">
+        <button id="tab-subs" onclick="showSubscriptionsNotice()" class="nav-tab-item" title="تفاصيل الاشتراك">
           <span>اشتراكاتي</span>
         </button>
 
         <!-- المواد (Active Tab) -->
-        <button onclick="backToSubjects()" id="tab-subjects" class="nav-tab-item active">
+        <button onclick="backToSubjects()" id="tab-subjects" class="nav-tab-item active" title="فضاء المواد المقررة">
           <span>المواد</span>
         </button>
 
@@ -112,8 +108,15 @@
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          <span>محمد محمد</span>
+          <span id="header-student-name">—</span>
         </div>
+        <!-- Settings / Profile button -->
+        <button onclick="openStudentSettings()" title="الإعدادات الشخصية" class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-brand-700 hover:bg-slate-100 transition-colors cursor-pointer border border-slate-200">
+          <svg class="w-4.5 h-4.5 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+          </svg>
+        </button>
         <button id="btn-restart" onclick="resetToHome()" class="text-xs font-semibold text-slate-600 hover:text-brand-700 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 border border-slate-200 cursor-pointer">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
@@ -128,6 +131,76 @@
 
   <!-- ==================== MAIN CONTENT ==================== -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex flex-col justify-center">
+
+    <!-- ==================== ONBOARDING SCREEN (First visit only) ==================== -->
+    <div id="screen-onboarding" class="hidden max-w-lg w-full mx-auto animate-fadeIn">
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500"></div>
+
+        <!-- Brand Badge -->
+        <div class="text-center mb-8">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white border-2 border-slate-200 shadow-md flex items-center justify-center mx-auto mb-4 overflow-hidden p-1.5">
+            <img src="images.jfif" alt="mordix_ai" class="w-full h-full object-contain" />
+          </div>
+          <span class="inline-block text-xs font-bold text-brand-700 tracking-wider bg-brand-50 px-3 py-1.5 rounded-full border border-brand-100 mb-3">mordix_ai</span>
+          <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading mb-2">مرحباً بك في المنصة</h1>
+          <p class="text-slate-500 text-sm">أدخل اسمك واختر شعبتك مرة واحدة — mordix_ai يتذكرهما تلقائياً</p>
+        </div>
+
+        <!-- Name Input -->
+        <div class="mb-6">
+          <label class="block text-sm font-bold text-slate-700 mb-2" for="onboarding-name-input">اسمك الأول</label>
+          <input
+            id="onboarding-name-input"
+            type="text"
+            maxlength="40"
+            placeholder="مثال: أحمد"
+            dir="rtl"
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-sm focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20 transition-all placeholder:text-slate-400"
+            oninput="onboardingValidate()"
+          />
+        </div>
+
+        <!-- Branch Selection -->
+        <div class="mb-8">
+          <label class="block text-sm font-bold text-slate-700 mb-3">شعبتك الدراسية</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="onboarding-branch-grid">
+            <button type="button" onclick="onboardingSelectBranch('آداب وفلسفة')" data-ob-branch="آداب وفلسفة"
+              class="onboarding-branch-card relative p-3 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-slate-800">آداب وفلسفة</span>
+                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-md">متاح الآن</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">الثالثة ثانوي — المسار الأدبي</p>
+            </button>
+            <button type="button" onclick="onboardingSelectBranch('علوم تجريبية')" data-ob-branch="علوم تجريبية"
+              class="onboarding-branch-card relative p-3 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <span class="text-sm font-bold text-slate-800">علوم تجريبية</span>
+              <p class="text-xs text-slate-500 mt-0.5">الثالثة ثانوي</p>
+            </button>
+            <button type="button" onclick="onboardingSelectBranch('رياضيات')" data-ob-branch="رياضيات"
+              class="onboarding-branch-card relative p-3 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <span class="text-sm font-bold text-slate-800">رياضيات</span>
+              <p class="text-xs text-slate-500 mt-0.5">الثالثة ثانوي</p>
+            </button>
+            <button type="button" onclick="onboardingSelectBranch('تسيير واقتصاد')" data-ob-branch="تسيير واقتصاد"
+              class="onboarding-branch-card relative p-3 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <span class="text-sm font-bold text-slate-800">تسيير واقتصاد</span>
+              <p class="text-xs text-slate-500 mt-0.5">الثالثة ثانوي</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button id="onboarding-submit-btn" onclick="onboardingSubmit()" disabled
+          class="w-full py-3.5 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm transition-all shadow-md shadow-brand-700/25 disabled:opacity-40 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+          <span>الدخول إلى mordix_ai</span>
+        </button>
+      </div>
+    </div>
 
     <!-- ==================== WIZARD / ONBOARDING WRAPPER ==================== -->
     <div id="wizard-container" class="max-w-3xl w-full mx-auto">
@@ -442,11 +515,11 @@
           <div>
             <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-brand-300 bg-brand-900/60 border border-brand-700/50 px-3.5 py-1.5 rounded-full mb-4">
               <span class="w-2 h-2 rounded-full bg-brand-400"></span>
-              <span>مرحبًا بـك في منصة ألماد</span>
+              <span>مرحبًا بـك في mordix_ai</span>
             </div>
             
             <h1 class="text-2xl sm:text-4xl font-extrabold text-white font-heading tracking-tight mb-3 leading-snug">
-              مرحبًا بـك <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-300 to-sky-200">"محمد محمد"</span> في منصة ألماد
+              مرحباً بـك <span id="dashboard-student-name" class="text-transparent bg-clip-text bg-gradient-to-l from-brand-300 to-sky-200"></span> في mordix_ai
             </h1>
             
             <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
@@ -455,7 +528,7 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-3">
-            <button onclick="resetToHome()" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-white/15 transition-all backdrop-blur-sm cursor-pointer">
+            <button onclick="openStudentSettings()" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2.5 rounded-xl border border-white/15 transition-all backdrop-blur-sm cursor-pointer" title="تغيير الشعبة أو الاسم">
               <svg class="w-4 h-4 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
@@ -493,7 +566,7 @@
           </div>
           <div>
             <span class="text-xs font-semibold text-slate-400 block mb-0.5">الشعبة المسجلة</span>
-            <span class="text-base font-bold text-slate-800">آداب وفلسفة</span>
+            <span id="dashboard-branch-name" class="text-base font-bold text-slate-800">آداب وفلسفة</span>
           </div>
         </div>
 
@@ -532,7 +605,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- 1. الفلسفة (مع رابط مباشر لفهرس الدروس الـ 10) -->
-          <div onclick="openSubjectDetail('الفلسفة')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-brand-300 hover:border-brand-600 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer bg-gradient-to-b from-brand-50/30 to-white">
+          <div onclick="openSubjectDetail('الفلسفة')" data-subject="الفلسفة" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-brand-300 hover:border-brand-600 shadow-md hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer bg-gradient-to-b from-brand-50/30 to-white">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -569,7 +642,7 @@
           </div>
 
           <!-- 2. العلوم الإسلامية -->
-          <div onclick="openSubjectDetail('العلوم الإسلامية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-teal-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('العلوم الإسلامية')" data-subject="العلوم الإسلامية" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-teal-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 border border-teal-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -599,7 +672,7 @@
           </div>
 
           <!-- 3. التاريخ والجغرافيا -->
-          <div onclick="openSubjectDetail('التاريخ والجغرافيا')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('التاريخ والجغرافيا')" data-subject="التاريخ والجغرافيا" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -630,7 +703,7 @@
           </div>
 
           <!-- 4. اللغة الإنجليزية -->
-          <div onclick="openSubjectDetail('اللغة الإنجليزية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-indigo-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('اللغة الإنجليزية')" data-subject="اللغة الإنجليزية" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-indigo-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -660,7 +733,7 @@
           </div>
 
           <!-- 5. اللغة الفرنسية -->
-          <div onclick="openSubjectDetail('اللغة الفرنسية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('اللغة الفرنسية')" data-subject="اللغة الفرنسية" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-700 border border-violet-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -692,7 +765,7 @@
           </div>
 
           <!-- 6. اللغة العربية -->
-          <div onclick="openSubjectDetail('اللغة العربية')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('اللغة العربية')" data-subject="اللغة العربية" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -723,7 +796,7 @@
           </div>
 
           <!-- 7. الرياضيات -->
-          <div onclick="openSubjectDetail('الرياضيات')" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-rose-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+          <div onclick="openSubjectDetail('الرياضيات')" data-subject="الرياضيات" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-rose-500 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-700 border border-rose-100 flex items-center justify-center group-hover:scale-105 transition-transform">
                 <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -786,11 +859,11 @@
             <span class="font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
 
-          <!-- مرحبًا بك "محمد محمد" في منصة ألماد -->
+          <!-- شارة الترحيب بالطالب في mordix_ai -->
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
 
         </div>
@@ -938,7 +1011,7 @@
           <!-- الشعبة: آداب وفلسفة -->
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
 
           <!-- المستوى: الثالثة ثانوي -->
@@ -947,11 +1020,11 @@
             <span class="font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
 
-          <!-- مرحبًا بك "محمد محمد" في منصة ألماد -->
+          <!-- شارة الترحيب بالطالب في mordix_ai -->
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
 
         </div>
@@ -1014,7 +1087,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1022,8 +1095,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1110,7 +1183,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1118,8 +1191,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1182,7 +1255,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1190,8 +1263,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1335,7 +1408,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1343,8 +1416,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1407,7 +1480,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1415,8 +1488,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1499,7 +1572,7 @@
         <div class="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 mb-8 pl-20 sm:pl-28">
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs flex items-center gap-1.5">
             <span class="text-slate-500">الشعبة:</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
+            <span class="student-display-branch bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
@@ -1507,8 +1580,8 @@
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
-            <span class="font-bold text-slate-900 mx-1">"محمد محمد"</span>
-            <span>في منصة ألماد</span>
+            <span class="student-display-name font-bold text-slate-900 mx-1">"طالب"</span>
+            <span>في mordix_ai</span>
           </div>
         </div>
 
@@ -1823,6 +1896,68 @@
     </div>
   </div>
 
+  <!-- ==================== STUDENT SETTINGS MODAL ==================== -->
+  <div id="student-settings-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative animate-fadeIn">
+      <div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-brand-600 to-accent-500 rounded-t-3xl"></div>
+
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">الإعدادات الشخصية</h3>
+          <p class="text-xs text-slate-500 mt-0.5">mordix_ai يحفظ بياناتك محلياً فقط — لا حسابات ولا خوادم</p>
+        </div>
+        <button onclick="closeStudentSettings()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors cursor-pointer">
+          <svg class="w-4 h-4 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Name field -->
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-slate-700 mb-1.5" for="settings-name-input">الاسم</label>
+        <input
+          id="settings-name-input"
+          type="text"
+          maxlength="40"
+          dir="rtl"
+          placeholder="اسمك الأول"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-sm focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20 transition-all placeholder:text-slate-400"
+        />
+      </div>
+
+      <!-- Branch field -->
+      <div class="mb-6">
+        <label class="block text-sm font-bold text-slate-700 mb-1.5" for="settings-branch-select">الشعبة</label>
+        <select id="settings-branch-select"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-sm focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20 transition-all cursor-pointer" dir="rtl">
+          <option value="آداب وفلسفة">آداب وفلسفة</option>
+          <option value="علوم تجريبية">علوم تجريبية</option>
+          <option value="رياضيات">رياضيات</option>
+          <option value="تسيير واقتصاد">تسيير واقتصاد</option>
+          <option value="تقني رياضي">تقني رياضي</option>
+          <option value="لغات أجنبية">لغات أجنبية</option>
+        </select>
+      </div>
+
+      <!-- Save + Reset -->
+      <div class="flex flex-col gap-3">
+        <button onclick="saveStudentSettings()" class="w-full py-3 rounded-xl bg-brand-700 hover:bg-brand-800 text-white font-bold text-sm transition-all shadow-md cursor-pointer">
+          حفظ التغييرات
+        </button>
+        <button onclick="confirmResetStudentProfile()" class="w-full py-2.5 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 font-semibold text-sm transition-all cursor-pointer flex items-center justify-center gap-2">
+          <svg class="w-3.5 h-3.5 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <path d="M10 11v6M14 11v6"></path>
+          </svg>
+          <span>إعادة ضبط البيانات المحلية</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== NOTICE MODAL ==================== -->
   <div id="notice-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 border border-slate-200 shadow-2xl relative text-center">
@@ -1844,10 +1979,10 @@
   <footer class="bg-white border-t border-slate-200 py-6 mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
       <div class="flex items-center gap-2">
-        <div class="w-5 h-5 rounded-md bg-brand-700 text-white flex items-center justify-center text-[10px] font-bold">
-          أ
+        <div class="w-6 h-6 rounded-md bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-xs">
+          <img src="images.jfif" alt="mordix_ai" class="w-full h-full object-contain p-0.5" />
         </div>
-        <span>حقوق النشر © 2026 منصة ألماد التعليمية</span>
+        <span>حقوق النشر © 2026 mordix_ai</span>
       </div>
       <div>
         <span>كل الحقوق محفوظة</span>

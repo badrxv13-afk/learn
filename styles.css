@@ -1,36 +1,104 @@
 /* ============================================================
-   منصة ألماد التعليمية - ملف التنسيقات الأنيقة (Styles)
-   تصميم نظيف واحترافي بدون أي رموز تعبيرية (No Emojis)
+   mordix_ai — ملف التنسيقات ونظام التصميم عالي الوضوح والحدة (High-Contrast Design System)
+   تصميم تعليمي عصري، عالي التباين والحدة، فائق الوضوح وبدون أي إيموجيات
 ============================================================ */
 
-/* استيراد الخطوط إن تعذر الاتصال بالإنترنت */
+/* متغيرات التصميم الموحدة (Design Tokens) */
+:root {
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-200: #bae0fd;
+  --color-brand-300: #7cc7fb;
+  --color-brand-400: #38a9f7;
+  --color-brand-500: #0e8ce6;
+  --color-brand-600: #026fc5;
+  --color-brand-700: #03589f;
+  --color-brand-800: #074b83;
+  --color-brand-900: #0c3f6e;
+  --color-brand-950: #082849;
+
+  --color-accent-teal: #0d9488;
+  --color-accent-emerald: #059669;
+  --color-accent-amber: #d97706;
+  --color-accent-red: #dc2626;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 18px 36px -6px rgba(2, 111, 197, 0.22), 0 8px 16px -3px rgba(15, 23, 42, 0.08);
+  --shadow-active: 0 0 0 3px rgba(2, 111, 197, 0.3), 0 12px 28px -5px rgba(2, 111, 197, 0.28);
+
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ضبط الخطوط وتحسين الرندر */
 @layer base {
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* إمكانية الوصول: مؤشر تركيز حاد وواضح للملاحة بلوحة المفاتيح */
+  :focus-visible {
+    outline: 2.5px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
   }
 }
 
-/* بطاقات الاختيار التفاعلية (Selection Cards) */
-.selection-card {
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+/* ============================================================
+   1. أزرار تفاعلية حادة التباين (High-Contrast Buttons)
+============================================================ */
+.btn-interactive {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
   user-select: none;
 }
 
+.btn-interactive:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.btn-interactive:active {
+  transform: scale(0.97) translateY(1px);
+}
+
+/* ============================================================
+   2. بطاقات الاختيار التفاعلية (Selection Cards) — حادة وواضحة
+============================================================ */
+.selection-card {
+  transition: all var(--transition-normal);
+  user-select: none;
+  border-width: 2px !important;
+}
+
 .selection-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  border-color: var(--color-brand-600) !important;
+  background-color: var(--color-brand-50) !important;
+  box-shadow: 0 10px 25px -5px rgba(2, 111, 197, 0.22) !important;
 }
 
 .selection-card.active {
-  border-color: #03589f !important;
-  background-color: #f0f7ff !important;
-  box-shadow: 0 10px 25px -5px rgba(2, 111, 197, 0.15), 0 8px 10px -6px rgba(2, 111, 197, 0.1) !important;
+  border-color: var(--color-brand-700) !important;
+  border-width: 2.5px !important;
+  background-color: #dbeafe !important;
+  box-shadow: 0 0 0 3.5px rgba(3, 88, 159, 0.25), 0 12px 28px -5px rgba(3, 88, 159, 0.28) !important;
 }
 
 .selection-card.active .card-radio {
-  border-color: #03589f !important;
-  background-color: #03589f !important;
+  border-color: var(--color-brand-700) !important;
+  background-color: var(--color-brand-700) !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.5px var(--color-brand-700) !important;
 }
 
 .selection-card.active .card-radio-inner {
@@ -38,20 +106,75 @@
 }
 
 .selection-card.active h3 {
-  color: #03589f !important;
+  color: var(--color-brand-900) !important;
+  font-weight: 800 !important;
 }
 
-/* بطاقات المواد في الداشبورد */
-.subject-card {
-  transition: all 0.25s ease;
+/* بطاقات اختيار الشعبة في شاشة الإعداد الأول (Onboarding Branch Cards) */
+.onboarding-branch-card {
+  transition: all var(--transition-normal);
+  user-select: none;
+  border-width: 2px !important;
 }
 
-.subject-card:hover {
-  transform: translateY(-3px);
+.onboarding-branch-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-brand-600) !important;
+  background-color: #f0f7ff !important;
+  box-shadow: 0 6px 18px -3px rgba(2, 111, 197, 0.16) !important;
+}
+
+.onboarding-branch-card.is-selected-branch {
+  border-color: var(--color-brand-700) !important;
+  border-width: 2.5px !important;
+  background-color: #dbeafe !important;
+  box-shadow: 0 0 0 3px rgba(3, 88, 159, 0.3), 0 10px 24px -4px rgba(3, 88, 159, 0.25) !important;
+}
+
+.onboarding-branch-card.is-selected-branch span {
+  color: var(--color-brand-950) !important;
 }
 
 /* ============================================================
-   شريط الزاوية المائل (5 ساعات - Corner Ribbon)
+   3. بطاقات المواد في لوحة التحكم (Subject Cards) — حدة وتباين عالي
+============================================================ */
+.subject-card {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal), background var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  border-width: 2px !important;
+}
+
+.subject-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-brand-600) !important;
+  box-shadow: 0 16px 32px -4px rgba(2, 111, 197, 0.22) !important;
+}
+
+.subject-card:active {
+  transform: translateY(-1px);
+}
+
+/* تمييز المادة النشطة حالياً بحدة تامة */
+.subject-card.is-active-subject {
+  border-color: var(--color-brand-700) !important;
+  border-width: 2.5px !important;
+  background-color: #e0effe !important;
+  box-shadow: 0 0 0 3.5px rgba(3, 88, 159, 0.28), 0 16px 36px -6px rgba(3, 88, 159, 0.28) !important;
+}
+
+.subject-card.is-active-subject::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  background: var(--color-brand-700);
+}
+
+/* ============================================================
+   4. شريط الزاوية المائل (Corner Ribbon)
 ============================================================ */
 .corner-ribbon-wrap {
   width: 160px;
@@ -83,138 +206,265 @@
 }
 
 /* ============================================================
-   أزرار أقسام المادة الخمسة (الدروس، ملخصات، امتحانات...)
+   5. أزرار أقسام المادة الخمسة (Category Cards)
 ============================================================ */
 .category-card {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1.25rem;
-  box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
 }
 
 .category-card:hover {
   transform: translateY(-4px);
-  border-color: #cbd5e1;
-  box-shadow: 0 20px 30px -8px rgba(15, 23, 42, 0.12), 0 8px 12px -3px rgba(15, 23, 42, 0.05);
+  border-color: var(--color-brand-600) !important;
+  box-shadow: var(--shadow-card-hover);
+}
+
+.category-card:active {
+  transform: translateY(-1px);
 }
 
 .category-badge-circle {
-  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.12);
+  transition: transform var(--transition-normal);
 }
 
 .category-card:hover .category-badge-circle {
-  transform: scale(1.12);
+  transform: scale(1.1);
 }
 
 /* ============================================================
-   صفوف فهرس الدروس (Lesson Rows - مطابقة للصورة بدقة)
+   6. صفوف فهرس الدروس (Lesson Rows) — تباين حاد جداً
 ============================================================ */
 .lesson-row-card {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.875rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal), background-color var(--transition-normal);
   cursor: pointer;
 }
 
 .lesson-row-card:hover {
-  background-color: #ffffff;
-  border-color: #cbd5e1;
+  background-color: #f0f7ff;
+  border-color: var(--color-brand-600) !important;
+  border-right-width: 5px !important;
+  border-right-color: var(--color-brand-600) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 24px -4px rgba(2, 111, 197, 0.18);
+}
+
+.lesson-row-card:active {
+  transform: translateY(0);
+}
+
+/* حالة الدرس المختار بحدة تامة */
+.lesson-row-card.is-active-lesson {
+  border: 2px solid var(--color-brand-700) !important;
+  border-right-width: 7px !important;
+  border-right-color: var(--color-brand-800) !important;
+  background-color: #dbeafe !important;
+  box-shadow: 0 0 0 2.5px rgba(3, 88, 159, 0.25), 0 8px 24px -4px rgba(3, 88, 159, 0.25) !important;
+}
+
+.lesson-row-card.is-active-lesson h3 {
+  color: var(--color-brand-950) !important;
+  font-weight: 800 !important;
 }
 
 .stat-pill {
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: border-color 0.2s;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-subtle);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .lesson-row-card:hover .stat-pill {
-  border-color: #cbd5e1;
+  border-color: #94a3b8;
+  background-color: #ffffff;
 }
 
 /* ============================================================
-   بطاقات خيارات الدرس (فيديو الدرس / تمارين)
+   7. بطاقات خيارات الدرس (فيديو الدرس / تمارين)
 ============================================================ */
 .lesson-action-btn {
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-  border: 1px solid #cbd5e1;
-  border-radius: 1.25rem;
-  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
   position: relative;
   cursor: pointer;
 }
 
 .lesson-action-btn:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 30px -8px rgba(15, 23, 42, 0.15);
-  border-color: #94a3b8;
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-brand-600) !important;
 }
 
-/* بطاقات الفيديوهات والتمارين */
+.lesson-action-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   8. بطاقات الفيديوهات والتمارين (Video & Exercise Cards) — حادة التباين
+============================================================ */
 .video-item-card {
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.875rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid #cbd5e1;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
   cursor: pointer;
 }
 
 .video-item-card:hover {
-  border-color: #ef4444;
-  background-color: #fef2f2;
-  transform: translateX(-3px);
-  box-shadow: 0 6px 16px -3px rgba(239, 68, 68, 0.12);
+  border-color: #dc2626 !important;
+  border-right-width: 5px !important;
+  border-right-color: #dc2626 !important;
+  background-color: #fef2f2 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -4px rgba(220, 38, 38, 0.2);
+}
+
+.video-item-card:active {
+  transform: translateY(0);
+}
+
+/* حالة الفيديو قيد التشغيل بحدة تامة */
+.video-item-card.is-active-video {
+  border: 2px solid #dc2626 !important;
+  border-right-width: 7px !important;
+  border-right-color: #991b1b !important;
+  background-color: #fee2e2 !important;
+  box-shadow: 0 0 0 2.5px rgba(220, 38, 38, 0.25), 0 8px 24px -3px rgba(220, 38, 38, 0.28) !important;
 }
 
 .exercise-item-card {
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid #e2e8f0;
-  border-radius: 0.875rem;
-  transition: all 0.2s ease;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
   cursor: pointer;
 }
 
 .exercise-item-card:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-brand-600) !important;
+  border-right-width: 4px !important;
+  border-right-color: var(--color-brand-600) !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15);
+  box-shadow: var(--shadow-card-hover);
 }
 
-/* علامات تبويب علوية تشبه نمط المتصفح/المنصة (Navigation Tabs) */
+.exercise-item-card:active {
+  transform: translateY(0);
+}
+
+/* بطاقات الموارد في الفهرس الشامل */
+.resource-card {
+  border-width: 1.5px !important;
+  border-color: #cbd5e1 !important;
+  transition: all var(--transition-normal);
+}
+
+.resource-card:hover {
+  border-color: var(--color-brand-600) !important;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ============================================================
+   9. علامات التبويب العلوية (Tabs) — حادة، بارزة وقاطعة الوضوح
+============================================================ */
 .nav-tab-item {
   position: relative;
   padding: 8px 18px;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #64748b;
-  transition: all 0.2s ease;
-  border-bottom: 2px solid transparent;
+  font-weight: 700;
+  color: #334155;
+  border: 1.5px solid transparent;
+  transition: all var(--transition-fast);
   cursor: pointer;
+  border-radius: 9999px;
+  user-select: none;
 }
 
-.nav-tab-item:hover {
-  color: #026fc5;
+.nav-tab-item:hover:not(.active) {
+  color: var(--color-brand-800);
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
+/* التبويب النشط: تباين عالي كـ Pill أزرق واضح تماماً */
 .nav-tab-item.active {
-  color: #026fc5;
-  border-bottom-color: #026fc5;
-  background-color: rgba(2, 111, 197, 0.04);
-  border-radius: 8px 8px 0 0;
+  color: #ffffff !important;
+  background: var(--color-brand-700) !important;
+  border-color: var(--color-brand-800) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 14px -2px rgba(3, 88, 159, 0.5) !important;
 }
 
-/* تأثير الظهور السلس */
+/* مسار التوجيه المرن والأنيق (Breadcrumbs) */
+.breadcrumb-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.breadcrumb-link {
+  color: #475569;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.breadcrumb-link:hover {
+  color: var(--color-brand-800);
+}
+
+.breadcrumb-current {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+/* ============================================================
+   10. تحسينات التجاوب على الهواتف والأجهزة اللوحية (Mobile Polish)
+============================================================ */
+@media (max-width: 640px) {
+  button, a.button, .btn-touch {
+    min-height: 40px;
+  }
+
+  .corner-ribbon-wrap {
+    width: 120px;
+    height: 120px;
+  }
+  .corner-ribbon {
+    width: 160px;
+    font-size: 0.75rem;
+    padding: 5px 0;
+    left: -42px;
+    top: 22px;
+  }
+
+  .selection-card {
+    padding: 1rem !important;
+  }
+}
+
+/* ============================================================
+   11. تأثير الظهور السلس ومؤشرات الحركة (Animations)
+============================================================ */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -223,13 +473,13 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* تخصيص شريط التمرير */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -237,10 +487,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #94a3b8;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #64748b;
 }

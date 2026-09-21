@@ -7,7 +7,9 @@ const tests = [
   'pipeline/validators/browser_runtime_test.js',
   'pipeline/validators/resource_registry_integrity_test.js',
   'pipeline/validators/resource_ui_integration_test.js',
-  'pipeline/validators/youtube_embed_test.js'
+  'pipeline/validators/youtube_embed_test.js',
+  'pipeline/validators/student_profile_test.js',
+  'pipeline/validators/ui_ux_polish_test.js'
 ];
 
 const nodeCmd = 'C:/Users/mad/AppData/Roaming/Antigravity/bin/agy-node.cmd';

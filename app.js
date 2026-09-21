@@ -1,5 +1,5 @@
 /**
- * منصة ألماد التعليمية - محرك التطبيق العام (Application Core Engine)
+ * mordix_ai — محرك التطبيق العام (Application Core Engine)
  * يدعم التوسع الديناميكي لكافة المواد والشعب والدروس
  * بدون أي إيموجيات (Zero Emojis)
  */
@@ -57,13 +57,268 @@ const activeSubjectBadge = document.getElementById('active-subject-badge');
 const lessonsListContainer = document.getElementById('lessons-list-container');
 const channelsVideosContainer = document.getElementById('channels-videos-container');
 
+// ============================================================
+// نظام ملف الطالب المحلي (Student Profile — localStorage only)
+// المفتاح: mordix_ai_student
+// لا حسابات — لا خوادم — لا بيانات حساسة
+// ============================================================
+
+const STUDENT_KEY = 'mordix_ai_student';
+
+const StudentProfile = {
+  /** قراءة الملف الكامل من localStorage أو null */
+  load() {
+    try {
+      const raw = localStorage.getItem(STUDENT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.initialized) return parsed;
+      return null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  /** حفظ البيانات في localStorage */
+  save(name, branch) {
+    try {
+      const profile = {
+        version: 1,
+        initialized: true,
+        name: (name || '').trim(),
+        branch: (branch || 'آداب وفلسفة').trim()
+      };
+      localStorage.setItem(STUDENT_KEY, JSON.stringify(profile));
+      return profile;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  /** حذف مفتاح mordix_ai_student فقط — لا يمس البيانات التعليمية */
+  reset() {
+    try {
+      if (typeof localStorage !== 'undefined') {
+        if (typeof localStorage.removeItem === 'function') {
+          localStorage.removeItem(STUDENT_KEY);
+        } else {
+          delete localStorage[STUDENT_KEY];
+        }
+      }
+    } catch (e) {}
+  },
+
+  /** تطبيق البيانات على عناصر الواجهة */
+  applyToUI(profile) {
+    if (!profile) return;
+    const displayName = profile.name || 'طالب';
+
+    // شريط الهيدر
+    const headerBadge = document.getElementById('user-badge');
+    const headerName = document.getElementById('header-student-name');
+    if (headerName) headerName.textContent = displayName;
+    if (headerBadge) headerBadge.classList.remove('hidden');
+
+    // لوحة التحكم — الترحيب الرئيسي
+    const dashName = document.getElementById('dashboard-student-name');
+    if (dashName) dashName.textContent = `"${displayName}"`;
+
+    // تحديث كافة شارات الترحيب والشعبة في مختلف الشاشات
+    if (typeof document !== 'undefined' && document.querySelectorAll) {
+      const allNameSpans = document.querySelectorAll('.student-display-name');
+      if (allNameSpans && allNameSpans.forEach) {
+        allNameSpans.forEach(el => { el.textContent = `"${displayName}"`; });
+      }
+
+      if (profile.branch) {
+        const allBranchSpans = document.querySelectorAll('.student-display-branch');
+        if (allBranchSpans && allBranchSpans.forEach) {
+          allBranchSpans.forEach(el => { el.textContent = profile.branch; });
+        }
+      }
+    }
+
+    // الشعبة في لوحة التحكم
+    const dashBranch = document.getElementById('dashboard-branch-name');
+    if (dashBranch && profile.branch) dashBranch.textContent = profile.branch;
+
+    // حفظ الشعبة في appState
+    if (profile.branch) {
+      appState.branch = profile.branch;
+    }
+  }
+};
+
+/**
+ * تطبيق حالة ملف الطالب عند تحميل الصفحة:
+ * - إذا كان الملف موجوداً: تخطي شاشة الإعداد والدخول مباشرة للمنصة
+ * - إذا لم يكن موجوداً: عرض شاشة الإعداد الأول
+ */
+function bootWithStudentProfile() {
+  const profile = StudentProfile.load();
+  if (profile && profile.initialized) {
+    // الطالب موجود — تخطي الـ wizard وعرض لوحة التحكم
+    StudentProfile.applyToUI(profile);
+    appState.stage = 'ثانوي';
+    appState.year = 'الثالثة ثانوي';
+    appState.branch = profile.branch || 'آداب وفلسفة';
+    appState.currentSubject = 'الفلسفة';
+    renderLessons(appState.currentSubject);
+    renderChannelsVideos(appState.currentLesson);
+    showDashboard(true);
+  } else {
+    // أول زيارة — عرض شاشة الإعداد
+    showOnboardingScreen();
+  }
+}
+
+function showOnboardingScreen() {
+  const screen = document.getElementById('screen-onboarding');
+  if (screen) {
+    // إخفاء كل شيء آخر
+    wizardContainer && wizardContainer.classList.add('hidden');
+    screenDashboard && screenDashboard.classList.add('hidden');
+    screen.classList.remove('hidden');
+  }
+}
+
+function handleBrandLogoClick() {
+  const profile = StudentProfile.load();
+  if (profile && profile.initialized) {
+    showDashboard();
+  } else {
+    showOnboardingScreen();
+  }
+}
+
+// ============================================================
+// Onboarding screen logic
+// ============================================================
+
+let _obSelectedBranch = null;
+
+function onboardingSelectBranch(branch) {
+  _obSelectedBranch = branch;
+  // تحديث التظليل البصري بحدة ووضوح فائقين
+  document.querySelectorAll('[data-ob-branch]').forEach(btn => {
+    if (btn.getAttribute('data-ob-branch') === branch) {
+      btn.classList.add('is-selected-branch', 'border-brand-700', 'bg-brand-100');
+      btn.classList.remove('border-slate-200');
+    } else {
+      btn.classList.remove('is-selected-branch', 'border-brand-700', 'bg-brand-100');
+      btn.classList.add('border-slate-200');
+    }
+  });
+  onboardingValidate();
+}
+
+function onboardingValidate() {
+  const nameInput = document.getElementById('onboarding-name-input');
+  const submitBtn = document.getElementById('onboarding-submit-btn');
+  const hasName = nameInput && nameInput.value.trim().length > 0;
+  const hasBranch = !!_obSelectedBranch;
+  if (submitBtn) {
+    if (hasName && hasBranch) {
+      submitBtn.removeAttribute('disabled');
+    } else {
+      submitBtn.setAttribute('disabled', 'true');
+    }
+  }
+}
+
+function onboardingSubmit() {
+  const nameInput = document.getElementById('onboarding-name-input');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const branch = _obSelectedBranch || 'آداب وفلسفة';
+  if (!name) return;
+
+  const profile = StudentProfile.save(name, branch);
+  StudentProfile.applyToUI(profile);
+
+  appState.stage = 'ثانوي';
+  appState.year = 'الثالثة ثانوي';
+  appState.branch = branch;
+  appState.currentSubject = 'الفلسفة';
+
+  renderLessons(appState.currentSubject);
+  renderChannelsVideos(appState.currentLesson);
+
+  // إخفاء شاشة الإعداد والانتقال للوحة التحكم
+  const screen = document.getElementById('screen-onboarding');
+  if (screen) screen.classList.add('hidden');
+  showDashboard();
+}
+
+// ============================================================
+// Settings Modal
+// ============================================================
+
+function openStudentSettings() {
+  const modal = document.getElementById('student-settings-modal');
+  if (!modal) return;
+  setActiveHeaderTab('account');
+  // تعبئة القيم الحالية
+  const profile = StudentProfile.load();
+  const nameInput = document.getElementById('settings-name-input');
+  const branchSelect = document.getElementById('settings-branch-select');
+  if (nameInput) nameInput.value = (profile && profile.name) ? profile.name : '';
+  if (branchSelect) branchSelect.value = (profile && profile.branch) ? profile.branch : 'آداب وفلسفة';
+  modal.classList.remove('hidden');
+}
+
+function closeStudentSettings() {
+  const modal = document.getElementById('student-settings-modal');
+  if (modal) modal.classList.add('hidden');
+  setActiveHeaderTab('subjects');
+}
+
+function saveStudentSettings() {
+  const nameInput = document.getElementById('settings-name-input');
+  const branchSelect = document.getElementById('settings-branch-select');
+  const name = nameInput ? nameInput.value.trim() : '';
+  const branch = branchSelect ? branchSelect.value : 'آداب وفلسفة';
+  if (!name) {
+    if (nameInput) nameInput.focus();
+    return;
+  }
+  const profile = StudentProfile.save(name, branch);
+  StudentProfile.applyToUI(profile);
+  appState.branch = branch;
+  closeStudentSettings();
+}
+
+function confirmResetStudentProfile() {
+  const confirmed = window.confirm('سيتم حذف اسمك وشعبتك المحفوظة محلياً. ستظهر شاشة الإعداد عند التحديث التالي.\n\nتأكيد إعادة الضبط؟');
+  if (!confirmed) return;
+  StudentProfile.reset();
+  closeStudentSettings();
+  // إظهار شاشة الإعداد فوراً
+  hideAllScreens();
+  _obSelectedBranch = null;
+  const nameInput = document.getElementById('onboarding-name-input');
+  if (nameInput) nameInput.value = '';
+  document.querySelectorAll('[data-ob-branch]').forEach(btn => {
+    btn.classList.remove('is-selected-branch', 'border-brand-700', 'bg-brand-100', 'border-brand-500', 'bg-brand-50/50');
+    btn.classList.add('border-slate-200');
+  });
+  const submitBtn = document.getElementById('onboarding-submit-btn');
+  if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+  // إخفاء badge الهيدر
+  const headerBadge = document.getElementById('user-badge');
+  if (headerBadge) headerBadge.classList.add('hidden');
+  showOnboardingScreen();
+}
+
 // تهيئة الصفحة عند التحميل
 document.addEventListener('DOMContentLoaded', () => {
   renderLessons(appState.currentSubject);
   renderChannelsVideos(appState.currentLesson);
   updateStepUI();
   initYouTubeErrorListener();
+  // نظام الملف الشخصي — يعمل بعد تهيئة باقي النظام
+  bootWithStudentProfile();
 });
+
 
 // ============================================================
 // 1. خدمات وروابط YouTube (YouTube & Media Resolver)
@@ -247,16 +502,32 @@ function renderLessons(subjectTitle) {
   if (!lessonsListContainer) return;
   const lessons = PlatformStore.getLessons(subjectTitle);
 
+  if (!lessons || lessons.length === 0) {
+    lessonsListContainer.innerHTML = `
+      <div class="text-center py-12 px-6 bg-slate-50/80 rounded-2xl border border-slate-200">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+          </svg>
+        </div>
+        <h4 class="text-sm font-bold text-slate-800 mb-1">لا توجد دروس مسجلة حالياً</h4>
+        <p class="text-xs text-slate-500">جاري إدراج المنهاج الرسمي لمادة ${subjectTitle}.</p>
+      </div>
+    `;
+    return;
+  }
+
   lessonsListContainer.innerHTML = lessons.map(lesson => {
     const safeTitle = (lesson.title || '').replace(/'/g, "\\'");
+    const isActive = lesson.title === appState.currentLesson;
     return `
-    <div onclick="openLessonHub('${safeTitle}')" class="lesson-row-card p-3 sm:p-4 flex items-center justify-between gap-4" title="انقر لفتح فضاء الدرس وفيديوهاته">
+    <div onclick="openLessonHub('${safeTitle}')" class="lesson-row-card p-3 sm:p-4 flex items-center justify-between gap-4 ${isActive ? 'is-active-lesson' : ''}" title="انقر لفتح فضاء الدرس وفيديوهاته" role="button" tabindex="0">
       
       <div class="flex items-center gap-3 sm:gap-4 overflow-hidden">
-        <span class="w-6 h-6 rounded-full border border-slate-300 text-xs font-bold text-slate-500 flex items-center justify-center shrink-0 bg-white">
+        <span class="w-6 h-6 rounded-full border ${isActive ? 'border-brand-600 bg-brand-700 text-white shadow-xs' : 'border-slate-300 bg-white text-slate-500'} text-xs font-bold flex items-center justify-center shrink-0 transition-colors">
           ${lesson.id}
         </span>
-        <h3 class="text-sm sm:text-base font-bold text-slate-800 truncate">
+        <h3 class="text-sm sm:text-base font-bold ${isActive ? 'text-brand-900 font-extrabold' : 'text-slate-800'} truncate">
           ${lesson.title}
         </h3>
       </div>
@@ -466,26 +737,27 @@ function renderChannelsVideos(lessonName) {
           const isVerified = videoUrls.source === 'direct-id' || videoUrls.source === 'direct-url' || videoUrls.source === 'custom';
           const safeTitle = (vid.title || '').replace(/'/g, "\\'");
           const safeChan = (chan.channel || '').replace(/'/g, "\\'");
+          const isActiveVideo = vid.title === appState.currentVideo;
           return `
-          <div class="video-item-card p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${isVerified ? 'border-r-4 border-r-emerald-500' : ''}">
+          <div class="video-item-card p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${isActiveVideo ? 'is-active-video ring-2 ring-red-500/20' : ''} ${isVerified && !isActiveVideo ? 'border-r-4 border-r-emerald-500' : ''}">
             <div onclick="playVideoLesson('${safeTitle}', '${safeChan}')" class="flex items-center gap-3 cursor-pointer flex-1">
               ${vid.thumbnail ? `
                 <div class="relative w-20 sm:w-24 h-12 sm:h-14 rounded-lg overflow-hidden shrink-0 border border-slate-200 bg-slate-100 shadow-xs">
                   <img src="${vid.thumbnail}" alt="${safeTitle}" class="w-full h-full object-cover">
                   <div class="absolute inset-0 bg-black/25 flex items-center justify-center">
-                    <div class="w-6 h-6 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow">
+                    <div class="w-6 h-6 rounded-full ${isActiveVideo ? 'bg-emerald-600' : 'bg-red-600/90'} text-white flex items-center justify-center shadow">
                       <svg class="w-3 h-3 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                     </div>
                   </div>
                 </div>
               ` : `
-                <div class="w-8 h-8 rounded-full ${isVerified ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'} flex items-center justify-center shrink-0">
+                <div class="w-8 h-8 rounded-full ${isActiveVideo ? 'bg-red-100 text-red-700' : (isVerified ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600')} flex items-center justify-center shrink-0">
                   <svg class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
               `}
               <div>
                 <div class="flex items-center gap-2 mb-0.5">
-                  <h5 class="text-xs sm:text-sm font-semibold text-slate-800 hover:text-red-700 transition-colors">
+                  <h5 class="text-xs sm:text-sm font-semibold ${isActiveVideo ? 'text-red-700 font-bold' : 'text-slate-800'} hover:text-red-700 transition-colors">
                     ${vid.title}
                   </h5>
                   ${isVerified ? `
@@ -500,11 +772,11 @@ function renderChannelsVideos(lessonName) {
 
             <!-- أزرار التشغيل ورابط YouTube -->
             <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
-              <button onclick="playVideoLesson('${safeTitle}', '${safeChan}')" class="text-[11px] font-bold bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer">
-                مشاهدة في المنصة
+              <button onclick="playVideoLesson('${safeTitle}', '${safeChan}')" class="btn-interactive text-[11px] font-bold ${isActiveVideo ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm' : 'bg-slate-900 hover:bg-slate-800 text-white'} px-3 py-1.5 rounded-lg transition-all cursor-pointer">
+                ${isActiveVideo ? 'قيد التشغيل' : 'مشاهدة في المنصة'}
               </button>
               
-              <a href="${ytUrl}" target="_blank" rel="noopener" class="text-[11px] font-bold ${isVerified ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm' : 'bg-red-50 hover:bg-red-100 text-red-700 border border-red-200'} px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1 cursor-pointer" title="فتح الفيديو مباشرة على YouTube">
+              <a href="${ytUrl}" target="_blank" rel="noopener" class="btn-interactive text-[11px] font-bold ${isVerified ? 'bg-red-600 hover:bg-red-700 text-white shadow-sm' : 'bg-red-50 hover:bg-red-100 text-red-700 border border-red-200'} px-2.5 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer" title="فتح الفيديو مباشرة على YouTube">
                 <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
                 </svg>
@@ -719,19 +991,36 @@ function playVideoLesson(videoTitle, channelName, isPopState = false) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function resetPlayerFrames() {
+// ============================================================
+// دورة حياة مشغل الفيديو (Video Player Lifecycle Management)
+// مبدأ: مشغّل واحد نشط في كل لحظة — تدمير كامل قبل أي انتقال
+// ============================================================
+
+/**
+ * تدمير المشغّل الحالي بالكامل: إيقاف + مسح المصدر + إخفاء + تنظيف الحالة.
+ * يُستدعى قبل كل انتقال بين الشاشات لمنع استمرار الصوت/الصورة.
+ */
+function destroyCurrentVideoPlayer() {
+  const iframe = document.getElementById('youtube-iframe-player');
   const embedFrame = document.getElementById('video-embed-frame');
   const previewFrame = document.getElementById('video-preview-frame');
   const fallbackFrame = document.getElementById('video-error-fallback');
-  const iframe = document.getElementById('youtube-iframe-player');
 
-  if (embedFrame && previewFrame && iframe) {
-    embedFrame.classList.add('hidden');
-    if (fallbackFrame) fallbackFrame.classList.add('hidden');
-    previewFrame.classList.remove('hidden');
+  if (iframe) {
+    // إيقاف التشغيل بمسح المصدر
     iframe.src = '';
   }
+  if (embedFrame) embedFrame.classList.add('hidden');
+  if (previewFrame) previewFrame && previewFrame.classList.remove('hidden');
+  if (fallbackFrame) fallbackFrame.classList.add('hidden');
+
+  appState.isPlaying = false;
 }
+
+function resetPlayerFrames() {
+  destroyCurrentVideoPlayer();
+}
+
 
 function playYouTubeEmbed() {
   const embedFrame = document.getElementById('video-embed-frame');
@@ -754,7 +1043,7 @@ function playYouTubeEmbed() {
   }
 
   if (typeof window !== 'undefined' && window.location && window.location.protocol === 'file:') {
-    console.warn('[ELMED YouTube Player] للاختبار المحلي استخدم خادم HTTP محلي. أما النسخة النهائية فتعمل وتُشغّل الفيديوهات مباشرة عبر GitHub Pages.');
+    console.warn('[mordix_ai YouTube Player] للاختبار المحلي استخدم خادم HTTP محلي. أما النسخة النهائية فتعمل وتُشغّل الفيديوهات مباشرة عبر GitHub Pages.');
   }
 
   iframe.referrerPolicy = 'strict-origin-when-cross-origin';
@@ -921,37 +1210,37 @@ function openResourceIndex(categoryType = 'all', subjectName = null, isPopState 
       label: 'البكالوريا',
       title: `مواضيع البكالوريا الرسمية - ${appState.currentSubject}`,
       subtitle: `أرشيف دورات شهادة البكالوريا لمادة ${appState.currentSubject} مع المواضيع وسلالم التنقيط الوزارية`,
-      colorClass: 'border-rose-200 text-rose-800 bg-rose-50'
+      colorClass: 'border-2 border-rose-600 text-rose-900 bg-rose-100 shadow-sm'
     },
     'exam': {
       label: 'امتحانات الفصول',
       title: `امتحانات واختبارات الفصول - ${appState.currentSubject}`,
       subtitle: `نماذج اختبارات فصلية من مختلف ثانويات الوطن مع حلولها النموذجية`,
-      colorClass: 'border-orange-200 text-orange-800 bg-orange-50'
+      colorClass: 'border-2 border-orange-600 text-orange-900 bg-orange-100 shadow-sm'
     },
     'exercise': {
       label: 'التمارين والتطبيقات',
       title: `بنك التمارين والتطبيقات المنهجية - ${appState.currentSubject}`,
       subtitle: `تطبيقات ومقالات ونصوص نموذجية مع عناصر الإجابة وسلم التنقيط المعتمد`,
-      colorClass: 'border-blue-200 text-blue-800 bg-blue-50'
+      colorClass: 'border-2 border-blue-600 text-blue-900 bg-blue-100 shadow-sm'
     },
     'summary': {
       label: 'الملخصات',
       title: `فهرس الملخصات والمطويات المعتمدة - ${appState.currentSubject}`,
       subtitle: `ملخصات وزارية وشاملة وموثوقة لمنهاج مادة ${appState.currentSubject}`,
-      colorClass: 'border-teal-200 text-teal-800 bg-teal-50'
+      colorClass: 'border-2 border-teal-600 text-teal-900 bg-teal-100 shadow-sm'
     },
     'review': {
       label: 'المراجعات الشاملة',
       title: `المراجعات الشاملة والنهائية - ${appState.currentSubject}`,
       subtitle: `باقة حصص مراجعة مركزة لحل المواضيع ومراجعة المفاهيم الكبرى لشهادة البكالوريا`,
-      colorClass: 'border-amber-200 text-amber-800 bg-amber-50'
+      colorClass: 'border-2 border-amber-600 text-amber-900 bg-amber-100 shadow-sm'
     },
     'all': {
       label: 'كافة الموارد',
       title: `فهرس الموارد التعليمية الشامل - ${appState.currentSubject}`,
       subtitle: `أرشيف موحد لكافة دورات البكالوريا، الامتحانات، التمارين، والملخصات لمادة ${appState.currentSubject}`,
-      colorClass: 'border-slate-800 text-white bg-slate-900'
+      colorClass: 'border-2 border-slate-900 text-white bg-slate-900 shadow-sm'
     }
   };
 
@@ -1434,6 +1723,12 @@ function closeCategoryModal() {
 }
 
 function hideAllScreens() {
+  // تدمير المشغّل قبل أي انتقال لمنع استمرار التشغيل خلفياً
+  destroyCurrentVideoPlayer();
+
+  const screenOnboarding = document.getElementById('screen-onboarding');
+  if (screenOnboarding) screenOnboarding.classList.add('hidden');
+
   wizardContainer.classList.add('hidden');
   screenUnavailable.classList.add('hidden');
   screenDashboard.classList.add('hidden');
@@ -1607,10 +1902,47 @@ function shortcutToPhilosophy() {
   showDashboard();
 }
 
+function setActiveHeaderTab(tabName) {
+  if (typeof document === 'undefined') return;
+  const tabSubjects = document.getElementById('tab-subjects');
+  const tabAccount = document.getElementById('tab-account');
+  const tabSubs = document.getElementById('tab-subs');
+
+  if (tabSubjects) tabSubjects.classList.remove('active');
+  if (tabAccount) tabAccount.classList.remove('active');
+  if (tabSubs) tabSubs.classList.remove('active');
+
+  if (tabName === 'subjects' && tabSubjects) tabSubjects.classList.add('active');
+  else if (tabName === 'account' && tabAccount) tabAccount.classList.add('active');
+  else if (tabName === 'subs' && tabSubs) tabSubs.classList.add('active');
+}
+
+function updateActiveSubjectCardUI() {
+  if (typeof document === 'undefined' || !document.querySelectorAll) return;
+  const cards = document.querySelectorAll('[data-subject]');
+  if (!cards || !cards.forEach) return;
+  cards.forEach(card => {
+    if (card.getAttribute('data-subject') === appState.currentSubject) {
+      card.classList.add('is-active-subject');
+    } else {
+      card.classList.remove('is-active-subject');
+    }
+  });
+}
+
 function showDashboard(isPopState = false) {
   hideAllScreens();
   screenDashboard.classList.remove('hidden');
   screenDashboard.classList.add('animate-fadeIn');
+
+  const profile = StudentProfile.load();
+  if (profile) {
+    StudentProfile.applyToUI(profile);
+  }
+
+  setActiveHeaderTab('subjects');
+  updateActiveSubjectCardUI();
+
   if (!isPopState) {
     pushNavigationState('dashboard');
   }
@@ -1618,22 +1950,26 @@ function showDashboard(isPopState = false) {
 }
 
 function showAccountNotice() {
-  openNoticeModal('حساب الطالب', 'يمكنك من هنا متابعة الساعات المنجزة (5 ساعات)، وتعديل المعلومات الشخصية.');
+  openStudentSettings();
 }
 
 function showSubscriptionsNotice() {
+  setActiveHeaderTab('subs');
   openNoticeModal('اشتراكاتي', 'أنت مسجل في باقة التحضير السنوية الكاملة لشعبة آداب وفلسفة - بكالوريا 2026.');
 }
 
 function openNoticeModal(title, message) {
   const modal = document.getElementById('notice-modal');
+  if (!modal) return;
   document.getElementById('notice-title').textContent = title;
   document.getElementById('notice-text').textContent = message;
   modal.classList.remove('hidden');
 }
 
 function closeNoticeModal() {
-  document.getElementById('notice-modal').classList.add('hidden');
+  const modal = document.getElementById('notice-modal');
+  if (modal) modal.classList.add('hidden');
+  setActiveHeaderTab('subjects');
 }
 
 function resetToHome() {
@@ -1652,17 +1988,33 @@ function resetToHome() {
 }
 
 // مستمعي النقر خارج النوافذ المنبثقة لإغلاقها
-document.getElementById('category-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'category-modal') closeCategoryModal();
-});
+const catModalEl = document.getElementById('category-modal');
+if (catModalEl && catModalEl.addEventListener) {
+  catModalEl.addEventListener('click', (e) => {
+    if (e.target.id === 'category-modal') closeCategoryModal();
+  });
+}
 
-document.getElementById('exercise-detail-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'exercise-detail-modal') closeExerciseModal();
-});
+const exModalEl = document.getElementById('exercise-detail-modal');
+if (exModalEl && exModalEl.addEventListener) {
+  exModalEl.addEventListener('click', (e) => {
+    if (e.target.id === 'exercise-detail-modal') closeExerciseModal();
+  });
+}
 
-document.getElementById('notice-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'notice-modal') closeNoticeModal();
-});
+const notModalEl = document.getElementById('notice-modal');
+if (notModalEl && notModalEl.addEventListener) {
+  notModalEl.addEventListener('click', (e) => {
+    if (e.target.id === 'notice-modal') closeNoticeModal();
+  });
+}
+
+const setModalEl = document.getElementById('student-settings-modal');
+if (setModalEl && setModalEl.addEventListener) {
+  setModalEl.addEventListener('click', (e) => {
+    if (e.target.id === 'student-settings-modal') closeStudentSettings();
+  });
+}
 
 // ============================================================
 // إدارة تاريخ المتصفح والتنقل السلس (Browser History & Navigation)
@@ -1736,6 +2088,8 @@ function handleNavigationPop(state) {
 }
 
 window.addEventListener('popstate', (e) => {
+  // تأكيد تدمير المشغّل عند التنقل عبر أزرار المتصفح (back/forward)
+  destroyCurrentVideoPlayer();
   handleNavigationPop(e.state || (window.history ? window.history.state : null));
 });
 
@@ -1774,10 +2128,25 @@ window.promptCustomYouTubeUrl = promptCustomYouTubeUrl;
 window.buildYouTubeEmbedUrl = buildYouTubeEmbedUrl;
 window.handleYouTubePlayerError = handleYouTubePlayerError;
 window.initYouTubeErrorListener = initYouTubeErrorListener;
+window.destroyCurrentVideoPlayer = destroyCurrentVideoPlayer;
+window.resetPlayerFrames = resetPlayerFrames;
 window.openExerciseModal = openExerciseModal;
 window.resetToHome = resetToHome;
 window.goBackToEdit = goBackToEdit;
 window.shortcutToPhilosophy = shortcutToPhilosophy;
+window.StudentProfile = StudentProfile;
+window.bootWithStudentProfile = bootWithStudentProfile;
+window.showOnboardingScreen = showOnboardingScreen;
+window.handleBrandLogoClick = handleBrandLogoClick;
+window.onboardingSelectBranch = onboardingSelectBranch;
+window.onboardingValidate = onboardingValidate;
+window.onboardingSubmit = onboardingSubmit;
+window.openStudentSettings = openStudentSettings;
+window.closeStudentSettings = closeStudentSettings;
+window.saveStudentSettings = saveStudentSettings;
+window.confirmResetStudentProfile = confirmResetStudentProfile;
+window.setActiveHeaderTab = setActiveHeaderTab;
+window.updateActiveSubjectCardUI = updateActiveSubjectCardUI;
 
 // تسجيل الحالة الابتدائية في سجل المتصفح
 try {

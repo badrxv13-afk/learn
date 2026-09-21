@@ -1,5 +1,5 @@
 /**
- * منصة ألماد التعليمية - سجل الموارد الموحد (Platform Resource Registry)
+ * mordix_ai — سجل الموارد الموحد (Platform Resource Registry)
  * Single Source of Truth for all Educational Resources
  * Zero Emojis | Production Verified
  */
