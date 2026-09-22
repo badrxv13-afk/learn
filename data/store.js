@@ -30,31 +30,59 @@ const PlatformStore = {
   },
 
   /**
-   * جلب كافة المواد المسجلة في المنصة
+   * جلب كافة المواد المسجلة في المنصة حسب المستوى (3as أو 4am)
    */
-  getAllSubjects() {
-    return Object.values(window.PlatformData);
+  getAllSubjects(levelId) {
+    const lvl = levelId || (typeof window !== 'undefined' && window.appState && window.appState.level) || '3as';
+    if (lvl === '4am' && typeof window !== 'undefined' && window.PlatformData4AM) {
+      return Object.values(window.PlatformData4AM);
+    }
+    return Object.values((typeof window !== 'undefined' && window.PlatformData) || {});
   },
 
   /**
-   * جلب بيانات مادة محددة بالاسم أو المعرف
+   * جلب بيانات مادة محددة بالاسم أو المعرف مع مراعاة المستوى
    */
-  getSubject(subjectName) {
-    if (!subjectName) return window.PlatformData['الفلسفة'];
-    return window.PlatformData[subjectName] || 
-      Object.values(window.PlatformData).find(s => s.id === subjectName || s.name === subjectName) || 
-      window.PlatformData['الفلسفة'];
+  getSubject(subjectName, levelId) {
+    const lvl = levelId || (typeof window !== 'undefined' && window.appState && window.appState.level) || null;
+
+    if (!subjectName) {
+      if (lvl === '4am' && typeof window !== 'undefined' && window.PlatformData4AM) {
+        return window.PlatformData4AM['math_4am'] || Object.values(window.PlatformData4AM)[0];
+      }
+      return (typeof window !== 'undefined' && window.PlatformData) ? window.PlatformData['الفلسفة'] : null;
+    }
+
+    // فحص 4AM أولاً إذا كان المستوى 4AM أو المعرف مخصصاً لـ 4AM
+    if ((lvl === '4am' || String(subjectName).endsWith('_4am')) && typeof window !== 'undefined' && window.PlatformData4AM) {
+      if (window.PlatformData4AM[subjectName]) return window.PlatformData4AM[subjectName];
+      const match4am = Object.values(window.PlatformData4AM).find(s => s.id === subjectName || s.name === subjectName || s.title === subjectName);
+      if (match4am) return match4am;
+    }
+
+    // فحص 3AS في PlatformData
+    if (typeof window !== 'undefined' && window.PlatformData) {
+      if (window.PlatformData[subjectName]) return window.PlatformData[subjectName];
+      const match3as = Object.values(window.PlatformData).find(s => s.id === subjectName || s.name === subjectName || s.title === subjectName);
+      if (match3as) return match3as;
+    }
+
+    // فحص في 4AM كحل بديل إذا لم يعثر عليه في 3AS
+    if (typeof window !== 'undefined' && window.PlatformData4AM) {
+      if (window.PlatformData4AM[subjectName]) return window.PlatformData4AM[subjectName];
+      const matchFallback = Object.values(window.PlatformData4AM).find(s => s.id === subjectName || s.name === subjectName || s.title === subjectName);
+      if (matchFallback) return matchFallback;
+    }
+
+    return (typeof window !== 'undefined' && window.PlatformData) ? window.PlatformData['الفلسفة'] : null;
   },
 
-  /**
-   * جلب قائمة دروس مادة محددة
-   */
   /**
    * جلب قائمة دروس مادة محددة مع حساب الإحصائيات ديناميكياً من قاعدة البيانات
    * (DATA -> UI) لا أرقام وهمية أو ثابتة
    */
-  getLessons(subjectName) {
-    const subj = this.getSubject(subjectName);
+  getLessons(subjectName, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     if (!subj || !subj.lessons) return [];
 
     return subj.lessons.map(lesson => {
@@ -85,8 +113,8 @@ const PlatformStore = {
   /**
    * جلب بيانات درس محدد داخل مادة
    */
-  getLesson(subjectName, lessonTitleOrId) {
-    const lessons = this.getLessons(subjectName);
+  getLesson(subjectName, lessonTitleOrId, levelId) {
+    const lessons = this.getLessons(subjectName, levelId);
     if (typeof lessonTitleOrId === 'number') {
       return lessons.find(l => l.id === lessonTitleOrId) || lessons[0];
     }
@@ -96,8 +124,8 @@ const PlatformStore = {
   /**
    * جلب قنوات وفيديوهات درس محدد - بيانات حقيقية فقط دون أي توليد وهمي
    */
-  getLessonVideos(subjectName, lessonTitle) {
-    const subj = this.getSubject(subjectName);
+  getLessonVideos(subjectName, lessonTitle, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     if (!subj) return [];
 
     const realChannels = this._findDataByLessonKey(subj.channelsData, lessonTitle);
@@ -111,14 +139,40 @@ const PlatformStore = {
 
   /**
    * جلب قائمة تمارين درس محدد - بيانات حقيقية فقط دون أي توليد وهمي
+   * يدعم الاستدعاء المعتمد (subjectName, lessonTitle) والاستدعاء المباشر بواسطة (lessonId)
    */
-  getLessonExercises(subjectName, lessonTitle) {
-    const subj = this.getSubject(subjectName);
+  getLessonExercises(subjectNameOrLessonId, lessonTitle, levelId) {
+    // 1. دعم الاستدعاء المباشر بواسطة lessonId
+    if (!lessonTitle && typeof subjectNameOrLessonId === 'string') {
+      const lessonId = subjectNameOrLessonId.trim();
+      const res = this.getLessonResources(lessonId, levelId).filter(r => r.type === 'exercise');
+      if (res.length > 0) return res;
+
+      // محاولة العثور على الدرس في شجرة المواد
+      const allSubjs = this.getAllSubjects(levelId);
+      for (const s of allSubjs) {
+        const l = (s.lessons || []).find(item => item.lessonId === lessonId || item.id === lessonId);
+        if (l) {
+          return this.getLessonExercises(s.name, l.title, s.levelId || levelId);
+        }
+      }
+      return [];
+    }
+
+    // 2. الاستدعاء الثنائي (subjectName, lessonTitle)
+    const subj = this.getSubject(subjectNameOrLessonId, levelId);
     if (!subj) return [];
 
     const realExercises = this._findDataByLessonKey(subj.exercisesData, lessonTitle);
     if (realExercises && Array.isArray(realExercises) && realExercises.length > 0) {
       return realExercises;
+    }
+
+    // فحص احتياطي في السجل الموحد بواسطة lessonId
+    const lObj = (subj.lessons || []).find(l => l.title === lessonTitle);
+    if (lObj && lObj.lessonId) {
+      const regExs = this.getLessonResources(lObj.lessonId, subj.levelId || levelId).filter(r => r.type === 'exercise');
+      if (regExs.length > 0) return regExs;
     }
 
     // صفر بيانات وهمية: إرجاع مصفوفة فارغة لتعرض الواجهة Empty State نظيف
@@ -132,75 +186,115 @@ const PlatformStore = {
    */
 
   /**
-   * جلب كافة الموارد المسجلة في المنصة
+   * جلب كافة الموارد المسجلة في المنصة مع دعم تصفية الطور (4am أو 3as)
    */
-  getAllResources() {
-    return Object.values(window.PlatformRegistry || {});
+  getAllResources(levelId) {
+    const lvl = levelId || (typeof window !== 'undefined' && window.appState && window.appState.level) || null;
+    let all = [];
+    if (typeof window !== 'undefined') {
+      if (window.PlatformRegistry) {
+        all = Object.values(window.PlatformRegistry);
+      }
+      if (window.PlatformRegistry4AM) {
+        const existingIds = new Set(all.map(r => r.id || r.resourceId));
+        Object.values(window.PlatformRegistry4AM).forEach(r => {
+          if (!existingIds.has(r.id || r.resourceId)) {
+            all.push(r);
+          }
+        });
+      }
+    }
+    if (lvl === '4am') {
+      return all.filter(r => r.levelId === '4am');
+    } else if (lvl === '3as') {
+      return all.filter(r => r.levelId === '3as' || !r.levelId || r.level === 'الثالثة ثانوي');
+    }
+    return all;
   },
 
   /**
    * جلب مورد محدد بواسطة معرفه العالمي الفريد (resourceId)
    */
   getResourceById(resourceId) {
-    if (!resourceId || !window.PlatformRegistry) return null;
-    return window.PlatformRegistry[resourceId] || null;
+    if (!resourceId) return null;
+    if (typeof window !== 'undefined') {
+      if (window.PlatformRegistry4AM && window.PlatformRegistry4AM[resourceId]) {
+        return window.PlatformRegistry4AM[resourceId];
+      }
+      if (window.PlatformRegistry && window.PlatformRegistry[resourceId]) {
+        return window.PlatformRegistry[resourceId];
+      }
+    }
+    return null;
   },
 
   /**
-   * جلب الموارد لمادة معينة بواسطة subjectId أو subjectName
+   * جلب الموارد لمادة معينة بواسطة subjectId أو subjectName مع عزل الأطوار
    */
-  getResourcesBySubject(subjectIdOrName) {
-    const subj = this.getSubject(subjectIdOrName);
+  getResourcesBySubject(subjectIdOrName, levelId) {
+    const subj = this.getSubject(subjectIdOrName, levelId);
     const sId = subj ? subj.id : subjectIdOrName;
-    return this.getAllResources().filter(r => r.subjectId === sId);
+    const resolvedLevel = levelId || (subj ? subj.levelId : null) || (typeof window !== 'undefined' && window.appState && window.appState.level) || '3as';
+
+    return this.getAllResources(resolvedLevel).filter(r => {
+      const matchSubject = (r.subjectId === sId || r.subjectName === subjectIdOrName || (subj && (r.subjectName === subj.name || r.subjectName === subj.title)));
+      if (!matchSubject) return false;
+
+      // عزل صارم للأطوار لمنع أي تسرب للموارد
+      if (resolvedLevel === '4am') {
+        return r.levelId === '4am';
+      } else {
+        return r.levelId === '3as' || !r.levelId || r.level === 'الثالثة ثانوي';
+      }
+    });
   },
 
   /**
-   * جلب الموارد لمادة ونوع معينين (bac | exam | exercise | summary | review)
+   * جلب الموارد لمادة ونوع معينين (bac | bem | exam | exercise | summary | review)
    */
-  getResourcesByType(subjectIdOrName, type) {
-    const subj = this.getSubject(subjectIdOrName);
-    const sId = subj ? subj.id : subjectIdOrName;
-    return this.getAllResources().filter(r => r.subjectId === sId && r.type === type);
+  getResourcesByType(subjectIdOrName, type, levelId) {
+    const res = this.getResourcesBySubject(subjectIdOrName, levelId);
+    if (!type || type === 'all') return res;
+    return res.filter(r => r.type === type);
   },
 
   /**
    * جلب الموارد المرتبطة بدرس محدد بواسطة lessonId الأساسي
    */
-  getLessonResources(lessonId) {
+  getLessonResources(lessonId, levelId) {
     if (!lessonId) return [];
-    return this.getAllResources().filter(r => r.lessonId === lessonId);
+    return this.getAllResources(levelId).filter(r => r.lessonId === lessonId);
   },
 
   /**
    * جلب قائمة مراجعات مادة محددة (فيديوهات المراجعة الشاملة وقنوات الأساتذة)
    */
-  getSubjectReviews(subjectName) {
-    const subj = this.getSubject(subjectName);
+  getSubjectReviews(subjectName, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     return subj ? (subj.reviews || []) : [];
   },
 
   /**
    * جلب قائمة الملخصات المعتمدة لمادة محددة
    */
-  getSubjectSummaries(subjectName) {
-    const subj = this.getSubject(subjectName);
+  getSubjectSummaries(subjectName, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     return subj ? (subj.summaries || []) : [];
   },
 
   /**
    * جلب أرشيف دورات البكالوريا لمادة محددة
    */
-  getSubjectBac(subjectName) {
-    const subj = this.getSubject(subjectName);
+  getSubjectBac(subjectName, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     return subj ? (subj.baccalaureate || []) : [];
   },
 
   /**
    * جلب امتحانات الفصول لمادة محددة
    */
-  getSubjectExams(subjectName) {
-    const subj = this.getSubject(subjectName);
+  getSubjectExams(subjectName, levelId) {
+    const subj = this.getSubject(subjectName, levelId);
     return subj ? (subj.exams || []) : [];
   },
 
@@ -311,52 +405,6 @@ const PlatformStore = {
    */
   getCustomVideoUrl(channel, videoTitle) {
     return localStorage.getItem(`yt_${channel}_${videoTitle}`);
-  },
-
-  // ============================================================
-  // سجل الموارد الموحد (Resource Registry - Single Source of Truth)
-  // ============================================================
-
-  /**
-   * جلب كافة الموارد التعليمية المسجلة
-   */
-  getAllResources() {
-    if (!window.PlatformRegistry) return [];
-    return Object.values(window.PlatformRegistry);
-  },
-
-  /**
-   * جلب مورد محدد بواسطة معرفه الفريد (resourceId)
-   */
-  getResourceById(resourceId) {
-    if (!window.PlatformRegistry || !resourceId) return null;
-    return window.PlatformRegistry[resourceId] || null;
-  },
-
-  /**
-   * جلب موارد مادة محددة
-   */
-  getResourcesBySubject(subjectNameOrId) {
-    const subj = this.getSubject(subjectNameOrId);
-    const subjectId = subj ? subj.id : subjectNameOrId;
-    return this.getAllResources().filter(r => r.subjectId === subjectId || r.subjectName === subjectNameOrId);
-  },
-
-  /**
-   * جلب موارد مادة حسب نوعها (bac, exam, exercise, summary, review)
-   */
-  getResourcesByType(subjectNameOrId, type) {
-    const res = this.getResourcesBySubject(subjectNameOrId);
-    if (!type || type === 'all') return res;
-    return res.filter(r => r.type === type);
-  },
-
-  /**
-   * جلب موارد درس محدد بواسطة lessonId
-   */
-  getLessonResources(lessonId) {
-    if (!lessonId) return [];
-    return this.getAllResources().filter(r => r.lessonId === lessonId);
   }
 };
 
