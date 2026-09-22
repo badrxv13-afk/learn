@@ -10,7 +10,13 @@ const tests = [
   'pipeline/validators/youtube_embed_test.js',
   'pipeline/validators/student_profile_test.js',
   'pipeline/validators/ui_ux_polish_test.js',
-  'pipeline/validators/subject_cards_simplification_test.js'
+  'pipeline/validators/subject_cards_simplification_test.js',
+  'pipeline/validators/four_am_test.js',
+  'pipeline/validators/phase8_4am_test.js',
+  'pipeline/validators/browser_runtime_4am_test.js',
+  'pipeline/validators/final_audit_verification_test.js',
+  'pipeline/validators/exercises_4am_test.js',
+  'pipeline/validators/browser_runtime_exercises_flow_test.js'
 ];
 
 const nodeCmd = 'C:/Users/mad/AppData/Roaming/Antigravity/bin/agy-node.cmd';
