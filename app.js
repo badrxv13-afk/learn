@@ -7,9 +7,10 @@
 // حالة التطبيق (Application State)
 const appState = {
   currentStep: 1, // 1: الطور, 2: السنة, 3: الشعبة
+  level: '3as',   // '3as' | '4am'
   stage: null,    // 'متوسط' | 'ثانوي'
-  year: null,     // 'الأولى ثانوي' | 'الثانية ثانوي' | 'الثالثة ثانوي'
-  branch: null,   // 'آداب وفلسفة' | 'علوم تجريبية' | 'رياضيات' | ...
+  year: null,     // 'الأولى ثانوي' | 'الثانية ثانوي' | 'الثالثة ثانوي' | 'السنة الرابعة متوسط'
+  branch: null,   // 'آداب وفلسفة' | 'التعليم المتوسط' | ...
   currentSubject: 'الفلسفة',
   currentLesson: 'الإحساس والادراك',
   currentVideo: 'التكيف بين العادة و الارادة',
@@ -72,7 +73,10 @@ const StudentProfile = {
       const raw = localStorage.getItem(STUDENT_KEY);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
-      if (parsed && parsed.initialized) return parsed;
+      if (parsed && parsed.initialized) {
+        if (!parsed.level) parsed.level = '3as';
+        return parsed;
+      }
       return null;
     } catch (e) {
       return null;
@@ -80,13 +84,15 @@ const StudentProfile = {
   },
 
   /** حفظ البيانات في localStorage */
-  save(name, branch) {
+  save(name, branch, level) {
     try {
+      const lvl = level || '3as';
       const profile = {
         version: 1,
         initialized: true,
         name: (name || '').trim(),
-        branch: (branch || 'آداب وفلسفة').trim()
+        level: lvl,
+        branch: lvl === '4am' ? null : (branch || 'آداب وفلسفة').trim()
       };
       localStorage.setItem(STUDENT_KEY, JSON.stringify(profile));
       return profile;
@@ -112,6 +118,8 @@ const StudentProfile = {
   applyToUI(profile) {
     if (!profile) return;
     const displayName = profile.name || 'طالب';
+    const lvl = profile.level || '3as';
+    appState.level = lvl;
 
     // شريط الهيدر
     const headerBadge = document.getElementById('user-badge');
@@ -130,21 +138,54 @@ const StudentProfile = {
         allNameSpans.forEach(el => { el.textContent = `"${displayName}"`; });
       }
 
-      if (profile.branch) {
-        const allBranchSpans = document.querySelectorAll('.student-display-branch');
-        if (allBranchSpans && allBranchSpans.forEach) {
-          allBranchSpans.forEach(el => { el.textContent = profile.branch; });
-        }
+      const branchText = lvl === '4am' ? 'التعليم المتوسط' : (profile.branch || 'آداب وفلسفة');
+      const allBranchSpans = document.querySelectorAll('.student-display-branch');
+      if (allBranchSpans && allBranchSpans.forEach) {
+        allBranchSpans.forEach(el => { el.textContent = branchText; });
+      }
+
+      const levelText = lvl === '4am' ? 'السنة الرابعة متوسط' : 'الثالثة ثانوي';
+      const allLevelSpans = document.querySelectorAll('.student-display-level');
+      if (allLevelSpans && allLevelSpans.forEach) {
+        allLevelSpans.forEach(el => { el.textContent = levelText; });
       }
     }
 
-    // الشعبة في لوحة التحكم
-    const dashBranch = document.getElementById('dashboard-branch-name');
-    if (dashBranch && profile.branch) dashBranch.textContent = profile.branch;
+    // المستوى والشعبة في لوحة التحكم
+    const dashLevel = document.getElementById('dashboard-level-name');
+    if (dashLevel) {
+      dashLevel.textContent = lvl === '4am' ? 'السنة الرابعة متوسط' : 'الثالثة ثانوي';
+    }
 
-    // حفظ الشعبة في appState
-    if (profile.branch) {
-      appState.branch = profile.branch;
+    const dashBranch = document.getElementById('dashboard-branch-name');
+    if (dashBranch) {
+      dashBranch.textContent = lvl === '4am' ? 'شهادة التعليم المتوسط (BEM)' : (profile.branch || 'آداب وفلسفة');
+    }
+
+    const countBadge = document.getElementById('dashboard-subjects-count-badge');
+    if (countBadge) {
+      countBadge.textContent = lvl === '4am' ? '9 مواد أساسية' : '7 مواد مقررة';
+    }
+
+    // إظهار وإخفاء شبكة المواد والأقسام حسب الطور المختار
+    const grid3as = document.getElementById('dashboard-subjects-3as');
+    const grid4am = document.getElementById('dashboard-subjects-4am');
+    const bemSec = document.getElementById('dashboard-bem-section');
+
+    if (lvl === '4am') {
+      if (grid3as) grid3as.classList.add('hidden');
+      if (grid4am) grid4am.classList.remove('hidden');
+      if (bemSec) bemSec.classList.remove('hidden');
+      appState.stage = 'متوسط';
+      appState.year = 'الرابعة متوسط';
+      appState.branch = null;
+    } else {
+      if (grid3as) grid3as.classList.remove('hidden');
+      if (grid4am) grid4am.classList.add('hidden');
+      if (bemSec) bemSec.classList.add('hidden');
+      appState.stage = 'ثانوي';
+      appState.year = 'الثالثة ثانوي';
+      appState.branch = profile.branch || 'آداب وفلسفة';
     }
   }
 };
@@ -159,12 +200,19 @@ function bootWithStudentProfile() {
   if (profile && profile.initialized) {
     // الطالب موجود — تخطي الـ wizard وعرض لوحة التحكم
     StudentProfile.applyToUI(profile);
-    appState.stage = 'ثانوي';
-    appState.year = 'الثالثة ثانوي';
-    appState.branch = profile.branch || 'آداب وفلسفة';
-    appState.currentSubject = 'الفلسفة';
-    renderLessons(appState.currentSubject);
-    renderChannelsVideos(appState.currentLesson);
+    if (profile.level === '4am') {
+      appState.stage = 'متوسط';
+      appState.year = 'الرابعة متوسط';
+      appState.branch = null;
+      appState.currentSubject = 'الرياضيات';
+    } else {
+      appState.stage = 'ثانوي';
+      appState.year = 'الثالثة ثانوي';
+      appState.branch = profile.branch || 'آداب وفلسفة';
+      appState.currentSubject = 'الفلسفة';
+      renderLessons(appState.currentSubject);
+      renderChannelsVideos(appState.currentLesson);
+    }
     showDashboard(true);
   } else {
     // أول زيارة — عرض شاشة الإعداد
@@ -179,6 +227,8 @@ function showOnboardingScreen() {
     wizardContainer && wizardContainer.classList.add('hidden');
     screenDashboard && screenDashboard.classList.add('hidden');
     screen.classList.remove('hidden');
+    // تعيين المستوى الافتراضي في شاشة الإعداد (4AM أو 3AS)
+    onboardingSelectLevel(_obSelectedLevel || '4am');
   }
 }
 
@@ -195,11 +245,35 @@ function handleBrandLogoClick() {
 // Onboarding screen logic
 // ============================================================
 
-let _obSelectedBranch = null;
+let _obSelectedLevel = '4am';
+let _obSelectedBranch = 'آداب وفلسفة';
+
+function onboardingSelectLevel(level) {
+  _obSelectedLevel = level;
+  document.querySelectorAll('[data-ob-level]').forEach(btn => {
+    if (btn.getAttribute('data-ob-level') === level) {
+      btn.classList.add('is-selected-level', 'border-brand-700', 'bg-brand-50');
+      btn.classList.remove('border-slate-200');
+    } else {
+      btn.classList.remove('is-selected-level', 'border-brand-700', 'bg-brand-50');
+      btn.classList.add('border-slate-200');
+    }
+  });
+
+  const branchSection = document.getElementById('onboarding-branch-section');
+  if (branchSection) {
+    if (level === '3as') {
+      branchSection.classList.remove('hidden');
+      if (!_obSelectedBranch) onboardingSelectBranch('آداب وفلسفة');
+    } else {
+      branchSection.classList.add('hidden');
+    }
+  }
+  onboardingValidate();
+}
 
 function onboardingSelectBranch(branch) {
   _obSelectedBranch = branch;
-  // تحديث التظليل البصري بحدة ووضوح فائقين
   document.querySelectorAll('[data-ob-branch]').forEach(btn => {
     if (btn.getAttribute('data-ob-branch') === branch) {
       btn.classList.add('is-selected-branch', 'border-brand-700', 'bg-brand-100');
@@ -216,9 +290,10 @@ function onboardingValidate() {
   const nameInput = document.getElementById('onboarding-name-input');
   const submitBtn = document.getElementById('onboarding-submit-btn');
   const hasName = nameInput && nameInput.value.trim().length > 0;
-  const hasBranch = !!_obSelectedBranch;
+  const hasLevel = !!_obSelectedLevel;
+  const hasBranch = _obSelectedLevel === '4am' || !!_obSelectedBranch;
   if (submitBtn) {
-    if (hasName && hasBranch) {
+    if (hasName && hasLevel && hasBranch) {
       submitBtn.removeAttribute('disabled');
     } else {
       submitBtn.setAttribute('disabled', 'true');
@@ -229,19 +304,26 @@ function onboardingValidate() {
 function onboardingSubmit() {
   const nameInput = document.getElementById('onboarding-name-input');
   const name = nameInput ? nameInput.value.trim() : '';
-  const branch = _obSelectedBranch || 'آداب وفلسفة';
+  const level = _obSelectedLevel || '4am';
+  const branch = level === '4am' ? null : (_obSelectedBranch || 'آداب وفلسفة');
   if (!name) return;
 
-  const profile = StudentProfile.save(name, branch);
+  const profile = StudentProfile.save(name, branch, level);
   StudentProfile.applyToUI(profile);
 
-  appState.stage = 'ثانوي';
-  appState.year = 'الثالثة ثانوي';
-  appState.branch = branch;
-  appState.currentSubject = 'الفلسفة';
-
-  renderLessons(appState.currentSubject);
-  renderChannelsVideos(appState.currentLesson);
+  if (level === '4am') {
+    appState.stage = 'متوسط';
+    appState.year = 'الرابعة متوسط';
+    appState.branch = null;
+    appState.currentSubject = 'الرياضيات';
+  } else {
+    appState.stage = 'ثانوي';
+    appState.year = 'الثالثة ثانوي';
+    appState.branch = branch;
+    appState.currentSubject = 'الفلسفة';
+    renderLessons(appState.currentSubject);
+    renderChannelsVideos(appState.currentLesson);
+  }
 
   // إخفاء شاشة الإعداد والانتقال للوحة التحكم
   const screen = document.getElementById('screen-onboarding');
@@ -260,10 +342,34 @@ function openStudentSettings() {
   // تعبئة القيم الحالية
   const profile = StudentProfile.load();
   const nameInput = document.getElementById('settings-name-input');
+  const levelSelect = document.getElementById('settings-level-select');
   const branchSelect = document.getElementById('settings-branch-select');
+  const branchContainer = document.getElementById('settings-branch-container');
+
   if (nameInput) nameInput.value = (profile && profile.name) ? profile.name : '';
+  const lvl = (profile && profile.level) ? profile.level : '3as';
+  if (levelSelect) levelSelect.value = lvl;
   if (branchSelect) branchSelect.value = (profile && profile.branch) ? profile.branch : 'آداب وفلسفة';
+
+  if (branchContainer) {
+    if (lvl === '4am') {
+      branchContainer.classList.add('hidden');
+    } else {
+      branchContainer.classList.remove('hidden');
+    }
+  }
   modal.classList.remove('hidden');
+}
+
+function onSettingsLevelChange() {
+  const levelSelect = document.getElementById('settings-level-select');
+  const branchContainer = document.getElementById('settings-branch-container');
+  if (!levelSelect || !branchContainer) return;
+  if (levelSelect.value === '4am') {
+    branchContainer.classList.add('hidden');
+  } else {
+    branchContainer.classList.remove('hidden');
+  }
 }
 
 function closeStudentSettings() {
@@ -274,17 +380,21 @@ function closeStudentSettings() {
 
 function saveStudentSettings() {
   const nameInput = document.getElementById('settings-name-input');
+  const levelSelect = document.getElementById('settings-level-select');
   const branchSelect = document.getElementById('settings-branch-select');
+
   const name = nameInput ? nameInput.value.trim() : '';
-  const branch = branchSelect ? branchSelect.value : 'آداب وفلسفة';
+  const level = levelSelect ? levelSelect.value : '3as';
+  const branch = level === '4am' ? null : (branchSelect ? branchSelect.value : 'آداب وفلسفة');
+
   if (!name) {
     if (nameInput) nameInput.focus();
     return;
   }
-  const profile = StudentProfile.save(name, branch);
+  const profile = StudentProfile.save(name, branch, level);
   StudentProfile.applyToUI(profile);
-  appState.branch = branch;
   closeStudentSettings();
+  showDashboard();
 }
 
 function confirmResetStudentProfile() {
@@ -568,11 +678,27 @@ function renderLessons(subjectTitle) {
  * فتح شاشة فهرس الدروس لأي مادة
  */
 function openLessonsIndex(subjectTitle, isPopState = false) {
+  let targetSubj = null;
   if (typeof subjectTitle === 'string' && subjectTitle.trim() !== '') {
-    appState.currentSubject = subjectTitle.trim();
+    const raw = subjectTitle.trim();
+    targetSubj = PlatformStore.getSubject(raw);
+    if (targetSubj) {
+      appState.currentSubject = targetSubj.name;
+      if (targetSubj.levelId === '4am' || (targetSubj.id && String(targetSubj.id).endsWith('_4am'))) {
+        appState.level = '4am';
+      } else if (targetSubj.levelId === '3as') {
+        appState.level = '3as';
+      }
+    } else {
+      appState.currentSubject = raw;
+    }
   }
-  appState.currentSubject = appState.currentSubject || 'الفلسفة';
-  sessionStorage.setItem('currentSubject', appState.currentSubject);
+  appState.currentSubject = appState.currentSubject || (appState.level === '4am' ? 'الرياضيات' : 'الفلسفة');
+
+  const subj = targetSubj || PlatformStore.getSubject(appState.currentSubject, appState.level);
+  const displaySubjectName = subj ? subj.name : appState.currentSubject;
+  appState.currentSubject = displaySubjectName;
+  sessionStorage.setItem('currentSubject', displaySubjectName);
 
   const subjectBtn = document.getElementById('lessons-breadcrumb-subject-btn');
   const subjectText = document.getElementById('lessons-breadcrumb-subject-text');
@@ -580,14 +706,17 @@ function openLessonsIndex(subjectTitle, isPopState = false) {
   const subtitleEl = document.getElementById('lessons-index-subtitle');
   const backBtnText = document.getElementById('lessons-back-btn-text');
 
-  const lessons = PlatformStore.getLessons(appState.currentSubject);
+  const lessons = PlatformStore.getLessons(displaySubjectName);
 
-  if (subjectText) subjectText.textContent = `المادة: ${appState.currentSubject}`;
+  if (subjectText) subjectText.textContent = `المادة: ${displaySubjectName}`;
   if (titleEl) titleEl.textContent = `فهرس الدروس (${lessons.length})`;
-  if (subtitleEl) subtitleEl.textContent = `المحتوى المفصل لمادة ${appState.currentSubject} لشعبة ${appState.branch || 'آداب وفلسفة'}`;
-  if (backBtnText) backBtnText.textContent = `العودة لفضاء مادة ${appState.currentSubject}`;
+  const is4AM = (appState.level === '4am');
+  if (subtitleEl) subtitleEl.textContent = is4AM
+    ? `المحتوى المفصل لمادة ${displaySubjectName} - السنة الرابعة متوسط`
+    : `المحتوى المفصل لمادة ${displaySubjectName} لشعبة ${appState.branch || 'آداب وفلسفة'}`;
+  if (backBtnText) backBtnText.textContent = `العودة لفضاء مادة ${displaySubjectName}`;
 
-  renderLessons(appState.currentSubject);
+  renderLessons(displaySubjectName);
 
   hideAllScreens();
   screenLessonsIndex.classList.remove('hidden');
@@ -1102,13 +1231,33 @@ function closeLessonModal() {
 // ============================================================
 
 function openSubjectDetail(subjectName, isPopState = false) {
+  let targetSubj = null;
   if (typeof subjectName === 'string' && subjectName.trim() !== '') {
-    appState.currentSubject = subjectName.trim();
+    const raw = subjectName.trim();
+    targetSubj = PlatformStore.getSubject(raw);
+    if (targetSubj) {
+      appState.currentSubject = targetSubj.name;
+      if (targetSubj.levelId === '4am' || (targetSubj.id && String(targetSubj.id).endsWith('_4am'))) {
+        appState.level = '4am';
+      } else if (targetSubj.levelId === '3as') {
+        appState.level = '3as';
+      }
+    } else {
+      appState.currentSubject = raw;
+    }
   }
-  appState.currentSubject = appState.currentSubject || 'الفلسفة';
-  sessionStorage.setItem('currentSubject', appState.currentSubject);
+  appState.currentSubject = appState.currentSubject || (appState.level === '4am' ? 'الرياضيات' : 'الفلسفة');
 
-  const subj = PlatformStore.getSubject(appState.currentSubject);
+  const subj = targetSubj || PlatformStore.getSubject(appState.currentSubject, appState.level);
+  if (subj && subj.name) {
+    appState.currentSubject = subj.name;
+    if (subj.levelId === '4am' || (subj.id && String(subj.id).endsWith('_4am'))) {
+      appState.level = '4am';
+    } else if (subj.levelId === '3as') {
+      appState.level = '3as';
+    }
+  }
+  sessionStorage.setItem('currentSubject', appState.currentSubject);
 
   if (activeSubjectBadge) {
     activeSubjectBadge.textContent = appState.currentSubject;
@@ -1120,12 +1269,25 @@ function openSubjectDetail(subjectName, isPopState = false) {
   const subjectLessonsCountEl = document.getElementById('subject-detail-lessons-count');
   const subjectDurationEl = document.getElementById('subject-detail-duration');
   const subjectBranchEl = document.getElementById('subject-detail-branch');
+  const subjectLevelEl = document.getElementById('subject-detail-level');
+  const subjectBacText = document.getElementById('subject-detail-bac-text');
+
+  const is4AM = (appState.level === '4am');
 
   if (subjectNameEl && subj) subjectNameEl.textContent = subj.name;
-  if (subjectDescEl && subj) subjectDescEl.textContent = subj.description || `منهاج مادة ${subj.name} المعتمد لشهادة البكالوريا`;
+  if (subjectDescEl && subj) subjectDescEl.textContent = subj.description || (is4AM ? `منهاج مادة ${subj.name} المعتمد لشهادة التعليم المتوسط (BEM)` : `منهاج مادة ${subj.name} المعتمد لشهادة البكالوريا`);
   if (subjectLessonsCountEl && subj) subjectLessonsCountEl.textContent = `${(subj.lessons || []).length} درساً`;
   if (subjectDurationEl && subj) subjectDurationEl.textContent = subj.duration || '—';
-  if (subjectBranchEl && subj) subjectBranchEl.textContent = subj.branch || 'آداب وفلسفة';
+  if (subjectBranchEl && subj) subjectBranchEl.textContent = subj.branch || (is4AM ? 'التعليم المتوسط' : 'آداب وفلسفة');
+  if (subjectLevelEl) subjectLevelEl.textContent = is4AM ? 'السنة الرابعة متوسط' : 'الثالثة ثانوي';
+  if (subjectBacText) subjectBacText.textContent = is4AM ? 'شهادة التعليم المتوسط' : 'البكالوريا';
+
+  // تحديث شارات المستوى العامة
+  if (typeof document !== 'undefined' && document.querySelectorAll) {
+    document.querySelectorAll('.student-display-level').forEach(el => {
+      el.textContent = is4AM ? 'السنة الرابعة متوسط' : 'الثالثة ثانوي';
+    });
+  }
 
   hideAllScreens();
   screenSubjectDetail.classList.remove('hidden');
@@ -1168,6 +1330,15 @@ function openCategoryContent(categoryName) {
     openLessonsIndex(appState.currentSubject);
     return;
   }
+  if (categoryName === 'البكالوريا' || categoryName === 'شهادة التعليم المتوسط' || categoryName === 'شهادة BEM' || categoryName === 'bem') {
+    if (appState.level === '4am') {
+      openResourceIndex('bem', appState.currentSubject);
+      return;
+    } else {
+      openResourceIndex('bac', appState.currentSubject);
+      return;
+    }
+  }
   openResourceIndex(categoryName, appState.currentSubject);
 }
 
@@ -1180,19 +1351,46 @@ function openCategoryContent(categoryName) {
  * فتح فهرس الموارد التعليمية للمادة المحددة بنظام البطاقات المنظمة
  */
 function openResourceIndex(categoryType = 'all', subjectName = null, isPopState = false) {
+  let targetSubj = null;
   if (subjectName && typeof subjectName === 'string') {
-    appState.currentSubject = subjectName.trim();
+    const raw = subjectName.trim();
+    targetSubj = PlatformStore.getSubject(raw);
+    if (targetSubj) {
+      appState.currentSubject = targetSubj.name;
+      if (targetSubj.levelId === '4am' || (targetSubj.id && String(targetSubj.id).endsWith('_4am'))) {
+        appState.level = '4am';
+      } else if (targetSubj.levelId === '3as') {
+        appState.level = '3as';
+      }
+    } else {
+      appState.currentSubject = raw;
+    }
   }
-  appState.currentSubject = appState.currentSubject || 'الفلسفة';
-  sessionStorage.setItem('currentSubject', appState.currentSubject);
+  appState.currentSubject = appState.currentSubject || (appState.level === '4am' ? 'الرياضيات' : 'الفلسفة');
+
+  const is4AM = (appState.level === '4am');
+  const subjObj = targetSubj || PlatformStore.getSubject(appState.currentSubject, appState.level);
+  const displaySubjectName = subjObj ? subjObj.name : appState.currentSubject;
+  appState.currentSubject = displaySubjectName;
+  sessionStorage.setItem('currentSubject', displaySubjectName);
 
   // مطابقة أسماء الأقسام العربية مع المعرفات البرمجية
   let filterType = categoryType;
-  if (categoryType === 'البكالوريا') filterType = 'bac';
-  else if (categoryType === 'امتحانات') filterType = 'exam';
-  else if (categoryType === 'ملخصات') filterType = 'summary';
-  else if (categoryType === 'المراجعات') filterType = 'review';
-  else if (categoryType === 'التمارين') filterType = 'exercise';
+  if (categoryType === 'البكالوريا') {
+    filterType = is4AM ? 'bem' : 'bac';
+  } else if (categoryType === 'شهادة BEM' || categoryType === 'شهادة التعليم المتوسط' || categoryType === 'bem') {
+    filterType = 'bem';
+  } else if (categoryType === 'bac') {
+    filterType = is4AM ? 'bem' : 'bac';
+  } else if (categoryType === 'امتحانات') {
+    filterType = 'exam';
+  } else if (categoryType === 'ملخصات') {
+    filterType = 'summary';
+  } else if (categoryType === 'المراجعات') {
+    filterType = 'review';
+  } else if (categoryType === 'التمارين') {
+    filterType = 'exercise';
+  }
 
   appState.currentResourceType = filterType;
 
@@ -1203,44 +1401,50 @@ function openResourceIndex(categoryType = 'all', subjectName = null, isPopState 
   const indexSubtitle = document.getElementById('resource-index-subtitle');
   const backBtnText = document.getElementById('resource-index-back-btn-text');
 
-  if (breadcrumbSubjectText) breadcrumbSubjectText.textContent = `المادة: ${appState.currentSubject}`;
-  if (backBtnText) backBtnText.textContent = `العودة لفضاء مادة ${appState.currentSubject}`;
+  if (breadcrumbSubjectText) breadcrumbSubjectText.textContent = `المادة: ${displaySubjectName}`;
+  if (backBtnText) backBtnText.textContent = `العودة لفضاء مادة ${displaySubjectName}`;
 
   const typeConfig = {
     'bac': {
       label: 'البكالوريا',
-      title: `مواضيع البكالوريا الرسمية - ${appState.currentSubject}`,
-      subtitle: `أرشيف دورات شهادة البكالوريا لمادة ${appState.currentSubject} مع المواضيع وسلالم التنقيط الوزارية`,
+      title: `مواضيع البكالوريا الرسمية - ${displaySubjectName}`,
+      subtitle: `أرشيف دورات شهادة البكالوريا لمادة ${displaySubjectName} مع المواضيع وسلالم التنقيط الوزارية`,
+      colorClass: 'border-2 border-rose-600 text-rose-900 bg-rose-100 shadow-sm'
+    },
+    'bem': {
+      label: 'شهادة التعليم المتوسط',
+      title: `مواضيع شهادة التعليم المتوسط (BEM) - ${displaySubjectName}`,
+      subtitle: `أرشيف دورات شهادة التعليم المتوسط لمادة ${displaySubjectName} مع المواضيع وسلالم التنقيط الرسمية`,
       colorClass: 'border-2 border-rose-600 text-rose-900 bg-rose-100 shadow-sm'
     },
     'exam': {
       label: 'امتحانات الفصول',
-      title: `امتحانات واختبارات الفصول - ${appState.currentSubject}`,
-      subtitle: `نماذج اختبارات فصلية من مختلف ثانويات الوطن مع حلولها النموذجية`,
+      title: `امتحانات واختبارات الفصول - ${displaySubjectName}`,
+      subtitle: is4AM ? `نماذج اختبارات فصلية للسنة الرابعة متوسط مع حلولها النموذجية` : `نماذج اختبارات فصلية من مختلف ثانويات الوطن مع حلولها النموذجية`,
       colorClass: 'border-2 border-orange-600 text-orange-900 bg-orange-100 shadow-sm'
     },
     'exercise': {
       label: 'التمارين والتطبيقات',
-      title: `بنك التمارين والتطبيقات المنهجية - ${appState.currentSubject}`,
+      title: `بنك التمارين والتطبيقات المنهجية - ${displaySubjectName}`,
       subtitle: `تطبيقات ومقالات ونصوص نموذجية مع عناصر الإجابة وسلم التنقيط المعتمد`,
       colorClass: 'border-2 border-blue-600 text-blue-900 bg-blue-100 shadow-sm'
     },
     'summary': {
       label: 'الملخصات',
-      title: `فهرس الملخصات والمطويات المعتمدة - ${appState.currentSubject}`,
-      subtitle: `ملخصات وزارية وشاملة وموثوقة لمنهاج مادة ${appState.currentSubject}`,
+      title: `فهرس الملخصات والمطويات المعتمدة - ${displaySubjectName}`,
+      subtitle: `ملخصات وزارية وشاملة وموثوقة لمنهاج مادة ${displaySubjectName}`,
       colorClass: 'border-2 border-teal-600 text-teal-900 bg-teal-100 shadow-sm'
     },
     'review': {
       label: 'المراجعات الشاملة',
-      title: `المراجعات الشاملة والنهائية - ${appState.currentSubject}`,
-      subtitle: `باقة حصص مراجعة مركزة لحل المواضيع ومراجعة المفاهيم الكبرى لشهادة البكالوريا`,
+      title: `المراجعات الشاملة والنهائية - ${displaySubjectName}`,
+      subtitle: is4AM ? `حصص مراجعة مركزة لحل المواضيع ومراجعة المفاهيم لشهادة التعليم المتوسط` : `باقة حصص مراجعة مركزة لحل المواضيع ومراجعة المفاهيم الكبرى لشهادة البكالوريا`,
       colorClass: 'border-2 border-amber-600 text-amber-900 bg-amber-100 shadow-sm'
     },
     'all': {
       label: 'كافة الموارد',
-      title: `فهرس الموارد التعليمية الشامل - ${appState.currentSubject}`,
-      subtitle: `أرشيف موحد لكافة دورات البكالوريا، الامتحانات، التمارين، والملخصات لمادة ${appState.currentSubject}`,
+      title: `فهرس الموارد التعليمية الشامل - ${displaySubjectName}`,
+      subtitle: is4AM ? `أرشيف موحد لكافة دورات شهادة BEM، الامتحانات، والملخصات لمادة ${displaySubjectName}` : `أرشيف موحد لكافة دورات البكالوريا، الامتحانات، التمارين، والملخصات لمادة ${displaySubjectName}`,
       colorClass: 'border-2 border-slate-900 text-white bg-slate-900 shadow-sm'
     }
   };
@@ -1250,21 +1454,28 @@ function openResourceIndex(categoryType = 'all', subjectName = null, isPopState 
   if (indexTitle) indexTitle.textContent = currentCfg.title;
   if (indexSubtitle) indexSubtitle.textContent = currentCfg.subtitle;
 
+  // تحديث تسمية وحالة زر البكالوريا / BEM
+  const bacBtn = document.getElementById('res-filter-bac');
+  if (bacBtn) {
+    bacBtn.textContent = is4AM ? 'شهادة التعليم المتوسط' : 'البكالوريا';
+  }
+
   // تحديث أزرار فلاتر الأقسام بصرياً
   const filterBtns = ['all', 'bac', 'exam', 'exercise', 'summary', 'review'];
   filterBtns.forEach(t => {
     const btn = document.getElementById(`res-filter-${t}`);
     if (btn) {
-      if (t === filterType) {
-        btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer ${typeConfig[t].colorClass}`;
+      const isSelected = (t === filterType) || (is4AM && t === 'bac' && filterType === 'bem');
+      if (isSelected) {
+        btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer ${(typeConfig[filterType] || typeConfig['all']).colorClass}`;
       } else {
         btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border border-slate-200 text-slate-600 hover:bg-slate-100 cursor-pointer';
       }
     }
   });
 
-  // استعلام الموارد وعرض البطاقات
-  const resources = PlatformStore.getResourcesByType(appState.currentSubject, filterType);
+  // استعلام الموارد وعرض البطاقات مع تحديد الطور لمنع أي تداخل
+  const resources = PlatformStore.getResourcesByType(appState.currentSubject, filterType, appState.level);
   renderResourceCards(resources, filterType);
 
   hideAllScreens();
@@ -1288,6 +1499,10 @@ function renderResourceCards(resources, filterType) {
   if (!container) return;
 
   if (!resources || resources.length === 0) {
+    const is4AM = (appState.level === '4am');
+    const subjObj = PlatformStore.getSubject(appState.currentSubject, appState.level);
+    const portalUrl = (subjObj && (subjObj.sourceUrl || subjObj.bemUrl)) || (is4AM ? 'https://www.dzexams.com/ar/4am' : 'https://www.dzexams.com');
+
     container.innerHTML = `
       <div class="text-center py-12 px-6 bg-slate-50/90 rounded-3xl border border-slate-200 shadow-2xs">
         <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
@@ -1297,7 +1512,15 @@ function renderResourceCards(resources, filterType) {
           </svg>
         </div>
         <h4 class="text-sm font-bold text-slate-800 mb-1">لا توجد موارد مسجلة في هذا القسم حالياً</h4>
-        <p class="text-xs text-slate-500 max-w-md mx-auto">جاري تدقيق وإدراج الموارد الرسمية المعتمدة لمادة ${appState.currentSubject}.</p>
+        <p class="text-xs text-slate-500 max-w-md mx-auto mb-4">جاري تدقيق وإدراج الموارد الرسمية المعتمدة لمادة ${appState.currentSubject}.</p>
+        <a href="${portalUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-xs">
+          <span>فتح بوابة المادة على DzExams</span>
+          <svg class="w-3.5 h-3.5 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
       </div>
     `;
     return;
@@ -1372,7 +1595,11 @@ function renderResourceCards(resources, filterType) {
 }
 
 function filterResourceIndex(type) {
-  openResourceIndex(type, appState.currentSubject);
+  if (appState.level === '4am' && type === 'bac') {
+    openResourceIndex('bem', appState.currentSubject);
+  } else {
+    openResourceIndex(type, appState.currentSubject);
+  }
 }
 
 function backToResourceIndex() {
@@ -1402,6 +1629,7 @@ function openResourceViewer(resourceId, initialTab = 'problem', isPopState = fal
   if (breadcrumbSubject) breadcrumbSubject.textContent = `المادة: ${res.subjectName}`;
   const typeLabels = {
     'bac': 'فهرس البكالوريا',
+    'bem': 'شهادة التعليم المتوسط (BEM)',
     'exam': 'امتحانات الفصول',
     'exercise': 'بنك التمارين',
     'summary': 'الملخصات المعتمدة',

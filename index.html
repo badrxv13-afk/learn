@@ -161,8 +161,31 @@
           />
         </div>
 
-        <!-- Branch Selection -->
-        <div class="mb-8">
+        <!-- Level Selection -->
+        <div class="mb-6">
+          <label class="block text-sm font-bold text-slate-700 mb-2">المستوى الدراسي</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="onboarding-level-grid">
+            <button type="button" onclick="onboardingSelectLevel('4am')" data-ob-level="4am"
+              class="onboarding-level-card relative p-3.5 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-slate-800">السنة الرابعة متوسط</span>
+                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-md">BEM</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">التعليم المتوسط — شهادة BEM</p>
+            </button>
+            <button type="button" onclick="onboardingSelectLevel('3as')" data-ob-level="3as"
+              class="onboarding-level-card relative p-3.5 rounded-xl border-2 border-slate-200 bg-white text-right transition-all cursor-pointer hover:border-brand-400 hover:bg-brand-50/30">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-slate-800">الثالثة ثانوي</span>
+                <span class="text-[10px] font-bold bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded-md">BAC</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">التعليم الثانوي — شهادة البكالوريا</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Branch Selection (shown only for 3AS) -->
+        <div id="onboarding-branch-section" class="mb-8 hidden">
           <label class="block text-sm font-bold text-slate-700 mb-3">شعبتك الدراسية</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="onboarding-branch-grid">
             <button type="button" onclick="onboardingSelectBranch('آداب وفلسفة')" data-ob-branch="آداب وفلسفة"
@@ -596,13 +619,13 @@
             <h2 class="text-xl sm:text-2xl font-bold text-slate-900 font-heading">المواد المقررة (اختر مادة للدخول)</h2>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">انقر على أي مادة لفتح فضاء الدروس، الملخصات، والامتحانات</p>
           </div>
-          <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span id="dashboard-subjects-count-badge" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
             7 مواد مقررة
           </span>
         </div>
 
-        <!-- Subjects Grid (7 Simplified Cards: Icon -> Name -> Coeff & Lessons -> Button) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Subjects Grid 3AS (7 Simplified Cards: Icon -> Name -> Coeff & Lessons -> Button) -->
+        <div id="dashboard-subjects-3as" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- 1. الفلسفة -->
           <div onclick="openSubjectDetail('الفلسفة')" data-subject="الفلسفة" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
@@ -785,9 +808,302 @@
           </div>
 
         </div>
-      </div>
+        <!-- /#dashboard-subjects-3as -->
+
+        <!-- Subjects Grid 4AM (9 Core Subjects: Icon -> Name -> Coeff & Lessons -> Button) -->
+        <div id="dashboard-subjects-4am" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- 1. الرياضيات 4AM -->
+          <div onclick="openSubjectDetail('math_4am')" data-subject="الرياضيات" data-subject-id="math_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-700 border border-rose-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19L19 4M4 4l15 15"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">الرياضيات</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="الرياضيات">
+                معامل 4 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-rose-700 group-hover:text-rose-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 2. اللغة العربية 4AM -->
+          <div onclick="openSubjectDetail('arabic_4am')" data-subject="اللغة العربية" data-subject-id="arabic_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">اللغة العربية</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="اللغة العربية">
+                معامل 5 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-indigo-700 group-hover:text-indigo-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 3. العلوم الفيزيائية والتكنولوجيا 4AM -->
+          <div onclick="openSubjectDetail('physics_4am')" data-subject="العلوم الفيزيائية والتكنولوجيا" data-subject-id="physics_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-700 border border-cyan-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">العلوم الفيزيائية والتكنولوجيا</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="العلوم الفيزيائية والتكنولوجيا">
+                معامل 2 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-cyan-700 group-hover:text-cyan-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 4. علوم الطبيعة والحياة 4AM -->
+          <div onclick="openSubjectDetail('science_4am')" data-subject="علوم الطبيعة والحياة" data-subject-id="science_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 border border-teal-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12A10 10 0 0 1 12 2z"></path>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">علوم الطبيعة والحياة</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="علوم الطبيعة والحياة">
+                معامل 2 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-teal-700 group-hover:text-teal-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 5. اللغة الفرنسية 4AM -->
+          <div onclick="openSubjectDetail('french_4am')" data-subject="اللغة الفرنسية" data-subject-id="french_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-violet-50 text-violet-700 border border-violet-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">اللغة الفرنسية</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="اللغة الفرنسية">
+                معامل 3 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-violet-700 group-hover:text-violet-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 6. اللغة الإنجليزية 4AM -->
+          <div onclick="openSubjectDetail('english_4am')" data-subject="اللغة الإنجليزية" data-subject-id="english_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-700 border border-sky-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">اللغة الإنجليزية</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="اللغة الإنجليزية">
+                معامل 2 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-sky-700 group-hover:text-sky-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 7. التاريخ والجغرافيا 4AM -->
+          <div onclick="openSubjectDetail('history_geography_4am')" data-subject="التاريخ والجغرافيا" data-subject-id="history_geography_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-700 border border-orange-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+                  <line x1="9" y1="3" x2="9" y2="18"></line>
+                  <line x1="15" y1="6" x2="15" y2="21"></line>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">التاريخ والجغرافيا</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="التاريخ والجغرافيا">
+                معامل 3 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-orange-700 group-hover:text-orange-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 8. التربية الإسلامية 4AM -->
+          <div onclick="openSubjectDetail('islamic_4am')" data-subject="التربية الإسلامية" data-subject-id="islamic_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18"></path>
+                  <path d="M3 12h18"></path>
+                  <circle cx="12" cy="12" r="9"></circle>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">التربية الإسلامية</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="التربية الإسلامية">
+                معامل 2 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-emerald-700 group-hover:text-emerald-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- 9. التربية المدنية 4AM -->
+          <div onclick="openSubjectDetail('civics_4am')" data-subject="التربية المدنية" data-subject-id="civics_4am" role="button" tabindex="0" class="subject-card group bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-brand-600 shadow-sm hover:shadow-xl transition-all duration-300 relative flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex items-center justify-center group-hover:scale-105 transition-transform mb-4 shrink-0">
+                <svg class="w-6 h-6 stroke-current stroke-[2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m3 11 18-5v12L3 14v-3z"></path>
+                  <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-700 transition-colors mb-1.5 font-heading">التربية المدنية</h3>
+              <p class="text-xs sm:text-sm font-semibold text-slate-500 mb-6" data-subject-meta="التربية المدنية">
+                معامل 1 • بنك الموارد الرسمية
+              </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs sm:text-sm font-bold text-amber-700 group-hover:text-amber-900 flex items-center gap-1.5 transition-colors">
+                <span>دخول المادة</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5] transform group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <!-- /#dashboard-subjects-4am -->
+
+        <!-- ==================== BEM DEDICATED SECTION (شهادة التعليم المتوسط) ==================== -->
+        <div id="dashboard-bem-section" class="hidden mt-8 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white border border-emerald-800/40 shadow-xl relative overflow-hidden">
+          <div class="relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div>
+                <div class="inline-flex items-center gap-2 text-xs font-semibold text-emerald-300 bg-emerald-900/60 border border-emerald-700/50 px-3 py-1 rounded-full mb-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>التحضير لشهادة التعليم المتوسط BEM</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold font-heading text-white">مواضيع وحلول شهادة التعليم المتوسط (2007 - 2025)</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                  أرشيف رسمي موثق لجميع دورات BEM السابقة مع التصحيحات النموذجية وسلم التنقيط المعتمد من وزارة التربية الوطنية.
+                </p>
+              </div>
+              <a href="https://www.dzexams.com/ar/bem" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-md shrink-0">
+                <span>فتح بوابة BEM على DzExams</span>
+                <svg class="w-4 h-4 stroke-current stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+
+            <!-- شبكة أزرار BEM السريعة للمواد الـ 9 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              <button onclick="openResourceIndex('bem', 'math_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">الرياضيات</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'arabic_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">اللغة العربية</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'physics_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">الفيزياء</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'science_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">علوم الطبيعة والحياة</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'french_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">الفرنسية</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'english_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">الإنجليزية</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'history_geography_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">التاريخ والجغرافيا</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'islamic_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">التربية الإسلامية</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+              <button onclick="openResourceIndex('bem', 'civics_4am')" class="bg-white/10 hover:bg-white/20 border border-white/15 p-3 rounded-xl text-right transition-all cursor-pointer">
+                <span class="block text-xs font-bold text-white">التربية المدنية</span>
+                <span class="text-[11px] text-emerald-300">مواضيع وحلول BEM</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
     </div>
+
+    </div>
+    <!-- /#screen-dashboard -->
 
     <!-- ==================== SUBJECT DETAIL SCREEN (الأقسام الخمسة) ==================== -->
     <div id="screen-subject-detail" class="hidden animate-fadeIn max-w-6xl w-full mx-auto">
@@ -811,10 +1127,10 @@
             <span id="subject-detail-branch" class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-xs">آداب وفلسفة</span>
           </div>
 
-          <!-- المستوى: الثالثة ثانوي -->
+          <!-- المستوى: الثالثة ثانوي أو السنة الرابعة متوسط -->
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span id="subject-detail-level" class="font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
 
           <!-- شارة الترحيب بالطالب في mordix_ai -->
@@ -903,15 +1219,15 @@
               </span>
             </div>
 
-            <!-- زر البكالوريا -->
-            <div onclick="openCategoryContent('البكالوريا')" class="category-card relative w-44 sm:w-52 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
+            <!-- زر البكالوريا / BEM -->
+            <div id="subject-detail-bac-btn" onclick="openCategoryContent('البكالوريا')" class="category-card relative w-44 sm:w-52 h-20 sm:h-24 flex items-center justify-center cursor-pointer group">
               <div class="category-badge-circle absolute -top-3.5 -right-3.5 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-rose-100 border-2 border-white flex items-center justify-center text-rose-700">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 stroke-current stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                 </svg>
               </div>
-              <span class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-rose-700 transition-colors">
+              <span id="subject-detail-bac-text" class="text-base sm:text-lg font-bold text-slate-800 group-hover:text-rose-700 transition-colors">
                 البكالوريا
               </span>
             </div>
@@ -975,7 +1291,7 @@
           <!-- المستوى: الثالثة ثانوي -->
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
 
           <!-- شارة الترحيب بالطالب في mordix_ai -->
@@ -1049,7 +1365,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1145,7 +1461,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1217,7 +1533,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1370,7 +1686,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1442,7 +1758,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1534,7 +1850,7 @@
           </div>
           <div class="border border-slate-200 rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span class="text-slate-500">المستوى:</span>
-            <span class="font-bold text-slate-900">الثالثة ثانوي</span>
+            <span class="student-display-level font-bold text-slate-900">الثالثة ثانوي</span>
           </div>
           <div class="border border-slate-200 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white shadow-xs">
             <span>مرحبًا بك</span>
@@ -1885,8 +2201,18 @@
         />
       </div>
 
+      <!-- Level field -->
+      <div class="mb-5">
+        <label class="block text-sm font-bold text-slate-700 mb-1.5" for="settings-level-select">المستوى الدراسي</label>
+        <select id="settings-level-select" onchange="onSettingsLevelChange()"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-sm focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20 transition-all cursor-pointer" dir="rtl">
+          <option value="4am">السنة الرابعة متوسط (BEM)</option>
+          <option value="3as">الثالثة ثانوي (BAC)</option>
+        </select>
+      </div>
+
       <!-- Branch field -->
-      <div class="mb-6">
+      <div class="mb-6" id="settings-branch-container">
         <label class="block text-sm font-bold text-slate-700 mb-1.5" for="settings-branch-select">الشعبة</label>
         <select id="settings-branch-select"
           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-sm focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20 transition-all cursor-pointer" dir="rtl">
@@ -1957,8 +2283,12 @@
   <script src="data/french.js"></script>
   <script src="data/arabic.js"></script>
   <script src="data/math.js"></script>
+  <!-- بيانات السنة الرابعة متوسط (4AM) -->
+  <script src="data/four_am.js"></script>
   <!-- سجل الموارد الموحد (Resource Registry) -->
   <script src="data/registry.js"></script>
+  <!-- سجل موارد 4AM وشهادة BEM -->
+  <script src="data/registry_4am.js"></script>
   <!-- محرك التطبيق العام -->
   <script src="app.js"></script>
   <!-- ==================== FLOATING WHATSAPP BUTTON ==================== -->
@@ -1986,7 +2316,7 @@
       <a
         href="https://wa.me/213553378562?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%AA%D9%88%D8%A7%D8%B5%D9%84%D8%AA%20%D9%85%D8%B9%D9%83%D9%85%20%D8%B9%D8%A8%D8%B1%20%D9%85%D9%86%D8%B5%D8%A9%20mordix_ai%20%F0%9F%8E%93%0A%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%3A%20"
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener"
         class="whatsapp-tooltip-btn"
         onclick="trackWhatsappClick()"
       >
